@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:paddingBottom="15dp"
+    android:background="#00FFFFFF"
+    >
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        >
+
+        <Button
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:id="@+id/eliminar_sintoma_boton"
+            android:background="@mipmap/eliminar"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_item_sintoma"
+            android:textSize="14pt"
+            android:textColor="#FFF"
+            android:textStyle="italic"
+            android:layout_marginLeft="15dp"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>

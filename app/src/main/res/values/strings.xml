@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Guaral+ST</string>
+    <string name="title_activity_evaluacion">Evaluacion</string>
+    <string name="action_settings">Settings</string>
+    <string name="cancel_eval">Cancelar Evaluación</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_datos_paciente">DatosPacienteActivity</string>
+    <string name="title_activity_canlendario_revision">CanlendarioRevisionActivity</string>
+</resources>

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="icesi.i2t.leishmaniasisst.DatosPacienteActivity">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/appbar_padding_top"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_datos_paciete"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:gravity="bottom">
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:layout_marginTop="60dp"
+        >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="20dp"
+                        android:paddingTop="60dp"
+                        android:background="@color/light_grey"
+                        android:id="@+id/recuadro_datos_pacientes"
+                        >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Edad:"
+                                    android:textStyle="italic"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="39 años"
+                                    android:id="@+id/datos_paciente_edad"
+                                    android:textStyle="italic|bold"
+                                    android:layout_marginTop="-4dp"
+                                    android:textSize="10pt"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginLeft="30dp">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Sexo:"
+                                    android:textStyle="italic"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Mujer"
+                                    android:layout_marginTop="-4dp"
+                                    android:id="@+id/datos_paciente_sexo"
+                                    android:textStyle="italic|bold"
+                                    android:textSize="10pt"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Documento de identidad:"
+                            android:textStyle="italic"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="56.285.922"
+                            android:id="@+id/datos_paciente_documento"
+                            android:textStyle="italic|bold"
+                            android:layout_marginTop="-4dp"
+                            android:textSize="10pt"/>
+
+                    </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Datos del paciente"
+                        android:textStyle="bold|italic"
+                        android:textSize="8pt"
+                        android:textColor="@color/colorAccent"
+                        android:paddingLeft="50dp"/>
+                <TextView
+
+                    android:layout_width="250dp"
+                    android:gravity="right"
+                    android:layout_height="wrap_content"
+                    android:text="SUSANITA PEREZ"
+                    android:id="@+id/datos_paciente_nombre"
+                    android:layout_marginTop="10dp"
+                    android:textSize="14pt"
+                    android:textStyle="bold|italic"
+                    android:paddingTop="10dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:background="@color/normal_text"
+                    android:textColor="@color/light_grey"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="85dp"
+                    android:background="@color/light_grey"
+                    android:id="@+id/recuadro_datos_tratamiento"
+                    >
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Medicamento:" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Glucantime"
+                        android:layout_marginTop="-4dp"
+                        android:textStyle="italic|bold"
+                        android:textSize="10pt"
+                        android:id="@+id/datos_paciente_medicamento"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tipo de administración:"
+                        android:id="@+id/tipo_admin_o_info"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Intramuscular"
+                        android:layout_marginTop="-4dp"
+                        android:textStyle="italic|bold"
+                        android:textSize="10pt"
+                        android:id="@+id/datos_paciente_tipo_administracion"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dosis:"
+                        android:id="@+id/datos_paciente_dosis_subtitulo"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4 ampollas de 5cc"
+                        android:layout_marginTop="-4dp"
+                        android:textStyle="italic|bold"
+                        android:textSize="10pt"
+                        android:id="@+id/datos_paciente_dosis"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha inicio de tratamiento:" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="30 de enero/2016"
+                        android:layout_marginTop="-4dp"
+                        android:textStyle="italic|bold"
+                        android:textSize="10pt"
+                        android:id="@+id/datos_paciente_fecha_inicio"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Datos del tratamiento"
+                        android:textStyle="bold|italic"
+                        android:textSize="8pt"
+                        android:textColor="@color/colorAccent"
+                        android:paddingLeft="50dp"/>
+                    <LinearLayout
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:layout_marginTop="10dp"
+                        android:textSize="8pt"
+                        android:paddingTop="10dp"
+                        android:paddingRight="15dp"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:background="@color/normal_text"
+                        android:orientation="vertical"
+                        android:id="@+id/subtitulo_dias_semanas">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Día 4 de 20"
+                            android:textSize="14pt"
+                            android:textStyle="italic"
+                            android:textColor="@color/light_grey"
+                            android:id="@+id/datos_paciente_dia_actual"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Semana 1"
+                            android:textSize="11pt"
+                            android:id="@+id/datos_paciente_semana_actual"
+                            android:textStyle="italic"
+                            android:textColor="@color/light_grey"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+
+
+
+    </ScrollView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/botones_background"
+        android:text="EMPEZAR EVALUACIÓN"
+        android:textSize="8pt"
+        android:textColor="#FFF"
+        android:height="60dp"
+        android:onClick="doEmpezarEvaluacion"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/datos_paciente_boton_ok"
+        />
+
+</RelativeLayout>
+
+    </android.support.design.widget.CoordinatorLayout>

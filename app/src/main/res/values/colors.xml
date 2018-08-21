@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#141414</color>
+    <color name="colorPrimaryDark">#262626</color>
+    <color name="colorAccent">#E26100</color>
+    <color name="edit_text_login">#252525</color>
+    <color name="botones_background">#E26100</color>
+    <color name="orange_background">#E57D00</color>
+    <color name="light_grey">#E5E5E5</color>
+    <color name="normal_text">#2D2D2D</color>
+    <color name="light_text">#A5A5A5</color>
+    <color name="dialog_background">#FFFBF8</color>
+    <color name="background_dia_futuro">#EA9733</color>
+    <color name="letra_dia_futuro">#EEAC5C</color>
+
+
+</resources>
