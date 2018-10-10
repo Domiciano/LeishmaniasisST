@@ -40,6 +40,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
+import icesi.i2t.leishmaniasisst.CuerpoHumanoActivity;
 import icesi.i2t.leishmaniasisst.Evaluacion;
 import icesi.i2t.leishmaniasisst.MainActivity;
 import icesi.i2t.leishmaniasisst.R;
@@ -207,7 +208,7 @@ public class CabezaActivity extends AppCompatActivity {
     public void openCamera(View view) {
 
         int id_zona = botones_lesion.get(view);
-        PreferenceManager.getDefaultSharedPreferences(this).edit().putInt("id_zona", id_zona).commit();
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putInt("id_zona", id_zona).apply();
         boolean bln_id_zona = PreferenceManager.getDefaultSharedPreferences(this).
                 getBoolean("BP" + id_zona, false);
 
@@ -224,7 +225,9 @@ public class CabezaActivity extends AppCompatActivity {
             foto_code = "DT"+ fecha_fotos +"DT"+"CC"+cedula+"CC_"+"BP"+id_zona+"BP_"+UUID.randomUUID().toString();
             foto = new File(Environment.getExternalStorageDirectory() + "/LeishST/" + foto_code + ".jpg");
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            preferences.edit().putString("last_foto", foto.toString()).commit();
+            preferences.edit().putString("last_foto", foto.toString())
+                    .putString("foto_code",foto_code)
+                    .apply();
 
 
             Uri uri = Uri.fromFile(foto);
@@ -443,7 +446,9 @@ public class CabezaActivity extends AppCompatActivity {
                     foto = new File(Environment.getExternalStorageDirectory()+"/LeishST/"+foto_code+".jpg");
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                     preferences.edit().putString("last_foto",foto.toString())
-                            .putInt("id_zona",id_zona).commit();
+                            .putInt("id_zona",id_zona)
+                            .putString("foto_code",foto_code)
+                            .apply();
 
                     Uri uri = Uri.fromFile(foto);
 
@@ -535,6 +540,7 @@ public class CabezaActivity extends AppCompatActivity {
             foto = new File(Environment.getExternalStorageDirectory()+"/LeishST/"+foto_code+".jpg");
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             preferences.edit().putString("last_foto",foto.toString())
+                    .putString("foto_code",foto_code)
                     .putInt("id_zona",id_zona).commit();
 
             Uri uri = Uri.fromFile(foto);
@@ -631,6 +637,12 @@ public class CabezaActivity extends AppCompatActivity {
             }
         }
         return boton;
+    }
+
+    @Override
+    protected void onDestroy() {
+        CuerpoHumanoActivity.eliminarFotosNoGuardadas();
+        super.onDestroy();
     }
 }
 

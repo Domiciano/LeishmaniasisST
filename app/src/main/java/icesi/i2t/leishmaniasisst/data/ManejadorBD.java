@@ -2013,18 +2013,21 @@ public class ManejadorBD extends SQLiteOpenHelper {
 
     public List<Integer> getListBodyLocation(Paciente p, Date time, int part) {
 
-        List<Integer> bodyLocations = new ArrayList<Integer>();
-        List<Integer> bodyLocations_c = new ArrayList<Integer>();
-        List<Integer> bodyLocations_bd = new ArrayList<Integer>();
-        List<Integer> bodyLocations_bi = new ArrayList<Integer>();
-        List<Integer> bodyLocations_t = new ArrayList<Integer>();
-        List<Integer> bodyLocations_pd = new ArrayList<Integer>();
-        List<Integer> bodyLocations_pi = new ArrayList<Integer>();
-        List<Integer> bodyLocations_md = new ArrayList<Integer>();
-        List<Integer> bodyLocations_mi = new ArrayList<Integer>();
+        List<Integer> bodyLocations = new ArrayList<>();
+        List<Integer> bodyLocations_c = new ArrayList<>();
+        List<Integer> bodyLocations_bd = new ArrayList<>();
+        List<Integer> bodyLocations_bi = new ArrayList<>();
+        List<Integer> bodyLocations_t = new ArrayList<>();
+        List<Integer> bodyLocations_pd = new ArrayList<>();
+        List<Integer> bodyLocations_pi = new ArrayList<>();
+        List<Integer> bodyLocations_md = new ArrayList<>();
+        List<Integer> bodyLocations_mi = new ArrayList<>();
 
         Schema activo = buscarSchemaActivoDelPaciente(p);
         DailySchema ds = buscarDailySchema(activo.getUuid(), time);
+
+        if(ds == null) return new ArrayList<>();
+
         List<UlcerForm> listaUlcerForms = getListaImagenesForm(ds.getUuid());
         if (listaUlcerForms == null) return new ArrayList<>();
         ;
@@ -2290,6 +2293,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
 
 
     public String getNumeroUlcerFormsEnDailySchemas(Paciente p) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         ArrayList<Date> list = new ArrayList<>();
         Schema activo = buscarSchemaActivoDelPaciente(p);
         List<DailySchema> dailySchemas = getListaDailySchemas(activo.getUuid());
@@ -2297,6 +2301,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
             List<UlcerForm> ulcerForms = getListaImagenesForm(s.getUuid());
             if (ulcerForms.size() > 0) {
                 list.add(s.getDateOfTreatment());
+                Log.e("PRUEBA",""+format.format(s.getDateOfTreatment()));
             }
         }
 
@@ -2392,6 +2397,37 @@ public class ManejadorBD extends SQLiteOpenHelper {
         }
         db.close();
 
+    }
+
+    public int getDaysSinceLastDayOfTreatment(Paciente p) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        ArrayList<Date> list = new ArrayList<>();
+        Schema activo = buscarSchemaActivoDelPaciente(p);
+        List<DailySchema> dailySchemas = getListaDailySchemas(activo.getUuid());
+        for (DailySchema s : dailySchemas) {
+            List<UlcerForm> ulcerForms = getListaImagenesForm(s.getUuid());
+            if (ulcerForms.size() > 0) {
+                list.add(s.getDateOfTreatment());
+            }
+        }
+
+        Calendar c = Calendar.getInstance();
+        Date d = c.getTime();
+
+        long endTime = d.getTime();
+        long startTime = list.get(list.size()-1).getTime();
+        long diffTime = endTime - startTime;
+        long diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+        return (int) diffDays;
+    }
+
+    public String getLastDayOfTreatment(Paciente p) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        ArrayList<Date> list = new ArrayList<>();
+        Schema activo = buscarSchemaActivoDelPaciente(p);
+        List<DailySchema> dailySchemas = getListaDailySchemas(activo.getUuid());
+        return dailySchemas.get(dailySchemas.size()-1).getDayOfTreatment();
     }
 }
 

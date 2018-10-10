@@ -13,10 +13,12 @@ import java.util.List;
 @Root(name = "Antecedentes", strict = false)
 public class Antecedentes extends DataXml{
 
-    @ElementList(name="AntecedenteXml", required = false, inline = true)
-    List<AntecedenteXml> antecedentes = new ArrayList<AntecedenteXml>();
+    public Antecedentes(){}
 
-        public List<AntecedenteXml> getAntecedentes() {
+    @ElementList(name="AntecedenteXml", required = false, inline = true)
+    public List<AntecedenteXml> antecedentes = new ArrayList<AntecedenteXml>();
+
+    public List<AntecedenteXml> getAntecedentes() {
             return antecedentes;
         }
 

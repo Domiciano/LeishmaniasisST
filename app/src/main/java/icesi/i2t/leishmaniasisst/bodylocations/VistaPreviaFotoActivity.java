@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,10 +30,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.UUID;
 
+import icesi.i2t.leishmaniasisst.CuerpoHumanoActivity;
 import icesi.i2t.leishmaniasisst.Evaluacion;
 import icesi.i2t.leishmaniasisst.R;
 import icesi.i2t.leishmaniasisst.dialogs.BooleanAnswerDialog;
+import icesi.i2t.leishmaniasisst.model.UIcerImg;
 import icesi.i2t.leishmaniasisst.util.ImageUtils;
 
 /**
@@ -101,12 +107,8 @@ public class VistaPreviaFotoActivity extends AppCompatActivity{
         display_height = displayMetrics.heightPixels;
         display_width = displayMetrics.widthPixels;
 
-
-
-
         im = (ImageView)findViewById(R.id.foto_image);
         intentarMostrarFoto();
-
     }
 
     public void intentarMostrarFoto(){
@@ -186,6 +188,15 @@ public class VistaPreviaFotoActivity extends AppCompatActivity{
     public void doAction(View view) {
         if(modo == MODO_NORMAL) {
             finish();
+
+            int bodyLocation = PreferenceManager.getDefaultSharedPreferences(this).getInt("id_zona", -1);
+            String foto_code = PreferenceManager.getDefaultSharedPreferences(this).getString("foto_code", "-1");
+            String uuid = CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUiid();
+            //Agregar foto a var estatica
+            UIcerImg img = new UIcerImg(UUID.randomUUID().toString(), ""+bodyLocation, Calendar.getInstance().getTime(), ".JPG", foto_code, "1", uuid );
+            boolean agregado = CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().add(img);
+            Log.e("REMODELACION","AGREGADO "+agregado);
+
             Intent i = new Intent(this, ThumbnailsActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
@@ -193,9 +204,19 @@ public class VistaPreviaFotoActivity extends AppCompatActivity{
         }else if(modo == MODO_ELIMINAR){
             File f = new File(foto_path);
             f.delete();
-
             Intent i = new Intent(this, ThumbnailsActivity.class);
             setResult(RESULT_OK, i);
+
+            //Eliminar foto de var estatica
+            for(int j=0 ; j < CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().size() ; j++){
+                Log.e("Remodelaje",foto_path+" Comparado con "+CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().get(j).getImgUUID());
+                if( foto_path.contains( CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().get(j).getImgUUID() ) ){
+                    Log.e("Remodelaje","ELIMINANDO UNA IMAGEN " + CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().size());
+                    CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().remove(j);
+                    Log.e("Remodelaje","IMAGEN ELIMINADA "+CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().size());
+                }
+            }
+
             finish();
         }
     }
@@ -232,4 +253,11 @@ public class VistaPreviaFotoActivity extends AppCompatActivity{
             setToolbarModoEliminar();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        CuerpoHumanoActivity.eliminarFotosNoGuardadas();
+        super.onDestroy();
+    }
+
 }

@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -28,13 +29,28 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.w3c.dom.Text;
 
+import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import icesi.i2t.leishmaniasisst.bodylocations.BrazoDerechoActivity;
 import icesi.i2t.leishmaniasisst.bodylocations.BrazoIzquierdoActvity;
@@ -47,29 +63,34 @@ import icesi.i2t.leishmaniasisst.bodylocations.TroncoActivity;
 import icesi.i2t.leishmaniasisst.data.ManejadorBD;
 import icesi.i2t.leishmaniasisst.dialogs.BooleanAnswerDialog;
 import icesi.i2t.leishmaniasisst.model.DailySchema;
+import icesi.i2t.leishmaniasisst.model.Evaluador;
+import icesi.i2t.leishmaniasisst.model.ListaUlcerForms;
+import icesi.i2t.leishmaniasisst.model.ListaUlcerImages;
 import icesi.i2t.leishmaniasisst.model.Paciente;
+import icesi.i2t.leishmaniasisst.model.Schema;
 import icesi.i2t.leishmaniasisst.model.UIcerImg;
+import icesi.i2t.leishmaniasisst.model.UlcerForm;
 import icesi.i2t.leishmaniasisst.util.GeneralUtils;
 
 
 public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTouchListener {
 
-    boolean focus=true;
+    boolean focus = true;
     ImageView cuerpo;
     TextView subtitulo_cuerpo, label_cabeza, label_tronco, label_brazo_izquierdo;
     TextView label_brazo_derecho, label_pierna_izquierda, label_pierna_derecha;
     TextView label_mano_derecha, label_mano_izquierda;
 
-    static final int BRAZO_DERECHO=0;
-    static final int BRAZO_IZQUIERDO=1;
-    static final int CABEZA=2;
-    static final int TRONCO=3;
-    static final int PIERNA_DERECHA=4;
-    static final int PIERNA_IZQUIERDA=5;
-    static final int MANO_DERECHA=6;
-    static final int MANO_IZQUIERDA=7;
+    static final int BRAZO_DERECHO = 0;
+    static final int BRAZO_IZQUIERDO = 1;
+    static final int CABEZA = 2;
+    static final int TRONCO = 3;
+    static final int PIERNA_DERECHA = 4;
+    static final int PIERNA_IZQUIERDA = 5;
+    static final int MANO_DERECHA = 6;
+    static final int MANO_IZQUIERDA = 7;
 
-    String[] partes =  new String[]{"BRAZO DERECHO","BRAZO IZQUIERDO","CABEZA","TRONCO","PIERNA DERECHA", "PIERNA IZQUIERDA","NO_PART"};
+    String[] partes = new String[]{"BRAZO DERECHO", "BRAZO IZQUIERDO", "CABEZA", "TRONCO", "PIERNA DERECHA", "PIERNA IZQUIERDA", "NO_PART"};
     TextView[] labels = new TextView[8];
 
     int alto;
@@ -78,16 +99,18 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
     int display_height;
     int display_width;
 
-    float text_label_size=0;
+    float text_label_size = 0;
 
     View stick1, stick2, stick3, stick4, stick5, stick6, stick7, stick8;
 
     TextView lesion_cabeza, lesion_tronco, lesion_brazo_der, lesion_brazo_izq, lesion_pierna_der, lesion_pierna_izq, lesion_mano_der, lesion_mano_izq;
 
-    boolean modo_nueva_lesion=false;
+    boolean modo_nueva_lesion = false;
 
     ManejadorBD db;
     Paciente paciente;
+
+    public static DailySchema dailySchema;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,18 +120,16 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
         List<Integer> bodyLocation = null;
         try {
             db = new ManejadorBD(this);
-            String id = PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id","");
+            String id = PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id", "");
             paciente = db.buscarPaciente(id);
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             String fecha_prueba = format.format(Calendar.getInstance().getTime());
 
-
             bodyLocation = db.getListBodyLocation(paciente, format.parse(fecha_prueba), ManejadorBD.ALL_PARTS);
             int numero = bodyLocation.size();
-        } catch (Exception e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
-
 
 
         WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
@@ -117,7 +138,7 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
         display_height = displayMetrics.heightPixels;
         display_width = displayMetrics.widthPixels;
 
-        focus=true;
+        focus = true;
 
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
@@ -153,19 +174,19 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
         label_mano_izquierda = (TextView) findViewById(R.id.label_mano_izquierda);
 
         labels[0] = label_brazo_derecho;
-        labels[1] =label_brazo_izquierdo;
-        labels[2] =label_cabeza;
-        labels[3] =label_tronco;
-        labels[4] =label_pierna_derecha;
-        labels[5] =label_pierna_izquierda;
-        labels[6] =label_mano_derecha;
-        labels[7] =label_mano_izquierda;
+        labels[1] = label_brazo_izquierdo;
+        labels[2] = label_cabeza;
+        labels[3] = label_tronco;
+        labels[4] = label_pierna_derecha;
+        labels[5] = label_pierna_izquierda;
+        labels[6] = label_mano_derecha;
+        labels[7] = label_mano_izquierda;
 
         cuerpo.setOnTouchListener(this);
 
         double escala = 0.5;
-        int ancho = (int) (display_height*0.3*escala);
-        int alto = (int) (display_height*escala);
+        int ancho = (int) (display_height * 0.3 * escala);
+        int alto = (int) (display_height * escala);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ancho, alto);
         cuerpo.setLayoutParams(params);
 
@@ -180,7 +201,7 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
 
         lesion_cabeza = (TextView) findViewById(R.id.lesion_cabeza);
         lesion_tronco = (TextView) findViewById(R.id.lesion_tronco);
-        lesion_brazo_der  = (TextView) findViewById(R.id.lesion_brazo_der);
+        lesion_brazo_der = (TextView) findViewById(R.id.lesion_brazo_der);
         lesion_brazo_izq = (TextView) findViewById(R.id.lesion_brazo_izq);
         lesion_pierna_der = (TextView) findViewById(R.id.lesion_pierna_der);
         lesion_pierna_izq = (TextView) findViewById(R.id.lesion_pierna_izq);
@@ -198,106 +219,119 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
         lesion_mano_izq.setVisibility(View.GONE);
 
 
-
         ponerIndicadoresDeLesion(bodyLocation);
         ponerIndicadoresDeLesionTerminada();
 
         hideButtons();
 
+        if (dailySchema == null) {
+            Schema schema = db.buscarSchemaActivoDelPaciente(paciente);
+            Calendar hoy = Calendar.getInstance();
+            DailySchema days = db.buscarDailySchema(schema.getUuid(), hoy.getTime());
+            if (dailySchema != null) {
+                dailySchema = days;
+            } else {
+                String dia_tratamiento = "" + (Integer.parseInt(db.getLastDayOfTreatment(paciente)) + db.getDaysSinceLastDayOfTreatment(paciente));
+                dailySchema = new DailySchema(UUID.randomUUID().toString(), dia_tratamiento, hoy.getTime(), false, schema.getUuid());
 
-
-
-
+                ListaUlcerImages listaUlcerImages = new ListaUlcerImages();
+                UlcerForm ulcerForm = new UlcerForm(UUID.randomUUID().toString(), "", hoy.getTime(), dailySchema.getUuid());
+                ulcerForm.setUlcerImages(listaUlcerImages);
+                ListaUlcerForms listaUlcerForms = new ListaUlcerForms();
+                listaUlcerForms.getUlcerForms().add(ulcerForm);
+                dailySchema.setImagenes(listaUlcerForms);
+            }
+        }
+        Gson gson = new Gson();
+        Log.e("REMODELACION", "" + gson.toJson(dailySchema));
     }
 
     private void ponerIndicadoresDeLesionTerminada() {
-        try{
+        try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             String fecha_prueba = format.format(Calendar.getInstance().getTime());
             DailySchema ds = db.buscarDailySchema(db.buscarSchemaActivoDelPaciente(paciente).getUuid(), format.parse(fecha_prueba));
+            if (ds == null) return;
             List<UIcerImg> imagenes = db.getListaImagenes(db.getListaImagenesForm(ds.getUuid()).get(0).getUiid());
-            for(int i=0 ; i<imagenes.size() ; i++){
-                if(!imagenes.get(i).getImgUUID().equals("00000000-0000-0000-0000-000000000000")){
-                   int bl = Integer.parseInt(imagenes.get(i).getBodyLocation());
-                    PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("BP"+bl, true).commit();
-                    if(bl >= 1 && bl <= 18)
+            for (int i = 0; i < imagenes.size(); i++) {
+                if (!imagenes.get(i).getImgUUID().equals("00000000-0000-0000-0000-000000000000")) {
+                    int bl = Integer.parseInt(imagenes.get(i).getBodyLocation());
+                    PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("BP" + bl, true).commit();
+                    if (bl >= 1 && bl <= 18)
                         PreferenceManager.getDefaultSharedPreferences(this).edit()
-                                .putBoolean("c_ok", true).putString("parte_actual","Lesiones cabeza").commit();
-                    else if(bl >= 19 && bl <= 34)
+                                .putBoolean("c_ok", true).putString("parte_actual", "Lesiones cabeza").commit();
+                    else if (bl >= 19 && bl <= 34)
                         PreferenceManager.getDefaultSharedPreferences(this).edit()
-                                .putBoolean("bd_ok", true).putString("parte_actual","Lesiones brazo derecho").commit();
-                    else if(bl >= 35 && bl <= 50)
+                                .putBoolean("bd_ok", true).putString("parte_actual", "Lesiones brazo derecho").commit();
+                    else if (bl >= 35 && bl <= 50)
                         PreferenceManager.getDefaultSharedPreferences(this).edit()
-                                .putBoolean("bi_ok", true).putString("parte_actual","Lesiones brazo izquierda").commit();
-                    else if(bl >= 51 && bl <= 74)
+                                .putBoolean("bi_ok", true).putString("parte_actual", "Lesiones brazo izquierda").commit();
+                    else if (bl >= 51 && bl <= 74)
                         PreferenceManager.getDefaultSharedPreferences(this).edit()
-                                .putBoolean("t_ok", true).putString("parte_actual","Lesiones tronco").commit();
-                    else if(bl >= 75 && bl <= 90)
+                                .putBoolean("t_ok", true).putString("parte_actual", "Lesiones tronco").commit();
+                    else if (bl >= 75 && bl <= 90)
                         PreferenceManager.getDefaultSharedPreferences(this).edit()
-                                .putBoolean("pd_ok", true).putString("parte_actual","Lesiones pierna derecha").commit();
-                    else if(bl >= 91 && bl <= 106)
+                                .putBoolean("pd_ok", true).putString("parte_actual", "Lesiones pierna derecha").commit();
+                    else if (bl >= 91 && bl <= 106)
                         PreferenceManager.getDefaultSharedPreferences(this).edit()
-                                .putBoolean("pi_ok", true).putString("parte_actual","Lesiones pierna izquierda").commit();
-                    else if(bl >= 107 && bl <= 120)
+                                .putBoolean("pi_ok", true).putString("parte_actual", "Lesiones pierna izquierda").commit();
+                    else if (bl >= 107 && bl <= 120)
                         PreferenceManager.getDefaultSharedPreferences(this).edit()
-                                .putBoolean("md_ok", true).putString("parte_actual","Lesiones mano derecha").commit();
-                    else if(bl >= 121 && bl <= 134)
+                                .putBoolean("md_ok", true).putString("parte_actual", "Lesiones mano derecha").commit();
+                    else if (bl >= 121 && bl <= 134)
                         PreferenceManager.getDefaultSharedPreferences(this).edit()
-                                .putBoolean("mi_ok", true).putString("parte_actual","Lesiones mano izquierda").commit();
+                                .putBoolean("mi_ok", true).putString("parte_actual", "Lesiones mano izquierda").commit();
                 }
             }
-        }catch (Exception e){
+        } catch (ParseException e) {
             Log.e("ERROR", e.getLocalizedMessage());
         }
     }
 
     private void ponerIndicadoresDeLesion(List<Integer> bodyLocation) {
-        try {
-            for (Integer bl : bodyLocation) {
-                if (bl >= 1 && bl <= 18)
-                    PreferenceManager.getDefaultSharedPreferences(this).edit()
-                            .putBoolean("prueba_c", true).commit();
-                else if (bl >= 19 && bl <= 34)
-                    PreferenceManager.getDefaultSharedPreferences(this).edit()
-                            .putBoolean("prueba_bd", true).commit();
-                else if (bl >= 35 && bl <= 50)
-                    PreferenceManager.getDefaultSharedPreferences(this).edit()
-                            .putBoolean("prueba_bi", true).commit();
-                else if (bl >= 51 && bl <= 74)
-                    PreferenceManager.getDefaultSharedPreferences(this).edit()
-                            .putBoolean("prueba_t", true).commit();
-                else if (bl >= 75 && bl <= 90)
-                    PreferenceManager.getDefaultSharedPreferences(this).edit()
-                            .putBoolean("prueba_pd", true).commit();
-                else if (bl >= 91 && bl <= 106)
-                    PreferenceManager.getDefaultSharedPreferences(this).edit()
-                            .putBoolean("prueba_pi", true).commit();
-                else if (bl >= 107 && bl <= 120)
-                    PreferenceManager.getDefaultSharedPreferences(this).edit()
-                            .putBoolean("prueba_md", true).commit();
-                else if (bl >= 121 && bl <= 134)
-                    PreferenceManager.getDefaultSharedPreferences(this).edit()
-                            .putBoolean("prueba_mi", true).commit();
-            }
-            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_bd", false))
-                showLesion(BRAZO_DERECHO);
-            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_bi", false))
-                showLesion(BRAZO_IZQUIERDO);
-            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_c", false))
-                showLesion(CABEZA);
-            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_t", false))
-                showLesion(TRONCO);
-            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_pd", false))
-                showLesion(PIERNA_DERECHA);
-            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_pi", false))
-                showLesion(PIERNA_IZQUIERDA);
-            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_md", false))
-                showLesion(MANO_DERECHA);
-            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_mi", false))
-                showLesion(MANO_IZQUIERDA);
-        }catch (Exception e){
-            Log.e("ERROR", e.getLocalizedMessage());
+        for (Integer bl : bodyLocation) {
+            if (bl >= 1 && bl <= 18)
+                PreferenceManager.getDefaultSharedPreferences(this).edit()
+                        .putBoolean("prueba_c", true).commit();
+            else if (bl >= 19 && bl <= 34)
+                PreferenceManager.getDefaultSharedPreferences(this).edit()
+                        .putBoolean("prueba_bd", true).commit();
+            else if (bl >= 35 && bl <= 50)
+                PreferenceManager.getDefaultSharedPreferences(this).edit()
+                        .putBoolean("prueba_bi", true).commit();
+            else if (bl >= 51 && bl <= 74)
+                PreferenceManager.getDefaultSharedPreferences(this).edit()
+                        .putBoolean("prueba_t", true).commit();
+            else if (bl >= 75 && bl <= 90)
+                PreferenceManager.getDefaultSharedPreferences(this).edit()
+                        .putBoolean("prueba_pd", true).commit();
+            else if (bl >= 91 && bl <= 106)
+                PreferenceManager.getDefaultSharedPreferences(this).edit()
+                        .putBoolean("prueba_pi", true).commit();
+            else if (bl >= 107 && bl <= 120)
+                PreferenceManager.getDefaultSharedPreferences(this).edit()
+                        .putBoolean("prueba_md", true).commit();
+            else if (bl >= 121 && bl <= 134)
+                PreferenceManager.getDefaultSharedPreferences(this).edit()
+                        .putBoolean("prueba_mi", true).commit();
         }
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_bd", false))
+            showLesion(BRAZO_DERECHO);
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_bi", false))
+            showLesion(BRAZO_IZQUIERDO);
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_c", false))
+            showLesion(CABEZA);
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_t", false))
+            showLesion(TRONCO);
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_pd", false))
+            showLesion(PIERNA_DERECHA);
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_pi", false))
+            showLesion(PIERNA_IZQUIERDA);
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_md", false))
+            showLesion(MANO_DERECHA);
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_mi", false))
+            showLesion(MANO_IZQUIERDA);
+
     }
 
     @Override
@@ -316,7 +350,7 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
             dialog.setOnDialogResult(new BooleanAnswerDialog.OnMyDialogResult() {
                 @Override
                 public void finish(String salida) {
-                    if(salida.equals("SI")) {
+                    if (salida.equals("SI")) {
                         Intent intent = new Intent(getApplicationContext(), Evaluacion.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
@@ -339,8 +373,8 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if(focus){
-            focus=false;
+        if (focus) {
+            focus = false;
 
             ancho = cuerpo.getWidth();
             alto = cuerpo.getHeight();
@@ -349,20 +383,20 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
             initLesiones();
             comprobarLesiones();
 
-            if(modo_nueva_lesion) activar_modo_nueva_lesion();
+            if (modo_nueva_lesion) activar_modo_nueva_lesion();
             else desactivar_modo_nueva_lesion();
         }
     }
 
     private void comprobarLesiones() {
-        boolean bd_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("bd_ok",false);
-        boolean bi_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("bi_ok",false);
-        boolean c_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("c_ok",false);
-        boolean t_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("t_ok",false);
-        boolean pd_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pd_ok",false);
-        boolean pi_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pi_ok",false);
-        boolean md_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("md_ok",false);
-        boolean mi_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("mi_ok",false);
+        boolean bd_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("bd_ok", false);
+        boolean bi_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("bi_ok", false);
+        boolean c_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("c_ok", false);
+        boolean t_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("t_ok", false);
+        boolean pd_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pd_ok", false);
+        boolean pi_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pi_ok", false);
+        boolean md_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("md_ok", false);
+        boolean mi_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("mi_ok", false);
 
         if (bd_ok) lesion_brazo_der.setBackgroundResource(R.drawable.bt_lesion_terminado);
         else lesion_brazo_der.setBackgroundResource(R.drawable.bt_lesion);
@@ -382,72 +416,71 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
         else lesion_mano_izq.setBackgroundResource(R.drawable.bt_lesion);
 
         //Contar las lesiones en pantalla
-        int numero_lesiones=0;
-        if(lesion_mano_der.getVisibility() == View.VISIBLE) numero_lesiones++;
-        if(lesion_mano_izq.getVisibility() == View.VISIBLE) numero_lesiones++;
-        if(lesion_pierna_der.getVisibility() == View.VISIBLE) numero_lesiones++;
-        if(lesion_pierna_izq.getVisibility() == View.VISIBLE) numero_lesiones++;
-        if(lesion_brazo_der.getVisibility() == View.VISIBLE) numero_lesiones++;
-        if(lesion_brazo_izq.getVisibility() == View.VISIBLE) numero_lesiones++;
-        if(lesion_tronco.getVisibility() == View.VISIBLE) numero_lesiones++;
-        if(lesion_cabeza.getVisibility() == View.VISIBLE) numero_lesiones++;
+        int numero_lesiones = 0;
+        if (lesion_mano_der.getVisibility() == View.VISIBLE) numero_lesiones++;
+        if (lesion_mano_izq.getVisibility() == View.VISIBLE) numero_lesiones++;
+        if (lesion_pierna_der.getVisibility() == View.VISIBLE) numero_lesiones++;
+        if (lesion_pierna_izq.getVisibility() == View.VISIBLE) numero_lesiones++;
+        if (lesion_brazo_der.getVisibility() == View.VISIBLE) numero_lesiones++;
+        if (lesion_brazo_izq.getVisibility() == View.VISIBLE) numero_lesiones++;
+        if (lesion_tronco.getVisibility() == View.VISIBLE) numero_lesiones++;
+        if (lesion_cabeza.getVisibility() == View.VISIBLE) numero_lesiones++;
 
         int lesiones_terminadas = 0;
-        if(lesion_mano_der.getVisibility() == View.VISIBLE && md_ok) lesiones_terminadas++;
-        if(lesion_mano_izq.getVisibility() == View.VISIBLE && mi_ok) lesiones_terminadas++;
-        if(lesion_pierna_der.getVisibility() == View.VISIBLE && pd_ok) lesiones_terminadas++;
-        if(lesion_pierna_izq.getVisibility() == View.VISIBLE && pi_ok) lesiones_terminadas++;
-        if(lesion_brazo_der.getVisibility() == View.VISIBLE && bd_ok) lesiones_terminadas++;
-        if(lesion_brazo_izq.getVisibility() == View.VISIBLE && bi_ok) lesiones_terminadas++;
-        if(lesion_tronco.getVisibility() == View.VISIBLE && t_ok) lesiones_terminadas++;
-        if(lesion_cabeza.getVisibility() == View.VISIBLE && c_ok) lesiones_terminadas++;
+        if (lesion_mano_der.getVisibility() == View.VISIBLE && md_ok) lesiones_terminadas++;
+        if (lesion_mano_izq.getVisibility() == View.VISIBLE && mi_ok) lesiones_terminadas++;
+        if (lesion_pierna_der.getVisibility() == View.VISIBLE && pd_ok) lesiones_terminadas++;
+        if (lesion_pierna_izq.getVisibility() == View.VISIBLE && pi_ok) lesiones_terminadas++;
+        if (lesion_brazo_der.getVisibility() == View.VISIBLE && bd_ok) lesiones_terminadas++;
+        if (lesion_brazo_izq.getVisibility() == View.VISIBLE && bi_ok) lesiones_terminadas++;
+        if (lesion_tronco.getVisibility() == View.VISIBLE && t_ok) lesiones_terminadas++;
+        if (lesion_cabeza.getVisibility() == View.VISIBLE && c_ok) lesiones_terminadas++;
 
-        if(lesiones_terminadas == numero_lesiones) showButtons();
+        if (lesiones_terminadas == numero_lesiones) showButtons();
 
     }
 
 
     //Estas variables controlan el listener onTouch del diagrama
-    boolean cabeza_active=false, brazo_der_active=false, brazo_izq_active=false;
-    boolean tronco_active=false, pierna_der_active=false, pierna_izq_active=false;
-    boolean mano_der_active=false, mano_izq_active=false;
+    boolean cabeza_active = false, brazo_der_active = false, brazo_izq_active = false;
+    boolean tronco_active = false, pierna_der_active = false, pierna_izq_active = false;
+    boolean mano_der_active = false, mano_izq_active = false;
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        switch (event.getAction()){
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                int parte = getParteDelCuerpo(event.getX()/ancho, event.getY()/alto);
+                int parte = getParteDelCuerpo(event.getX() / ancho, event.getY() / alto);
                 showPartLabel(parte);
                 break;
             case MotionEvent.ACTION_MOVE:
-                parte = getParteDelCuerpo(event.getX()/ancho, event.getY()/alto);
+                parte = getParteDelCuerpo(event.getX() / ancho, event.getY() / alto);
                 showPartLabel(parte);
                 break;
             case MotionEvent.ACTION_UP:
-                parte = getParteDelCuerpo(event.getX()/ancho, event.getY()/alto);
-                if(parte == CABEZA && cabeza_active){
+                parte = getParteDelCuerpo(event.getX() / ancho, event.getY() / alto);
+                if (parte == CABEZA && cabeza_active) {
                     Intent i = new Intent(this, CabezaActivity.class);
                     startActivity(i);
-                }else if(parte == TRONCO && tronco_active){
+                } else if (parte == TRONCO && tronco_active) {
                     Intent i = new Intent(this, TroncoActivity.class);
                     startActivity(i);
-                }
-                else if(parte == BRAZO_DERECHO && brazo_der_active){
+                } else if (parte == BRAZO_DERECHO && brazo_der_active) {
                     Intent i = new Intent(this, BrazoDerechoActivity.class);
                     startActivity(i);
-                }else if(parte == BRAZO_IZQUIERDO && brazo_izq_active){
+                } else if (parte == BRAZO_IZQUIERDO && brazo_izq_active) {
                     Intent i = new Intent(this, BrazoIzquierdoActvity.class);
                     startActivity(i);
-                }else if(parte == PIERNA_DERECHA && pierna_der_active){
+                } else if (parte == PIERNA_DERECHA && pierna_der_active) {
                     Intent i = new Intent(this, PiernaDerechaActivity.class);
                     startActivity(i);
-                }else if(parte == PIERNA_IZQUIERDA && pierna_izq_active){
+                } else if (parte == PIERNA_IZQUIERDA && pierna_izq_active) {
                     Intent i = new Intent(this, PiernaIzquierdaActivity.class);
                     startActivity(i);
-                }else if(parte == MANO_DERECHA && mano_der_active){
+                } else if (parte == MANO_DERECHA && mano_der_active) {
                     Intent i = new Intent(this, ManoDerechaActivity.class);
                     startActivity(i);
-                }else if(parte == MANO_IZQUIERDA && mano_izq_active){
+                } else if (parte == MANO_IZQUIERDA && mano_izq_active) {
                     Intent i = new Intent(this, ManoIzquierdaActivity.class);
                     startActivity(i);
                 }
@@ -457,120 +490,123 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
     }
 
     private void showPartLabel(int parte) {
-        if(parte <= 7) {
+        if (parte <= 7) {
             labels[parte].setTextSize(20);
             labels[parte].setTypeface(null, Typeface.BOLD_ITALIC);
-            for(int i=0 ; i<labels.length ; i++) {
-                if (i != parte){
+            for (int i = 0; i < labels.length; i++) {
+                if (i != parte) {
                     labels[i].setTextSize(16);
                     labels[parte].setTypeface(null, Typeface.ITALIC);
                 }
             }
         }
     }
+
     private int getParteDelCuerpo(float x, float y) {
-        if(x<0.25 && x>0 && y<0.5 && y>0.185){
+        if (x < 0.25 && x > 0 && y < 0.5 && y > 0.185) {
             return BRAZO_DERECHO;
-        }else if(x<0.7 && x>0.3 && y<0.18 && y>=0){
+        } else if (x < 0.7 && x > 0.3 && y < 0.18 && y >= 0) {
             return CABEZA;
-        }else if(x<=1 && x>0.75 && y<0.5 && y>0.185){
+        } else if (x <= 1 && x > 0.75 && y < 0.5 && y > 0.185) {
             return BRAZO_IZQUIERDO;
-        }else if(x<=0.75 && x>=0.25 && y<=0.55 && y>=0.18){
+        } else if (x <= 0.75 && x >= 0.25 && y <= 0.55 && y >= 0.18) {
             return TRONCO;
-        }else if(x<=0.5 && x>=0.2 && y<=1 && y>0.55){
+        } else if (x <= 0.5 && x >= 0.2 && y <= 1 && y > 0.55) {
             return PIERNA_DERECHA;
-        }else if(x<=0.8 && x>0.5 && y<=1 && y>0.55){
+        } else if (x <= 0.8 && x > 0.5 && y <= 1 && y > 0.55) {
             return PIERNA_IZQUIERDA;
-        }else if(x<0.25 && x>0 && y<=0.6 && y>0.5){
+        } else if (x < 0.25 && x > 0 && y <= 0.6 && y > 0.5) {
             return MANO_DERECHA;
-        }else if(x<=1 && x>0.75 && y<=0.6 && y>0.5){
+        } else if (x <= 1 && x > 0.75 && y <= 0.6 && y > 0.5) {
             return MANO_IZQUIERDA;
         }
         return 8;
     }
+
     private void adjustSticks() {
 
         LinearLayout.LayoutParams par = new LinearLayout.LayoutParams(subtitulo_cuerpo.getWidth(), subtitulo_cuerpo.getHeight());
-        par.setMargins(0,0,0,40);
+        par.setMargins(0, 0, 0, 40);
         subtitulo_cuerpo.setLayoutParams(par);
 
-        stick1.setX(cuerpo.getX()+(int)(0.6*cuerpo.getWidth()));
-        stick1.setY(cuerpo.getY()+(int)(0.08*cuerpo.getHeight()));
-        RelativeLayout.LayoutParams p1 = new RelativeLayout.LayoutParams((int)(0.5*cuerpo.getWidth()), 2);
+        stick1.setX(cuerpo.getX() + (int) (0.6 * cuerpo.getWidth()));
+        stick1.setY(cuerpo.getY() + (int) (0.08 * cuerpo.getHeight()));
+        RelativeLayout.LayoutParams p1 = new RelativeLayout.LayoutParams((int) (0.5 * cuerpo.getWidth()), 2);
         stick1.setLayoutParams(p1);
 
-        stick2.setX(cuerpo.getX()+(int)(0.5*cuerpo.getWidth()));
-        stick2.setY(cuerpo.getY()+(int)(0.23*cuerpo.getHeight()));
-        RelativeLayout.LayoutParams p2 = new RelativeLayout.LayoutParams((int)(0.60*cuerpo.getWidth()), 2);
+        stick2.setX(cuerpo.getX() + (int) (0.5 * cuerpo.getWidth()));
+        stick2.setY(cuerpo.getY() + (int) (0.23 * cuerpo.getHeight()));
+        RelativeLayout.LayoutParams p2 = new RelativeLayout.LayoutParams((int) (0.60 * cuerpo.getWidth()), 2);
         stick2.setLayoutParams(p2);
 
-        stick3.setX(cuerpo.getX()+(int)(0.9*cuerpo.getWidth()));
-        stick3.setY(cuerpo.getY()+(int)(0.38*cuerpo.getHeight()));
-        RelativeLayout.LayoutParams p3 = new RelativeLayout.LayoutParams((int)(0.34*cuerpo.getWidth()), 2);
+        stick3.setX(cuerpo.getX() + (int) (0.9 * cuerpo.getWidth()));
+        stick3.setY(cuerpo.getY() + (int) (0.38 * cuerpo.getHeight()));
+        RelativeLayout.LayoutParams p3 = new RelativeLayout.LayoutParams((int) (0.34 * cuerpo.getWidth()), 2);
         stick3.setLayoutParams(p3);
 
-        stick4.setX(cuerpo.getX()-(int)(0.1*cuerpo.getWidth()));
-        stick4.setY(cuerpo.getY()+(int)(0.34*cuerpo.getHeight()));
-        RelativeLayout.LayoutParams p4 = new RelativeLayout.LayoutParams((int)(0.25*cuerpo.getWidth()), 2);
+        stick4.setX(cuerpo.getX() - (int) (0.1 * cuerpo.getWidth()));
+        stick4.setY(cuerpo.getY() + (int) (0.34 * cuerpo.getHeight()));
+        RelativeLayout.LayoutParams p4 = new RelativeLayout.LayoutParams((int) (0.25 * cuerpo.getWidth()), 2);
         stick4.setLayoutParams(p4);
 
-        stick5.setX(cuerpo.getX()-(int)(0.07*cuerpo.getWidth()));
-        stick5.setY(cuerpo.getY()+(int)(0.83*cuerpo.getHeight()));
-        RelativeLayout.LayoutParams p5 = new RelativeLayout.LayoutParams((int)(0.4*cuerpo.getWidth()), 2);
+        stick5.setX(cuerpo.getX() - (int) (0.07 * cuerpo.getWidth()));
+        stick5.setY(cuerpo.getY() + (int) (0.83 * cuerpo.getHeight()));
+        RelativeLayout.LayoutParams p5 = new RelativeLayout.LayoutParams((int) (0.4 * cuerpo.getWidth()), 2);
         stick5.setLayoutParams(p5);
 
-        stick6.setX(cuerpo.getX()+(int)(0.65*cuerpo.getWidth()));
-        stick6.setY(cuerpo.getY()+(int)(0.73*cuerpo.getHeight()));
-        RelativeLayout.LayoutParams p6 = new RelativeLayout.LayoutParams((int)(0.36*cuerpo.getWidth()), 2);
+        stick6.setX(cuerpo.getX() + (int) (0.65 * cuerpo.getWidth()));
+        stick6.setY(cuerpo.getY() + (int) (0.73 * cuerpo.getHeight()));
+        RelativeLayout.LayoutParams p6 = new RelativeLayout.LayoutParams((int) (0.36 * cuerpo.getWidth()), 2);
         stick6.setLayoutParams(p6);
 
-        stick7.setX(cuerpo.getX()-(int)(0.25*cuerpo.getWidth()));
-        stick7.setY(cuerpo.getY()+(int)(0.54*cuerpo.getHeight()));
-        RelativeLayout.LayoutParams p7 = new RelativeLayout.LayoutParams((int)(0.36*cuerpo.getWidth()), 2);
+        stick7.setX(cuerpo.getX() - (int) (0.25 * cuerpo.getWidth()));
+        stick7.setY(cuerpo.getY() + (int) (0.54 * cuerpo.getHeight()));
+        RelativeLayout.LayoutParams p7 = new RelativeLayout.LayoutParams((int) (0.36 * cuerpo.getWidth()), 2);
         stick7.setLayoutParams(p7);
 
-        stick8.setX(cuerpo.getX()+(int)(0.89*cuerpo.getWidth()));
-        stick8.setY(cuerpo.getY()+(int)(0.54*cuerpo.getHeight()));
-        RelativeLayout.LayoutParams p8 = new RelativeLayout.LayoutParams((int)(0.36*cuerpo.getWidth()), 2);
+        stick8.setX(cuerpo.getX() + (int) (0.89 * cuerpo.getWidth()));
+        stick8.setY(cuerpo.getY() + (int) (0.54 * cuerpo.getHeight()));
+        RelativeLayout.LayoutParams p8 = new RelativeLayout.LayoutParams((int) (0.36 * cuerpo.getWidth()), 2);
         stick8.setLayoutParams(p8);
     }
+
     private void adjustLabels() {
-        label_cabeza.setX(cuerpo.getX()+(int)(1.15*cuerpo.getWidth()));
-        label_cabeza.setY(cuerpo.getY()+(int)(0.05*cuerpo.getHeight()));
+        label_cabeza.setX(cuerpo.getX() + (int) (1.15 * cuerpo.getWidth()));
+        label_cabeza.setY(cuerpo.getY() + (int) (0.05 * cuerpo.getHeight()));
 
-        label_tronco.setX(cuerpo.getX()+(int)(1.15*cuerpo.getWidth()));
-        label_tronco.setY(cuerpo.getY()+(int)(0.2*cuerpo.getHeight()));
+        label_tronco.setX(cuerpo.getX() + (int) (1.15 * cuerpo.getWidth()));
+        label_tronco.setY(cuerpo.getY() + (int) (0.2 * cuerpo.getHeight()));
 
-        label_brazo_izquierdo.setX(cuerpo.getX()+(int)(1.28*cuerpo.getWidth()));
-        label_brazo_izquierdo.setY(cuerpo.getY()+(int)(0.35*cuerpo.getHeight()));
+        label_brazo_izquierdo.setX(cuerpo.getX() + (int) (1.28 * cuerpo.getWidth()));
+        label_brazo_izquierdo.setY(cuerpo.getY() + (int) (0.35 * cuerpo.getHeight()));
 
-        label_brazo_derecho.setX(cuerpo.getX()-(int)(1*cuerpo.getWidth()));
-        label_brazo_derecho.setY(cuerpo.getY()+(int)(0.3*cuerpo.getHeight()));
+        label_brazo_derecho.setX(cuerpo.getX() - (int) (1 * cuerpo.getWidth()));
+        label_brazo_derecho.setY(cuerpo.getY() + (int) (0.3 * cuerpo.getHeight()));
 
-        label_pierna_izquierda.setX(cuerpo.getX()+(int)(1.05*cuerpo.getWidth()));
-        label_pierna_izquierda.setY(cuerpo.getY()+(int)(0.7*cuerpo.getHeight()));
+        label_pierna_izquierda.setX(cuerpo.getX() + (int) (1.05 * cuerpo.getWidth()));
+        label_pierna_izquierda.setY(cuerpo.getY() + (int) (0.7 * cuerpo.getHeight()));
 
-        label_pierna_derecha.setX(cuerpo.getX()-(int)(0.8*cuerpo.getWidth()));
-        label_pierna_derecha.setY(cuerpo.getY()+(int)(0.8*cuerpo.getHeight()));
+        label_pierna_derecha.setX(cuerpo.getX() - (int) (0.8 * cuerpo.getWidth()));
+        label_pierna_derecha.setY(cuerpo.getY() + (int) (0.8 * cuerpo.getHeight()));
 
-        label_mano_izquierda.setX(cuerpo.getX()+(int)(1.2*cuerpo.getWidth()));
-        label_mano_izquierda.setY(cuerpo.getY()+(int)(0.5*cuerpo.getHeight()));
+        label_mano_izquierda.setX(cuerpo.getX() + (int) (1.2 * cuerpo.getWidth()));
+        label_mano_izquierda.setY(cuerpo.getY() + (int) (0.5 * cuerpo.getHeight()));
 
-        label_mano_derecha.setX(cuerpo.getX()-(int)(1*cuerpo.getWidth()));
-        label_mano_derecha.setY(cuerpo.getY()+(int)(0.5*cuerpo.getHeight()));
+        label_mano_derecha.setX(cuerpo.getX() - (int) (1 * cuerpo.getWidth()));
+        label_mano_derecha.setY(cuerpo.getY() + (int) (0.5 * cuerpo.getHeight()));
     }
 
     private void setListernerToLabels(int parte) {
-        switch (parte){
+        switch (parte) {
             case CABEZA:
                 label_cabeza.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-                        if(event.getAction() == MotionEvent.ACTION_DOWN){
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
                             label_cabeza.setScaleX(1.2f);
                             label_cabeza.setScaleY(1.2f);
                             return true;
-                        }else if(event.getAction() == MotionEvent.ACTION_UP){
+                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
                             label_cabeza.setScaleX(1);
                             label_cabeza.setScaleY(1);
                             Intent i = new Intent(getApplicationContext(), CabezaActivity.class);
@@ -585,11 +621,11 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
                 label_tronco.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-                        if(event.getAction() == MotionEvent.ACTION_DOWN){
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
                             label_tronco.setScaleX(1.2f);
                             label_tronco.setScaleY(1.2f);
                             return true;
-                        }else if(event.getAction() == MotionEvent.ACTION_UP){
+                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
                             label_tronco.setScaleX(1);
                             label_tronco.setScaleY(1);
                             Intent i = new Intent(getApplicationContext(), TroncoActivity.class);
@@ -604,11 +640,11 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
                 label_brazo_derecho.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-                        if(event.getAction() == MotionEvent.ACTION_DOWN){
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
                             label_brazo_derecho.setScaleX(1.2f);
                             label_brazo_derecho.setScaleY(1.2f);
                             return true;
-                        }else if(event.getAction() == MotionEvent.ACTION_UP){
+                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
                             label_brazo_derecho.setScaleX(1);
                             label_brazo_derecho.setScaleY(1);
                             Intent i = new Intent(getApplicationContext(), BrazoDerechoActivity.class);
@@ -623,11 +659,11 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
                 label_brazo_izquierdo.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-                        if(event.getAction() == MotionEvent.ACTION_DOWN){
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
                             label_brazo_izquierdo.setScaleX(1.2f);
                             label_brazo_izquierdo.setScaleY(1.2f);
                             return true;
-                        }else if(event.getAction() == MotionEvent.ACTION_UP){
+                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
                             label_brazo_izquierdo.setScaleX(1);
                             label_brazo_izquierdo.setScaleY(1);
                             Intent i = new Intent(getApplicationContext(), BrazoIzquierdoActvity.class);
@@ -642,11 +678,11 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
                 label_pierna_derecha.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-                        if(event.getAction() == MotionEvent.ACTION_DOWN){
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
                             label_pierna_derecha.setScaleX(1.2f);
                             label_pierna_derecha.setScaleY(1.2f);
                             return true;
-                        }else if(event.getAction() == MotionEvent.ACTION_UP){
+                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
                             label_pierna_derecha.setScaleX(1);
                             label_pierna_derecha.setScaleY(1);
                             Intent i = new Intent(getApplicationContext(), PiernaDerechaActivity.class);
@@ -661,11 +697,11 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
                 label_pierna_izquierda.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-                        if(event.getAction() == MotionEvent.ACTION_DOWN){
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
                             label_pierna_izquierda.setScaleX(1.2f);
                             label_pierna_izquierda.setScaleY(1.2f);
                             return true;
-                        }else if(event.getAction() == MotionEvent.ACTION_UP){
+                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
                             label_pierna_izquierda.setScaleX(1);
                             label_pierna_izquierda.setScaleY(1);
                             Intent i = new Intent(getApplicationContext(), PiernaIzquierdaActivity.class);
@@ -680,11 +716,11 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
                 label_mano_derecha.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-                        if(event.getAction() == MotionEvent.ACTION_DOWN){
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
                             label_mano_derecha.setScaleX(1.2f);
                             label_mano_derecha.setScaleY(1.2f);
                             return true;
-                        }else if(event.getAction() == MotionEvent.ACTION_UP){
+                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
                             label_mano_derecha.setScaleX(1);
                             label_mano_derecha.setScaleY(1);
                             Intent i = new Intent(getApplicationContext(), ManoDerechaActivity.class);
@@ -699,11 +735,11 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
                 label_mano_izquierda.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-                        if(event.getAction() == MotionEvent.ACTION_DOWN){
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
                             label_mano_izquierda.setScaleX(1.2f);
                             label_mano_izquierda.setScaleY(1.2f);
                             return true;
-                        }else if(event.getAction() == MotionEvent.ACTION_UP){
+                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
                             label_mano_izquierda.setScaleX(1);
                             label_mano_izquierda.setScaleY(1);
                             Intent i = new Intent(getApplicationContext(), ManoIzquierdaActivity.class);
@@ -716,56 +752,57 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
 
         }
     }
+
     private void initLesiones() {
-        lesion_cabeza.setX(cuerpo.getX()+(int)(0.42*cuerpo.getWidth()));
-        lesion_cabeza.setY(cuerpo.getY()+(int)(0.05*cuerpo.getHeight()));
-        RelativeLayout.LayoutParams p1 = new RelativeLayout.LayoutParams((int)(ancho*0.15), (int)(ancho*0.15));
+        lesion_cabeza.setX(cuerpo.getX() + (int) (0.42 * cuerpo.getWidth()));
+        lesion_cabeza.setY(cuerpo.getY() + (int) (0.05 * cuerpo.getHeight()));
+        RelativeLayout.LayoutParams p1 = new RelativeLayout.LayoutParams((int) (ancho * 0.15), (int) (ancho * 0.15));
         lesion_cabeza.setLayoutParams(p1);
 
-        lesion_tronco.setX(cuerpo.getX()+(int)(0.42*cuerpo.getWidth()));
-        lesion_tronco.setY(cuerpo.getY()+(int)(0.21*cuerpo.getHeight()));
-        RelativeLayout.LayoutParams p2 = new RelativeLayout.LayoutParams((int)(ancho*0.15), (int)(ancho*0.15));
+        lesion_tronco.setX(cuerpo.getX() + (int) (0.42 * cuerpo.getWidth()));
+        lesion_tronco.setY(cuerpo.getY() + (int) (0.21 * cuerpo.getHeight()));
+        RelativeLayout.LayoutParams p2 = new RelativeLayout.LayoutParams((int) (ancho * 0.15), (int) (ancho * 0.15));
         lesion_tronco.setLayoutParams(p2);
 
-        lesion_brazo_der.setX(cuerpo.getX()+(int)(0.05*cuerpo.getWidth()));
-        lesion_brazo_der.setY(cuerpo.getY()+(int)(0.36*cuerpo.getHeight()));
-        RelativeLayout.LayoutParams p3 = new RelativeLayout.LayoutParams((int)(ancho*0.15), (int)(ancho*0.15));
+        lesion_brazo_der.setX(cuerpo.getX() + (int) (0.05 * cuerpo.getWidth()));
+        lesion_brazo_der.setY(cuerpo.getY() + (int) (0.36 * cuerpo.getHeight()));
+        RelativeLayout.LayoutParams p3 = new RelativeLayout.LayoutParams((int) (ancho * 0.15), (int) (ancho * 0.15));
         lesion_brazo_der.setLayoutParams(p3);
 
-        lesion_brazo_izq.setX(cuerpo.getX()+(int)(0.79*cuerpo.getWidth()));
-        lesion_brazo_izq.setY(cuerpo.getY()+(int)(0.36*cuerpo.getHeight()));
-        RelativeLayout.LayoutParams p4 = new RelativeLayout.LayoutParams((int)(ancho*0.15), (int)(ancho*0.15));
+        lesion_brazo_izq.setX(cuerpo.getX() + (int) (0.79 * cuerpo.getWidth()));
+        lesion_brazo_izq.setY(cuerpo.getY() + (int) (0.36 * cuerpo.getHeight()));
+        RelativeLayout.LayoutParams p4 = new RelativeLayout.LayoutParams((int) (ancho * 0.15), (int) (ancho * 0.15));
         lesion_brazo_izq.setLayoutParams(p4);
 
-        lesion_pierna_der.setX(cuerpo.getX()+(int)(0.27*cuerpo.getWidth()));
-        lesion_pierna_der.setY(cuerpo.getY()+(int)(0.71*cuerpo.getHeight()));
-        RelativeLayout.LayoutParams p5 = new RelativeLayout.LayoutParams((int)(ancho*0.15), (int)(ancho*0.15));
+        lesion_pierna_der.setX(cuerpo.getX() + (int) (0.27 * cuerpo.getWidth()));
+        lesion_pierna_der.setY(cuerpo.getY() + (int) (0.71 * cuerpo.getHeight()));
+        RelativeLayout.LayoutParams p5 = new RelativeLayout.LayoutParams((int) (ancho * 0.15), (int) (ancho * 0.15));
         lesion_pierna_der.setLayoutParams(p5);
 
-        lesion_pierna_izq.setX(cuerpo.getX()+(int)(0.58*cuerpo.getWidth()));
-        lesion_pierna_izq.setY(cuerpo.getY()+(int)(0.71*cuerpo.getHeight()));
-        RelativeLayout.LayoutParams p6 = new RelativeLayout.LayoutParams((int)(ancho*0.15), (int)(ancho*0.15));
+        lesion_pierna_izq.setX(cuerpo.getX() + (int) (0.58 * cuerpo.getWidth()));
+        lesion_pierna_izq.setY(cuerpo.getY() + (int) (0.71 * cuerpo.getHeight()));
+        RelativeLayout.LayoutParams p6 = new RelativeLayout.LayoutParams((int) (ancho * 0.15), (int) (ancho * 0.15));
         lesion_pierna_izq.setLayoutParams(p6);
 
-        lesion_mano_der.setX(cuerpo.getX()+(int)(0.02*cuerpo.getWidth()));
-        lesion_mano_der.setY(cuerpo.getY()+(int)(0.53*cuerpo.getHeight()));
-        RelativeLayout.LayoutParams p7 = new RelativeLayout.LayoutParams((int)(ancho*0.15), (int)(ancho*0.15));
+        lesion_mano_der.setX(cuerpo.getX() + (int) (0.02 * cuerpo.getWidth()));
+        lesion_mano_der.setY(cuerpo.getY() + (int) (0.53 * cuerpo.getHeight()));
+        RelativeLayout.LayoutParams p7 = new RelativeLayout.LayoutParams((int) (ancho * 0.15), (int) (ancho * 0.15));
         lesion_mano_der.setLayoutParams(p7);
 
-        lesion_mano_izq.setX(cuerpo.getX()+(int)(0.82*cuerpo.getWidth()));
-        lesion_mano_izq.setY(cuerpo.getY()+(int)(0.53*cuerpo.getHeight()));
-        RelativeLayout.LayoutParams p8 = new RelativeLayout.LayoutParams((int)(ancho*0.15), (int)(ancho*0.15));
+        lesion_mano_izq.setX(cuerpo.getX() + (int) (0.82 * cuerpo.getWidth()));
+        lesion_mano_izq.setY(cuerpo.getY() + (int) (0.53 * cuerpo.getHeight()));
+        RelativeLayout.LayoutParams p8 = new RelativeLayout.LayoutParams((int) (ancho * 0.15), (int) (ancho * 0.15));
         lesion_mano_izq.setLayoutParams(p8);
 
 
     }
 
-    boolean lesion_presente_bd = false, lesion_presente_bi=false, lesion_presente_c=false;
-    boolean lesion_presente_t = false, lesion_presente_md=false, lesion_presente_mi=false;
-    boolean lesion_presente_pd = false, lesion_presente_pi=false;
+    boolean lesion_presente_bd = false, lesion_presente_bi = false, lesion_presente_c = false;
+    boolean lesion_presente_t = false, lesion_presente_md = false, lesion_presente_mi = false;
+    boolean lesion_presente_pd = false, lesion_presente_pi = false;
 
-    private void showLesion(int parte){
-        switch (parte){
+    private void showLesion(int parte) {
+        switch (parte) {
             case BRAZO_DERECHO:
                 lesion_brazo_der.setVisibility(View.VISIBLE);
                 setListernerToLabels(BRAZO_DERECHO);
@@ -781,7 +818,7 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
             case CABEZA:
                 lesion_cabeza.setVisibility(View.VISIBLE);
                 setListernerToLabels(CABEZA);
-                cabeza_active=true;
+                cabeza_active = true;
                 lesion_presente_c = true;
                 break;
             case TRONCO:
@@ -817,17 +854,18 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
         }
     }
 
-    private void showButtons(){
+    private void showButtons() {
         LinearLayout botones_cuerpo = (LinearLayout) findViewById(R.id.botones_cuerpo);
         botones_cuerpo.setVisibility(View.VISIBLE);
     }
-    private void hideButtons(){
+
+    private void hideButtons() {
         LinearLayout botones_cuerpo = (LinearLayout) findViewById(R.id.botones_cuerpo);
         botones_cuerpo.setVisibility(View.GONE);
     }
 
 
-    public void addNewLesion(View v){
+    public void addNewLesion(View v) {
         activar_modo_nueva_lesion();
     }
 
@@ -838,30 +876,29 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
 
     @Override
     public void onBackPressed() {
-        if (!modo_nueva_lesion){
+        if (!modo_nueva_lesion) {
             finish();
             borrarPreferences();
-        }
-        else backNewLesion();
+        } else backNewLesion();
     }
 
-    public void activar_modo_nueva_lesion(){
+    public void activar_modo_nueva_lesion() {
         hideButtons();
-        if(lesion_presente_c)
+        if (lesion_presente_c)
             lesion_cabeza.setVisibility(View.GONE);
-        if(lesion_presente_t)
+        if (lesion_presente_t)
             lesion_tronco.setVisibility(View.GONE);
-        if(lesion_presente_md)
+        if (lesion_presente_md)
             lesion_mano_der.setVisibility(View.GONE);
-        if(lesion_presente_mi)
+        if (lesion_presente_mi)
             lesion_mano_izq.setVisibility(View.GONE);
-        if(lesion_presente_bd)
+        if (lesion_presente_bd)
             lesion_brazo_der.setVisibility(View.GONE);
-        if(lesion_presente_bi)
+        if (lesion_presente_bi)
             lesion_brazo_izq.setVisibility(View.GONE);
-        if(lesion_presente_pd)
+        if (lesion_presente_pd)
             lesion_pierna_der.setVisibility(View.GONE);
-        if(lesion_presente_pi)
+        if (lesion_presente_pi)
             lesion_pierna_izq.setVisibility(View.GONE);
 
         cabeza_active = true;
@@ -891,51 +928,51 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
         subtitulo_cuerpo.setText("Seleccione el lugar donde se encuentra la nueva lesión");
         modo_nueva_lesion = true;
 
-        PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("modo_nueva_lesion",true).commit();
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("modo_nueva_lesion", true).commit();
     }
 
-    public void desactivar_modo_nueva_lesion(){
-        if(modo_nueva_lesion) showButtons();
+    public void desactivar_modo_nueva_lesion() {
+        if (modo_nueva_lesion) showButtons();
 
-        if(lesion_presente_c) lesion_cabeza.setVisibility(View.VISIBLE);
-        if(lesion_presente_t) lesion_tronco.setVisibility(View.VISIBLE);
-        if(lesion_presente_md) lesion_mano_der.setVisibility(View.VISIBLE);
-        if(lesion_presente_mi) lesion_mano_izq.setVisibility(View.VISIBLE);
-        if(lesion_presente_bd) lesion_brazo_der.setVisibility(View.VISIBLE);
-        if(lesion_presente_bi) lesion_brazo_izq.setVisibility(View.VISIBLE);
-        if(lesion_presente_pd) lesion_pierna_der.setVisibility(View.VISIBLE);
-        if(lesion_presente_pi) lesion_pierna_izq.setVisibility(View.VISIBLE);
+        if (lesion_presente_c) lesion_cabeza.setVisibility(View.VISIBLE);
+        if (lesion_presente_t) lesion_tronco.setVisibility(View.VISIBLE);
+        if (lesion_presente_md) lesion_mano_der.setVisibility(View.VISIBLE);
+        if (lesion_presente_mi) lesion_mano_izq.setVisibility(View.VISIBLE);
+        if (lesion_presente_bd) lesion_brazo_der.setVisibility(View.VISIBLE);
+        if (lesion_presente_bi) lesion_brazo_izq.setVisibility(View.VISIBLE);
+        if (lesion_presente_pd) lesion_pierna_der.setVisibility(View.VISIBLE);
+        if (lesion_presente_pi) lesion_pierna_izq.setVisibility(View.VISIBLE);
 
         //Inhabilitar zonas en el diagrama
-        if(!lesion_presente_c){
+        if (!lesion_presente_c) {
             cabeza_active = false;
             label_cabeza.setOnTouchListener(null);
         }
-        if(!lesion_presente_t){
+        if (!lesion_presente_t) {
             tronco_active = false;
             label_tronco.setOnTouchListener(null);
         }
-        if(!lesion_presente_md){
+        if (!lesion_presente_md) {
             mano_der_active = false;
             label_mano_derecha.setOnTouchListener(null);
         }
-        if(!lesion_presente_mi){
+        if (!lesion_presente_mi) {
             mano_izq_active = false;
             label_mano_izquierda.setOnTouchListener(null);
         }
-        if(!lesion_presente_bd){
+        if (!lesion_presente_bd) {
             brazo_der_active = false;
             label_brazo_derecho.setOnTouchListener(null);
         }
-        if(!lesion_presente_bi){
+        if (!lesion_presente_bi) {
             brazo_izq_active = false;
             label_brazo_izquierdo.setOnTouchListener(null);
         }
-        if(!lesion_presente_pd){
+        if (!lesion_presente_pd) {
             pierna_der_active = false;
             label_pierna_derecha.setOnTouchListener(null);
         }
-        if(!lesion_presente_pi){
+        if (!lesion_presente_pi) {
             pierna_izq_active = false;
             label_pierna_izquierda.setOnTouchListener(null);
         }
@@ -945,7 +982,7 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
         PreferenceManager.getDefaultSharedPreferences(this).edit().remove("modo_nueva_lesion").commit();
     }
 
-    public void terminarToma(View v){
+    public void terminarToma(View v) {
         Intent intent = new Intent(getApplicationContext(), Evaluacion.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -955,8 +992,53 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
         String id = PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id", "");
         PreferenceManager.getDefaultSharedPreferences(this).edit()
                 .putBoolean("toma_fotos_terminada", true)
-                .putBoolean("F"+id,true)
+                .putBoolean("F" + id, true)
                 .commit();
+
+
+
+        String path = Environment.getExternalStorageDirectory()+"/REMODEL.json";
+
+        try (
+                Writer writer = new BufferedWriter(new OutputStreamWriter(
+                        new FileOutputStream(path), "UTF8"))
+                ) {
+
+            Schema schema = db.buscarSchemaActivoDelPaciente(paciente);
+            DailySchema ds = db.buscarDailySchema(schema.getUuid(), Calendar.getInstance().getTime());
+            if(ds == null){
+                //Agregar DailySchema completo y finalizarlo en null
+                db.agregarDailySchema(CuerpoHumanoActivity.dailySchema);
+                db.agregarUIcerForm( CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0) );
+                for(int i=0 ; i<CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().size() ; i++){
+                    db.agregarUIcerImg( CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().get(i) );
+                }
+            }else{
+                //Editar el dailySchema
+                db.editarDailySchema(CuerpoHumanoActivity.dailySchema);
+                db.editarUIcerForm( ds.getImagenes().getUlcerForms().get(0) );
+                for(int i=0 ; i<CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().size() ; i++){
+                    db.agregarUIcerImg( CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().get(i) );
+                }
+            }
+
+            CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().clear();
+            dailySchema = null;
+
+
+            Evaluador rater_db = db.getRaterByUUID(paciente.getEvaluadorId());
+            Evaluador fullRater = db.getFullRater(rater_db);
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
+            String json = gson.toJson(fullRater);
+            Log.e("REMODELACION",""+json);
+            writer.write(json);
+
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+
     }
 
     private void borrarPreferences() {
@@ -988,10 +1070,29 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
         edit.remove("body_name");
         edit.remove("foto_path");
         edit.remove("modo_eliminar_foto");
-        for(int i=1 ; i<=134 ; i++){
-            edit.remove("BP"+i);
+        for (int i = 1; i <= 134; i++) {
+            edit.remove("BP" + i);
         }
         edit.commit();
     }
 
+    public static void eliminarFotosNoGuardadas() {
+        /*
+        if(CuerpoHumanoActivity.dailySchema == null) return;
+        //Eliminar las fotos que quedaron en la variable statica
+        for (int j = 0; j < CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().size(); j++) {
+            String foto_name = CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().get(j).getImgUUID();
+            String foto_path = Environment.getExternalStorageDirectory()+"/LeishST/"+foto_name+".jpg";
+            File f = new File(foto_path);
+            f.delete();
+        }
+        CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().clear();
+        */
+    }
+
+    @Override
+    protected void onDestroy() {
+        eliminarFotosNoGuardadas();
+        super.onDestroy();
+    }
 }

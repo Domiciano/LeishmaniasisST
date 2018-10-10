@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -88,13 +89,11 @@ public class ThumbnailsActivity extends AppCompatActivity{
             String id = PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id", "");
             paciente = db.buscarPaciente(id);
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-
             fecha_prueba = format.format(Calendar.getInstance().getTime());
             Schema s = db.buscarSchemaActivoDelPaciente(paciente);
             DailySchema ds = db.buscarDailySchema(s.getUuid(), format.parse(fecha_prueba));
-            ulcerForm = db.getListaImagenesForm(ds.getUuid()).get(0);
-        }catch (Exception e){
+            if(ds != null) ulcerForm = db.getListaImagenesForm(ds.getUuid()).get(0);
+        }catch (ParseException e){
             Log.e("ERROR",e.getLocalizedMessage());
         }
 
@@ -264,7 +263,9 @@ public class ThumbnailsActivity extends AppCompatActivity{
         foto = new File(carpeta+"/"+foto_code+".jpg");
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         preferences.edit().putString("last_foto",foto.toString())
-                .putInt("id_zona",id_zona).commit();
+                .putInt("id_zona",id_zona)
+                .putString("foto_code",foto_code)
+                .commit();
 
         Uri uri = Uri.fromFile(foto);
 
@@ -276,30 +277,45 @@ public class ThumbnailsActivity extends AppCompatActivity{
 
     public void doVolver(View v){
 
-        ArrayList<UlcerForm> forms = db.getVentanaForms(paciente);
+        finish();
+        Intent intent = new Intent(getApplicationContext(), CuerpoHumanoActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        PreferenceManager.getDefaultSharedPreferences(this).edit().remove("modo_nueva_lesion").remove("id_zona").commit();
 
-        for(UlcerForm form : forms) {
+        //ArrayList<UlcerForm> forms = db.getVentanaForms(paciente);
+
+        //for(UlcerForm form : forms) {
+            /*
             //1. Eliminar todas las UIcelImage que tengan el numero de lesion dado para el UlcerForm especifico
             List<UIcerImg> imagenes = db.getListaImagenesPorBodyLocation(form.getUiid(), id_zona);
             //2. Eliminar todas las fotos de ese dia, para luego agregar las nuevas.
             for (UIcerImg i : imagenes) db.deleteUlcerImage(i);
-        }
+            */
+        //}
 
-        if(adapter.getCount() > 0){
+        if(adapter.getCount() > 0) {
             //Incluir las que se hayan tomado
+            /*
             String[] lista_files = carpeta.list();
-            for(int i=0 ; i<lista_files.length ; i++){
+            for (int i = 0; i < lista_files.length; i++) {
                 //Solo añade las del paciente con CC, las de la zona id_zona y en la fecha fecha_prueba
-                if(lista_files[i].contains("CC"+paciente.getCedula()) && lista_files[i].contains("BP"+id_zona) && lista_files[i].contains("DT"+fecha_prueba)) {
-                    for(UlcerForm form : forms) {
+                if (lista_files[i].contains("CC" + paciente.getCedula()) && lista_files[i].contains("BP" + id_zona) && lista_files[i].contains("DT" + fecha_prueba)) {
+                    for (UlcerForm form : forms) {
                         String uuid = UUID.randomUUID().toString();
                         UIcerImg imagen = new UIcerImg(uuid, "" + id_zona, Calendar.getInstance().getTime(), "JPG", carpeta.list()[i], "1", form.getUiid());
                         db.agregarUIcerImg(imagen);
                     }
                 }
             }
-            PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("BP"+id_zona,true).commit();
+            PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("BP" + id_zona, true).commit();
+            */
+
         }else{
+
+
+
+            /*
             //Dejar una foto con el IMGUUID=00000000-0000-0000-0000-000000000000
             if(!PreferenceManager.getDefaultSharedPreferences(this).getBoolean("modo_nueva_lesion",false)){
                 UIcerImg marca = new UIcerImg(UUID.randomUUID().toString(), "" + id_zona, Calendar.getInstance().getTime(), "JPG", "00000000-0000-0000-0000-000000000000", "1", ulcerForm.getUiid());
@@ -331,10 +347,11 @@ public class ThumbnailsActivity extends AppCompatActivity{
             else if(id_zona >= 121 && id_zona <= 134)
                 PreferenceManager.getDefaultSharedPreferences(this).edit()
                         .putBoolean("mi_ok", false).commit();
+            */
         }
 
         if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("modo_nueva_lesion",false)
-                && adapter.getCount() > 0){
+                && adapter.getCount() > 0) {
             /*
             Set<String> nuevas_lesiones = PreferenceManager.getDefaultSharedPreferences(this).getStringSet("nuevas_lesiones", null);
             if(nuevas_lesiones == null){
@@ -364,6 +381,8 @@ public class ThumbnailsActivity extends AppCompatActivity{
                 }
             }
             */
+
+            /*
             if(id_zona >= 1 && id_zona <= 18) {
                 PreferenceManager.getDefaultSharedPreferences(this).edit()
                         .putBoolean("c_ok", true).commit();
@@ -404,12 +423,19 @@ public class ThumbnailsActivity extends AppCompatActivity{
             startActivity(intent);
             PreferenceManager.getDefaultSharedPreferences(this).edit().remove("modo_nueva_lesion").remove("id_zona").commit();
             return;
+            */
         }
-        finish();
+
     }
 
     @Override
     public void onBackPressed() {
         doVolver(null);
+    }
+
+    @Override
+    protected void onDestroy() {
+        CuerpoHumanoActivity.eliminarFotosNoGuardadas();
+        super.onDestroy();
     }
 }

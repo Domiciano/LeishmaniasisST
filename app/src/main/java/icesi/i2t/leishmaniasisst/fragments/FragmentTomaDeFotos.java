@@ -167,8 +167,9 @@ public class FragmentTomaDeFotos extends Fragment {
                         p.getName()+" "+p.getLastName(),
                         db.getNumeroUlcerFormsEnDailySchemas(p),
                         db.getTotalDiasDeFotos(p),
-                        db.pacienteTieneFotosPendientes(p),
-                        isEvaluationComplete(p)));
+                        true,
+                        isEvaluationComplete(p))
+                );
                 lista_pacientes.post(new Runnable() {
                     @Override
                     public void run() {

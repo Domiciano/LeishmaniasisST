@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -24,14 +22,10 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import icesi.i2t.leishmaniasisst.data.ManejadorBD;
 import icesi.i2t.leishmaniasisst.dialogs.BooleanAnswerDialog;
-import icesi.i2t.leishmaniasisst.dialogs.ConfirmacionDialog;
-import icesi.i2t.leishmaniasisst.model.DailySchema;
 import icesi.i2t.leishmaniasisst.model.Paciente;
-import icesi.i2t.leishmaniasisst.model.Schema;
 
 public class DatosPacienteActivity extends AppCompatActivity {
 
@@ -52,7 +46,7 @@ public class DatosPacienteActivity extends AppCompatActivity {
     String medicamento="Glucantime", tipo_administracion="Intramuscular",
             dosis="4 ampollas de 5cc", fecha_inicio="30 de Enero/2016";
 
-    int dia_actual=8, semana=1, total_dias=20;
+    int dia_actual=8, semana=1, total_dias=20, dias_transcurridos = -1;
 
     TextView datos_paciente_nombre, datos_paciente_edad, datos_paciente_sexo, datos_paciente_documento;
     TextView datos_paciente_dia_actual, datos_paciente_semana_actual, datos_paciente_medicamento, datos_paciente_tipo_administracion, datos_paciente_dosis, datos_paciente_fecha_inicio;
@@ -111,13 +105,22 @@ public class DatosPacienteActivity extends AppCompatActivity {
             dosis = dosis_detail[2];
 
             if(tipo_ventana==1){
-                dia_actual = Integer.parseInt(db.getNumeroUlcerFormsEnDailySchemas(p));
+                String totalUlcerForms = db.getNumeroUlcerFormsEnDailySchemas(p);
+                if(totalUlcerForms.equals("-")){
+                    totalUlcerForms =  "-1";
+                }
+                dia_actual = Integer.parseInt(totalUlcerForms);
                 total_dias = Integer.parseInt(db.getTotalDiasDeFotos(p));
             }
             else{
-                dia_actual = Integer.parseInt(db.getDayofTreatment(p));
+                String dia_tratamiento = db.getDayofTreatment(p);
+                if(dia_tratamiento.equals("-")){
+                    dia_tratamiento =  "-1";
+                }
+                dia_actual = Integer.parseInt(dia_tratamiento);
                 total_dias = db.getTotalDays(p);
             }
+            dias_transcurridos = db.getDaysSinceLastDayOfTreatment(p);
             semana = 1 + ((dia_actual - 1) / 7);
 
         }catch (Exception e){
@@ -177,8 +180,18 @@ public class DatosPacienteActivity extends AppCompatActivity {
 
 
         String dia_actual_html = "<b>Día "+this.dia_actual+"</b> de "+this.total_dias;
+        String str_semana = "Semana "+this.semana;
+
+        if(dia_actual == -1){
+            dia_actual_html = "<b>Día " + this.dias_transcurridos + " </b> después";
+            str_semana = "del tratamiento";
+        }
+
+
+
+
         datos_paciente_dia_actual.setText(Html.fromHtml(dia_actual_html));
-        datos_paciente_semana_actual.setText("Semana "+this.semana);
+        datos_paciente_semana_actual.setText(str_semana);
         datos_paciente_medicamento.setText(this.medicamento);
         datos_paciente_tipo_administracion.setText(this.tipo_administracion);
         datos_paciente_dosis.setText(this.dosis);

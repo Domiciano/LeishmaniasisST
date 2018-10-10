@@ -1,5 +1,5 @@
 ﻿<RaterXml xmlns="http://schemas.datacontract.org/2004/07/SND.Library.Factories.GuaralST.XML" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-    <Cedula>59685617</Cedula>
+        <Cedula>59685617</Cedula>
     <Id>bb37f0e8-e324-401e-9553-688d04587b3c</Id>
     <Lastname>Cabezas</Lastname>
     <Name>Osiris Marleni</Name>

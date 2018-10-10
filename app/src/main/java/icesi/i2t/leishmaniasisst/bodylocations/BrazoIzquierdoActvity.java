@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import icesi.i2t.leishmaniasisst.CuerpoHumanoActivity;
 import icesi.i2t.leishmaniasisst.Evaluacion;
 import icesi.i2t.leishmaniasisst.R;
 import icesi.i2t.leishmaniasisst.data.ManejadorBD;
@@ -216,6 +217,7 @@ public class BrazoIzquierdoActvity extends AppCompatActivity {
         foto = new File(Environment.getExternalStorageDirectory()+"/LeishST/"+foto_code+".jpg");
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         preferences.edit().putString("last_foto",foto.toString())
+                .putString("foto_code",foto_code)
                 .commit();
 
         Uri uri = Uri.fromFile(foto);
@@ -484,6 +486,7 @@ public class BrazoIzquierdoActvity extends AppCompatActivity {
             foto = new File(Environment.getExternalStorageDirectory()+"/LeishST/"+foto_code+".jpg");
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             preferences.edit().putString("last_foto",foto.toString())
+                    .putString("foto_code",foto_code)
                     .putInt("id_zona",id_zona).commit();
 
             Uri uri = Uri.fromFile(foto);
@@ -604,6 +607,12 @@ public class BrazoIzquierdoActvity extends AppCompatActivity {
                 return;
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        CuerpoHumanoActivity.eliminarFotosNoGuardadas();
+        super.onDestroy();
     }
 
 }

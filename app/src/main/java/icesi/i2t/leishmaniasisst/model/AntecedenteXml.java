@@ -16,19 +16,19 @@ public class AntecedenteXml extends DataXml {
     private static final long serialVersionUID = 1L;
     //@Attribute(name = "xsi:type")
 
-    private String classname = "AntecedentesXml";
+    public String classname = "AntecedentesXml";
 
     @Element(name = "Id", required = false)
-    private String uuid;
+    public String uuid;
 
     @Element(name = "Name", required = false)
-    private String name;
+    public String name;
 
     @Element(name = "MedicineName", required = false)
-    private String medicineName;
+    public String medicineName;
 
     @Element(name = "SchemaId", required = false)
-    private String schemaId;
+    public String schemaId;
 
     public AntecedenteXml(){ this.uuid = UUID.randomUUID().toString();}
 

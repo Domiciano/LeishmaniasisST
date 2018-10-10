@@ -16,28 +16,28 @@ public class DailySchema extends DataXml {
 
     private static final long serialVersionUID = 1L;
     //@Attribute(name = "xsi:type")
-    private String classname = "DailySchemaXml";
+    public String classname = "DailySchemaXml";
 
     @Element(name = "Id", required = false)
-    private String uuid;
+    public String uuid;
 
     @Element(name = "DayOfTreatment", required = false)
-    private String dayOfTreatment;
+    public String dayOfTreatment;
 
     @Element(name = "DateTreatment", required = false)
-    private Date dateOfTreatment;
+    public Date dateOfTreatment;
 
     @Element(name = "SchemaId", required = false)
-    private String schemaId;
+    public String schemaId;
 
     @Element(name = "Flag", required = false)
-    private boolean flag;
+    public boolean flag;
 
     @Element(name="Prescriptions", required = false)
-    private ListaPrescripciones prescripciones;
+    public ListaPrescripciones prescripciones;
 
     @Element(name="UlcerForms", required = false)
-    private ListaUlcerForms imagenes;
+    public ListaUlcerForms imagenes;
 
 
     public DailySchema(){ this.uuid = UUID.randomUUID().toString();}
@@ -66,6 +66,7 @@ public class DailySchema extends DataXml {
         this.schemaId = schemaId;
 
     }
+
     public DailySchema(String dayOfTreatment, Date dateOfTreatment, boolean flag, String schemaId) {
         this.uuid = UUID.randomUUID().toString();
         this.dayOfTreatment = dayOfTreatment;

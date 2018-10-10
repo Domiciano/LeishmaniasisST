@@ -15,59 +15,59 @@ public class BasicAdverseEvent extends DataXml {
 
     private static final long serialVersionUID = 1L;
     //@Attribute(name = "xsi:type")
-    private String classname = "BasicAdverseEventXml";
+    public String classname = "BasicAdverseEventXml";
 
     @Element(name = "Id", required = false)
-    private String uuid;
+    public String uuid;
 
 
     @Element(name = "Name", required = false)
-    private String name;
+    public String name;
 
     @Element(name = "DolorSitio", required = false)
-    private int dolorSitio;
+    public int dolorSitio;
 
     @Element(name = "InfeccionSitio", required = false)
-    private int infeccionSitio;
+    public int infeccionSitio;
 
     @Element(name = "MalestarGeneral", required = false)
-    private int malestarGeneral;
+    public int malestarGeneral;
 
     @Element(name = "DolorMuscular", required = false)
-    private int dolorMuscular;
+    public int dolorMuscular;
 
     @Element(name = "DolorArticulaciones", required = false)
-    private int dolorArticulaciones;
+    public int dolorArticulaciones;
 
     @Element(name = "DolorCabeza", required = false)
-    private int dolorCabeza;
+    public int dolorCabeza;
 
     @Element(name = "Fiebre", required = false)
-    private int fiebre;
+    public int fiebre;
 
     @Element(name = "Nauseas", required = false)
-    private int nauseas;
+    public int nauseas;
 
     @Element(name = "Vomito", required = false)
-    private int vomito;
+    public int vomito;
 
     @Element(name = "Diarrea", required = false)
-    private int diarrea;
+    public int diarrea;
 
     @Element(name = "DolorAbdominal", required = false)
-    private int dolorAbdominal;
+    public int dolorAbdominal;
 
     @Element(name = "PerdidaApetito", required = false)
-    private int perdidaApetito;
+    public int perdidaApetito;
 
     @Element(name = "Mareo", required = false)
-    private int mareo;
+    public int mareo;
 
     @Element(name = "Palpitaciones", required = false)
-    private int palpitaciones;
+    public int palpitaciones;
 
     @Element(name = "PrescriptionId", required = false)
-    private String prescriptionId;
+    public String prescriptionId;
 
     public BasicAdverseEvent() { this.uuid = UUID.randomUUID().toString();}
 
