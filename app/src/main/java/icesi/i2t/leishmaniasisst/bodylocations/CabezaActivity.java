@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +31,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,6 +50,8 @@ import icesi.i2t.leishmaniasisst.R;
 import icesi.i2t.leishmaniasisst.data.ManejadorBD;
 import icesi.i2t.leishmaniasisst.dialogs.BooleanAnswerDialog;
 import icesi.i2t.leishmaniasisst.model.Paciente;
+import icesi.i2t.leishmaniasisst.util.ImageUtils;
+import icesi.i2t.leishmaniasisst.util.LeishConstants;
 
 
 /**
@@ -237,20 +242,28 @@ public class CabezaActivity extends AppCompatActivity {
             startActivityForResult(i, 10);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 10 && resultCode == RESULT_OK){
+        if (requestCode == 10 && resultCode == RESULT_OK) {
+            try {
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                String path = preferences.getString("last_foto", "NO_FOTO");
 
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            String path = preferences.getString("last_foto","NO_FOTO");
-            if(!path.equals("NO_FOTO")) {
-                preferences.edit().putString("parte_actual","Lesiones cabeza")
-                        .putString("body_name", "cabeza").commit();
-                Intent i = new Intent(this, VistaPreviaFotoActivity.class);
-                i.putExtra("foto_path", path);
-                startActivity(i);
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                FileOutputStream fos = new FileOutputStream(new File(path));
+                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+
+                if (!path.equals("NO_FOTO")) {
+                    preferences.edit().putString("parte_actual", "Lesiones cabeza")
+                            .putString("body_name", "cabeza").apply();
+                    Intent i = new Intent(this, VistaPreviaFotoActivity.class);
+                    i.putExtra("foto_path", path);
+                    startActivity(i);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -524,41 +537,37 @@ public class CabezaActivity extends AppCompatActivity {
     }
 
 
+
     public void doVolver(View v) {
-        if(!modo_nueva_lesion) {
+        if (!modo_nueva_lesion) {
             if (volver_showed) {
                 PreferenceManager.getDefaultSharedPreferences(this).edit().remove("id_zona").commit();
                 finish();
             } else {
                 finish();
             }
-        }else{
+        } else {
             int id_zona = getSelectedPart();
-            //ToDO: Guardar en base de datos la nueva lesion
-            String cedula = paciente.getCedula();
-            foto_code = "DT"+ fecha_fotos +"DT"+"CC"+cedula+"CC_"+"BP"+id_zona+"BP_"+UUID.randomUUID().toString();
-            foto = new File(Environment.getExternalStorageDirectory()+"/LeishST/"+foto_code+".jpg");
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+            String cedula = sp.getString("patientID", "UNKNOWN");
+            foto_code = "DT" + fecha_fotos + "DT" + "CC" + cedula + "CC_" + "BP" + id_zona + "BP_" + UUID.randomUUID().toString();
+            foto = new File(Environment.getExternalStorageDirectory() + "/"+LeishConstants.FOLDER+"/" + foto_code + ".jpg");
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            preferences.edit().putString("last_foto",foto.toString())
-                    .putString("foto_code",foto_code)
-                    .putInt("id_zona",id_zona).commit();
+            preferences.edit().putString("last_foto", foto.toString()).putString("foto_code", foto_code.toString())
+                    .putInt("id_zona", id_zona).apply();
 
-            Uri uri = Uri.fromFile(foto);
+            Uri uri = ImageUtils.getImageContentUri(this, foto);
 
-
-
-
-            if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED){
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.CAMERA},
                         12);
-            }else{
+            } else {
                 Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 i.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 startActivityForResult(i, 10);
             }
-
 
 
         }
