@@ -17,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +28,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,11 +47,11 @@ import java.util.UUID;
 import icesi.i2t.leishmaniasisst.CuerpoHumanoActivity;
 import icesi.i2t.leishmaniasisst.Evaluacion;
 import icesi.i2t.leishmaniasisst.R;
-import icesi.i2t.leishmaniasisst.data.ManejadorBD;
 import icesi.i2t.leishmaniasisst.dialogs.BooleanAnswerDialog;
-import icesi.i2t.leishmaniasisst.model.Paciente;
+import icesi.i2t.leishmaniasisst.model.UIcerImg;
 import icesi.i2t.leishmaniasisst.util.ImageUtils;
 import icesi.i2t.leishmaniasisst.util.LeishConstants;
+
 
 /**
  * Created by Domiciano on 23/06/2016.
@@ -66,20 +70,33 @@ public class BrazoIzquierdoActvity extends AppCompatActivity {
 
     boolean modo_nueva_lesion=false;
 
-    ManejadorBD db;
-    Paciente paciente;
+
+
 
     String fecha_fotos;
     SimpleDateFormat format;
+
+    public ArrayList<Integer> listarBodyLocationsParaPacienteActual() {
+        ArrayList<Integer> out = new ArrayList<>();
+        String cedula = PreferenceManager.getDefaultSharedPreferences(this).getString("patientID", "");
+        if (cedula.isEmpty()) return out;
+
+        for(int i = 0; i< CuerpoHumanoActivity.currentEvaluation.getUlcerList().size() ; i++){
+            UIcerImg img = CuerpoHumanoActivity.currentEvaluation.getUlcerList().get(i);
+            int alfa = Integer.parseInt(img.getBodyLocation());
+            out.add(alfa);
+        }
+        return out;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.brazo_izq_activity);
 
-        db = new ManejadorBD(this);
+        //db = new ManejadorBD(this);
         String id = PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id","");
-        paciente = db.buscarPaciente(id);
+        //paciente = db.buscarPaciente(id);
 
 
         format = new SimpleDateFormat("yyyy-MM-dd");
@@ -121,28 +138,18 @@ public class BrazoIzquierdoActvity extends AppCompatActivity {
         //ToDO: Estos IDs de zonas afectadas deben venir del XML de la tabla con la variable InjuriesPerZone
         zonas_afectadas = new ArrayList<>();
 
-        List<Integer> bodyLocation = new ArrayList<>();
-        try{
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            String fecha_prueba = format.format(Calendar.getInstance().getTime());
-
-            bodyLocation = db.getListBodyLocation(paciente, format.parse(fecha_prueba), ManejadorBD.BRAZO_IZQUIERDO);
-
-        }catch (Exception e){
-
-        }
-        for(int i : bodyLocation)
-            zonas_afectadas.add(i);
-
-
-
-
+        /*
+        Gson gson = new Gson();
+        String json_lista = PreferenceManager.getDefaultSharedPreferences(this).getString("lista_bl","[]");
+        ArrayList<Integer> bodyLocation = gson.fromJson(json_lista, new TypeToken<ArrayList<Integer>>(){}.getType());
+        */
 
         WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(displayMetrics);
         display_height = displayMetrics.heightPixels;
         display_width = displayMetrics.widthPixels;
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_brazo_izquierdo);
         setSupportActionBar(toolbar);
@@ -156,6 +163,7 @@ public class BrazoIzquierdoActvity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
 
         region_brazo_izq = (RelativeLayout) findViewById(R.id.region_brazo_izq);
         brazo_frente = (ImageView) findViewById(R.id.brazo_der_frente);
@@ -202,35 +210,13 @@ public class BrazoIzquierdoActvity extends AppCompatActivity {
 
     String foto_code="error";
     File foto=null;
-    public void openCamera(View view) {
 
+    public void openCamera(View view) {
         int id_zona = botones_lesion.get(view);
         PreferenceManager.getDefaultSharedPreferences(this).edit().putInt("id_zona", id_zona).commit();
-        boolean bln_id_zona = PreferenceManager.getDefaultSharedPreferences(this).
-                getBoolean("BP" + id_zona, false);
-
-        if(bln_id_zona){
-
-            Intent i = new Intent(this, ThumbnailsActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-            return;
-        }
-
-        String cedula = paciente.getCedula();
-        foto_code = "DT"+ fecha_fotos +"DT"+"CC"+cedula+"CC_"+"BP"+id_zona+"BP_"+UUID.randomUUID().toString();
-        foto = new File(Environment.getExternalStorageDirectory()+"/LeishST/"+foto_code+".jpg");
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        preferences.edit().putString("last_foto",foto.toString())
-                .putString("foto_code",foto_code)
-                .commit();
-
-        Uri uri = Uri.fromFile(foto);
-
-        Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        i.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        startActivityForResult(i, 10);
-
+        Intent i = new Intent(this, ThumbnailsActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
     }
 
     @Override
@@ -367,6 +353,7 @@ public class BrazoIzquierdoActvity extends AppCompatActivity {
 
 
             ubicarLesiones();
+            showVolver();
         }
     }
 
@@ -380,13 +367,7 @@ public class BrazoIzquierdoActvity extends AppCompatActivity {
         Button b = new Button(this);
         RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(tamano_lesion,tamano_lesion);
         b.setLayoutParams(p);
-        if(!PreferenceManager.getDefaultSharedPreferences(this).getBoolean("BP"+zonas_afectadas.get(i), false)){
-            b.setBackgroundResource(R.drawable.bt_lesion);
-        }else{
-            lesiones_terminadas++;
-            if(lesiones_terminadas == zonas_afectadas.size() && !modo_nueva_lesion) showVolver();
-            b.setBackgroundResource(R.drawable.bt_lesion_terminado);
-        }
+        b.setBackgroundResource(R.drawable.bt_lesion_terminado);
 
         float alfa = zona.getX();
         float beta = zona.getY();
@@ -429,6 +410,18 @@ public class BrazoIzquierdoActvity extends AppCompatActivity {
     }
 
     private void ubicarLesiones() {
+        zonas_afectadas.clear();
+        botones_lesion.clear();
+        noisel_senotob.clear();
+
+        ArrayList<Integer> bodyLocation = listarBodyLocationsParaPacienteActual();
+        if(bodyLocation.size() == 0 && !modo_nueva_lesion){
+            finish();
+            return;
+        }
+        for (int i : bodyLocation)
+            zonas_afectadas.add(i);
+
         for (int i=0 ; i<zonas_afectadas.size() ; i++){
             int id_zona = zonas_afectadas.get(i);
             Button b = id_zonas.get(id_zona);
@@ -438,8 +431,7 @@ public class BrazoIzquierdoActvity extends AppCompatActivity {
         }
 
         verifyFotos();
-        if(!modo_nueva_lesion) showVolverIfIsComplete();
-        else activar_modo_nueva_lesion();
+        if (modo_nueva_lesion) activar_modo_nueva_lesion();
     }
 
     private void clearLesiones() {
@@ -484,7 +476,6 @@ public class BrazoIzquierdoActvity extends AppCompatActivity {
 
 
 
-
     public void doVolver(View v) {
         if (!modo_nueva_lesion) {
             if (volver_showed) {
@@ -497,7 +488,7 @@ public class BrazoIzquierdoActvity extends AppCompatActivity {
             int id_zona = getSelectedPart();
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
             String cedula = sp.getString("patientID", "UNKNOWN");
-            foto_code = "DT" + fecha_fotos + "DT" + "CC" + cedula + "CC_" + "BP" + id_zona + "BP_" + UUID.randomUUID().toString();
+            foto_code = "GUARAL_DT" + fecha_fotos + "DT" + "CC" + cedula + "CC_" + "BP" + id_zona + "BP_" + UUID.randomUUID().toString();
             foto = new File(Environment.getExternalStorageDirectory() + "/"+LeishConstants.FOLDER+"/" + foto_code + ".jpg");
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             preferences.edit().putString("last_foto", foto.toString()).putString("foto_code", foto_code.toString())
@@ -519,7 +510,6 @@ public class BrazoIzquierdoActvity extends AppCompatActivity {
 
         }
     }
-
     public void verifyFotos(){
         /*Menos VUELTAS QUE EL DE ABAJO
         for(int i=0 ; i<zonas_afectadas.size() ; i++){
@@ -538,11 +528,7 @@ public class BrazoIzquierdoActvity extends AppCompatActivity {
             Button b = noisel_senotob.get(i);
             if(b == null) continue;
 
-            if(!PreferenceManager.getDefaultSharedPreferences(this).getBoolean("BP"+i, false)){
-                b.setBackgroundResource(R.drawable.bt_lesion);
-            }else{
-                b.setBackgroundResource(R.drawable.bt_lesion_terminado);
-            }
+            b.setBackgroundResource(R.drawable.bt_lesion_terminado);
         }
 
 
@@ -588,8 +574,10 @@ public class BrazoIzquierdoActvity extends AppCompatActivity {
 
         for(int i : zonas_afectadas) {
             Button b = id_zonas.get(i);
-            b.setVisibility(View.VISIBLE);
-            b.setAlpha(1);
+            if(b != null) {
+                b.setVisibility(View.VISIBLE);
+                b.setAlpha(1);
+            }
         }
     }
 
@@ -607,14 +595,17 @@ public class BrazoIzquierdoActvity extends AppCompatActivity {
 
 
 
+    View actual_button;
+
     private void intentarAbrirCamara(View v) {
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED){
+        actual_button = v;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.CAMERA},
                     11);
-        }else{
-            openCamera(v);
+        } else {
+            openCamera(actual_button);
         }
     }
 
@@ -623,19 +614,39 @@ public class BrazoIzquierdoActvity extends AppCompatActivity {
         switch (requestCode) {
             case 11: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    openCamera(null);
+                    openCamera(actual_button);
                 } else {
                     Toast.makeText(getApplicationContext(), "Permission denied", Toast.LENGTH_SHORT).show();
                 }
                 return;
             }
-        }
-    }
 
-    @Override
-    protected void onDestroy() {
-        CuerpoHumanoActivity.eliminarFotosNoGuardadas();
-        super.onDestroy();
+            case 12: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    int id_zona = getSelectedPart();
+                    //ToDO: Guardar en base de datos la nueva lesion
+                    //String cedula = paciente.getCedula();
+                    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+                    String cedula = sp.getString("patientID", "UNKNOWN");
+                    foto_code = "GUARAL_DT" + fecha_fotos + "DT" + "CC" + cedula + "CC_" + "BP" + id_zona + "BP_" + UUID.randomUUID().toString();
+                    foto = new File(Environment.getExternalStorageDirectory() + "/"+LeishConstants.FOLDER+"/" + foto_code + ".jpg");
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                    preferences.edit().putString("last_foto", foto.toString()).putString("foto_code", foto_code.toString())
+                            .putInt("id_zona", id_zona).apply();
+
+                    Uri uri = Uri.fromFile(foto);
+
+                    Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    i.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                    startActivityForResult(i, 10);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Permission denied", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+        }
     }
 
 }

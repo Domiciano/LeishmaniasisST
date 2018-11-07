@@ -1,60 +1,52 @@
 package icesi.i2t.leishmaniasisst;
 
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.w3c.dom.Text;
-
 import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
-import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import icesi.i2t.leishmaniasisst.bodylocations.BrazoDerechoActivity;
 import icesi.i2t.leishmaniasisst.bodylocations.BrazoIzquierdoActvity;
 import icesi.i2t.leishmaniasisst.bodylocations.CabezaActivity;
+import icesi.i2t.leishmaniasisst.bodylocations.FotoEvaluation;
 import icesi.i2t.leishmaniasisst.bodylocations.ManoDerechaActivity;
 import icesi.i2t.leishmaniasisst.bodylocations.ManoIzquierdaActivity;
 import icesi.i2t.leishmaniasisst.bodylocations.PiernaDerechaActivity;
@@ -70,10 +62,15 @@ import icesi.i2t.leishmaniasisst.model.Paciente;
 import icesi.i2t.leishmaniasisst.model.Schema;
 import icesi.i2t.leishmaniasisst.model.UIcerImg;
 import icesi.i2t.leishmaniasisst.model.UlcerForm;
-import icesi.i2t.leishmaniasisst.util.GeneralUtils;
 
 
 public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTouchListener {
+
+
+    public static FotoEvaluation currentEvaluation;
+    public static DailySchema dailySchema;
+    ManejadorBD db;
+    Paciente paciente;
 
     boolean focus = true;
     ImageView cuerpo;
@@ -107,29 +104,11 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
 
     boolean modo_nueva_lesion = false;
 
-    ManejadorBD db;
-    Paciente paciente;
-
-    public static DailySchema dailySchema;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cuerpo_humano_activity);
-
-        List<Integer> bodyLocation = null;
-        try {
-            db = new ManejadorBD(this);
-            String id = PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id", "");
-            paciente = db.buscarPaciente(id);
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            String fecha_prueba = format.format(Calendar.getInstance().getTime());
-
-            bodyLocation = db.getListBodyLocation(paciente, format.parse(fecha_prueba), ManejadorBD.ALL_PARTS);
-            int numero = bodyLocation.size();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
 
         WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
@@ -146,6 +125,7 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary));
         }
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_cuerpo_humano);
         setSupportActionBar(toolbar);
@@ -219,17 +199,41 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
         lesion_mano_izq.setVisibility(View.GONE);
 
 
-        ponerIndicadoresDeLesion(bodyLocation);
-        ponerIndicadoresDeLesionTerminada();
-
-        hideButtons();
+        db = new ManejadorBD(this);
+        String id = PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id", "");
+        paciente = db.buscarPaciente(id);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String fecha_prueba = format.format(Calendar.getInstance().getTime());
 
         if (dailySchema == null) {
             Schema schema = db.buscarSchemaActivoDelPaciente(paciente);
             Calendar hoy = Calendar.getInstance();
             DailySchema days = db.buscarDailySchema(schema.getUuid(), hoy.getTime());
-            if (dailySchema != null) {
+            if (days != null) {
                 dailySchema = days;
+
+                if(dailySchema.imagenes == null){
+                    ListaUlcerImages listaUlcerImages = new ListaUlcerImages();
+                    UlcerForm ulcerForm = new UlcerForm(UUID.randomUUID().toString(), "", hoy.getTime(), dailySchema.getUuid());
+                    ulcerForm.setUlcerImages(listaUlcerImages);
+                    ListaUlcerForms listaUlcerForms = new ListaUlcerForms();
+                    listaUlcerForms.getUlcerForms().add(ulcerForm);
+                    dailySchema.setImagenes(listaUlcerForms);
+                }else{
+                    if(dailySchema.imagenes.getUlcerForms() == null ){
+                        ArrayList<UlcerForm> lista = new ArrayList<UlcerForm>();
+                        UlcerForm ulcerForm = new UlcerForm(UUID.randomUUID().toString(), "", hoy.getTime(), dailySchema.getUuid());
+                        lista.add(ulcerForm);
+                        dailySchema.imagenes.setUlcerForms(lista);
+                    }else {
+                        if(dailySchema.imagenes.getUlcerForms().size() == 0){
+                            ArrayList<UlcerForm> lista = new ArrayList<UlcerForm>();
+                            UlcerForm ulcerForm = new UlcerForm(UUID.randomUUID().toString(), "", hoy.getTime(), dailySchema.getUuid());
+                            lista.add(ulcerForm);
+                            dailySchema.imagenes.setUlcerForms(lista);
+                        }
+                    }
+                }
             } else {
                 String dia_tratamiento = "" + (Integer.parseInt(db.getLastDayOfTreatment(paciente)) + db.getDaysSinceLastDayOfTreatment(paciente));
                 dailySchema = new DailySchema(UUID.randomUUID().toString(), dia_tratamiento, hoy.getTime(), false, schema.getUuid());
@@ -242,96 +246,57 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
                 dailySchema.setImagenes(listaUlcerForms);
             }
         }
-        Gson gson = new Gson();
-        Log.e("REMODELACION", "" + gson.toJson(dailySchema));
+
+        if (currentEvaluation == null) {
+            currentEvaluation = new FotoEvaluation();
+        }
+
     }
 
     private void ponerIndicadoresDeLesionTerminada() {
         try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            String fecha_prueba = format.format(Calendar.getInstance().getTime());
-            DailySchema ds = db.buscarDailySchema(db.buscarSchemaActivoDelPaciente(paciente).getUuid(), format.parse(fecha_prueba));
-            if (ds == null) return;
-            List<UIcerImg> imagenes = db.getListaImagenes(db.getListaImagenesForm(ds.getUuid()).get(0).getUiid());
-            for (int i = 0; i < imagenes.size(); i++) {
-                if (!imagenes.get(i).getImgUUID().equals("00000000-0000-0000-0000-000000000000")) {
-                    int bl = Integer.parseInt(imagenes.get(i).getBodyLocation());
-                    PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("BP" + bl, true).commit();
-                    if (bl >= 1 && bl <= 18)
-                        PreferenceManager.getDefaultSharedPreferences(this).edit()
-                                .putBoolean("c_ok", true).putString("parte_actual", "Lesiones cabeza").commit();
-                    else if (bl >= 19 && bl <= 34)
-                        PreferenceManager.getDefaultSharedPreferences(this).edit()
-                                .putBoolean("bd_ok", true).putString("parte_actual", "Lesiones brazo derecho").commit();
-                    else if (bl >= 35 && bl <= 50)
-                        PreferenceManager.getDefaultSharedPreferences(this).edit()
-                                .putBoolean("bi_ok", true).putString("parte_actual", "Lesiones brazo izquierda").commit();
-                    else if (bl >= 51 && bl <= 74)
-                        PreferenceManager.getDefaultSharedPreferences(this).edit()
-                                .putBoolean("t_ok", true).putString("parte_actual", "Lesiones tronco").commit();
-                    else if (bl >= 75 && bl <= 90)
-                        PreferenceManager.getDefaultSharedPreferences(this).edit()
-                                .putBoolean("pd_ok", true).putString("parte_actual", "Lesiones pierna derecha").commit();
-                    else if (bl >= 91 && bl <= 106)
-                        PreferenceManager.getDefaultSharedPreferences(this).edit()
-                                .putBoolean("pi_ok", true).putString("parte_actual", "Lesiones pierna izquierda").commit();
-                    else if (bl >= 107 && bl <= 120)
-                        PreferenceManager.getDefaultSharedPreferences(this).edit()
-                                .putBoolean("md_ok", true).putString("parte_actual", "Lesiones mano derecha").commit();
-                    else if (bl >= 121 && bl <= 134)
-                        PreferenceManager.getDefaultSharedPreferences(this).edit()
-                                .putBoolean("mi_ok", true).putString("parte_actual", "Lesiones mano izquierda").commit();
-                }
-            }
-        } catch (ParseException e) {
+            hideAllLesiones();
+            ArrayList<Integer> imagenes = listarBodyLocationsParaPacienteActual();
+            ponerIndicadoresDeLesion(imagenes);
+        } catch (Exception e) {
             Log.e("ERROR", e.getLocalizedMessage());
         }
     }
 
-    private void ponerIndicadoresDeLesion(List<Integer> bodyLocation) {
-        for (Integer bl : bodyLocation) {
-            if (bl >= 1 && bl <= 18)
-                PreferenceManager.getDefaultSharedPreferences(this).edit()
-                        .putBoolean("prueba_c", true).commit();
-            else if (bl >= 19 && bl <= 34)
-                PreferenceManager.getDefaultSharedPreferences(this).edit()
-                        .putBoolean("prueba_bd", true).commit();
-            else if (bl >= 35 && bl <= 50)
-                PreferenceManager.getDefaultSharedPreferences(this).edit()
-                        .putBoolean("prueba_bi", true).commit();
-            else if (bl >= 51 && bl <= 74)
-                PreferenceManager.getDefaultSharedPreferences(this).edit()
-                        .putBoolean("prueba_t", true).commit();
-            else if (bl >= 75 && bl <= 90)
-                PreferenceManager.getDefaultSharedPreferences(this).edit()
-                        .putBoolean("prueba_pd", true).commit();
-            else if (bl >= 91 && bl <= 106)
-                PreferenceManager.getDefaultSharedPreferences(this).edit()
-                        .putBoolean("prueba_pi", true).commit();
-            else if (bl >= 107 && bl <= 120)
-                PreferenceManager.getDefaultSharedPreferences(this).edit()
-                        .putBoolean("prueba_md", true).commit();
-            else if (bl >= 121 && bl <= 134)
-                PreferenceManager.getDefaultSharedPreferences(this).edit()
-                        .putBoolean("prueba_mi", true).commit();
+    public ArrayList<Integer> listarBodyLocationsParaPacienteActual() {
+        ArrayList<Integer> out = new ArrayList<>();
+        for (int i = 0; i < this.currentEvaluation.getUlcerList().size(); i++) {
+            UIcerImg img = this.currentEvaluation.getUlcerList().get(i);
+            int alfa = Integer.parseInt(img.getBodyLocation());
+            out.add(alfa);
         }
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_bd", false))
-            showLesion(BRAZO_DERECHO);
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_bi", false))
-            showLesion(BRAZO_IZQUIERDO);
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_c", false))
-            showLesion(CABEZA);
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_t", false))
-            showLesion(TRONCO);
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_pd", false))
-            showLesion(PIERNA_DERECHA);
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_pi", false))
-            showLesion(PIERNA_IZQUIERDA);
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_md", false))
-            showLesion(MANO_DERECHA);
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prueba_mi", false))
-            showLesion(MANO_IZQUIERDA);
+        return out;
+    }
 
+    private void ponerIndicadoresDeLesion(List<Integer> bodyLocation) {
+        try {
+            for (Integer bl : bodyLocation) {
+                if (bl >= 1 && bl <= 18)
+                    showLesion(CABEZA);
+                else if (bl >= 19 && bl <= 34)
+                    showLesion(BRAZO_DERECHO);
+                else if (bl >= 35 && bl <= 50)
+                    showLesion(BRAZO_IZQUIERDO);
+                else if (bl >= 51 && bl <= 74)
+                    showLesion(TRONCO);
+                else if (bl >= 75 && bl <= 90)
+                    showLesion(PIERNA_DERECHA);
+                else if (bl >= 91 && bl <= 106)
+                    showLesion(PIERNA_IZQUIERDA);
+                else if (bl >= 107 && bl <= 120)
+                    showLesion(MANO_DERECHA);
+                else if (bl >= 121 && bl <= 134)
+                    showLesion(MANO_IZQUIERDA);
+            }
+
+        } catch (Exception e) {
+            Log.e("ERROR", e.getLocalizedMessage());
+        }
     }
 
     @Override
@@ -351,7 +316,7 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
                 @Override
                 public void finish(String salida) {
                     if (salida.equals("SI")) {
-                        Intent intent = new Intent(getApplicationContext(), Evaluacion.class);
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }
@@ -365,7 +330,7 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
     @Override
     protected void onResume() {
         super.onResume();
-        hideButtons();
+        //hideButtons();
         focus = true;
 
     }
@@ -381,63 +346,13 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
             adjustSticks();
             adjustLabels();
             initLesiones();
-            comprobarLesiones();
+
+
+            ponerIndicadoresDeLesionTerminada();
 
             if (modo_nueva_lesion) activar_modo_nueva_lesion();
             else desactivar_modo_nueva_lesion();
         }
-    }
-
-    private void comprobarLesiones() {
-        boolean bd_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("bd_ok", false);
-        boolean bi_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("bi_ok", false);
-        boolean c_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("c_ok", false);
-        boolean t_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("t_ok", false);
-        boolean pd_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pd_ok", false);
-        boolean pi_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pi_ok", false);
-        boolean md_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("md_ok", false);
-        boolean mi_ok = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("mi_ok", false);
-
-        if (bd_ok) lesion_brazo_der.setBackgroundResource(R.drawable.bt_lesion_terminado);
-        else lesion_brazo_der.setBackgroundResource(R.drawable.bt_lesion);
-        if (bi_ok) lesion_brazo_izq.setBackgroundResource(R.drawable.bt_lesion_terminado);
-        else lesion_brazo_izq.setBackgroundResource(R.drawable.bt_lesion);
-        if (c_ok) lesion_cabeza.setBackgroundResource(R.drawable.bt_lesion_terminado);
-        else lesion_cabeza.setBackgroundResource(R.drawable.bt_lesion);
-        if (t_ok) lesion_tronco.setBackgroundResource(R.drawable.bt_lesion_terminado);
-        else lesion_tronco.setBackgroundResource(R.drawable.bt_lesion);
-        if (pd_ok) lesion_pierna_der.setBackgroundResource(R.drawable.bt_lesion_terminado);
-        else lesion_pierna_der.setBackgroundResource(R.drawable.bt_lesion);
-        if (pi_ok) lesion_pierna_izq.setBackgroundResource(R.drawable.bt_lesion_terminado);
-        else lesion_pierna_izq.setBackgroundResource(R.drawable.bt_lesion);
-        if (md_ok) lesion_mano_der.setBackgroundResource(R.drawable.bt_lesion_terminado);
-        else lesion_mano_der.setBackgroundResource(R.drawable.bt_lesion);
-        if (mi_ok) lesion_mano_izq.setBackgroundResource(R.drawable.bt_lesion_terminado);
-        else lesion_mano_izq.setBackgroundResource(R.drawable.bt_lesion);
-
-        //Contar las lesiones en pantalla
-        int numero_lesiones = 0;
-        if (lesion_mano_der.getVisibility() == View.VISIBLE) numero_lesiones++;
-        if (lesion_mano_izq.getVisibility() == View.VISIBLE) numero_lesiones++;
-        if (lesion_pierna_der.getVisibility() == View.VISIBLE) numero_lesiones++;
-        if (lesion_pierna_izq.getVisibility() == View.VISIBLE) numero_lesiones++;
-        if (lesion_brazo_der.getVisibility() == View.VISIBLE) numero_lesiones++;
-        if (lesion_brazo_izq.getVisibility() == View.VISIBLE) numero_lesiones++;
-        if (lesion_tronco.getVisibility() == View.VISIBLE) numero_lesiones++;
-        if (lesion_cabeza.getVisibility() == View.VISIBLE) numero_lesiones++;
-
-        int lesiones_terminadas = 0;
-        if (lesion_mano_der.getVisibility() == View.VISIBLE && md_ok) lesiones_terminadas++;
-        if (lesion_mano_izq.getVisibility() == View.VISIBLE && mi_ok) lesiones_terminadas++;
-        if (lesion_pierna_der.getVisibility() == View.VISIBLE && pd_ok) lesiones_terminadas++;
-        if (lesion_pierna_izq.getVisibility() == View.VISIBLE && pi_ok) lesiones_terminadas++;
-        if (lesion_brazo_der.getVisibility() == View.VISIBLE && bd_ok) lesiones_terminadas++;
-        if (lesion_brazo_izq.getVisibility() == View.VISIBLE && bi_ok) lesiones_terminadas++;
-        if (lesion_tronco.getVisibility() == View.VISIBLE && t_ok) lesiones_terminadas++;
-        if (lesion_cabeza.getVisibility() == View.VISIBLE && c_ok) lesiones_terminadas++;
-
-        if (lesiones_terminadas == numero_lesiones) showButtons();
-
     }
 
 
@@ -594,6 +509,18 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
 
         label_mano_derecha.setX(cuerpo.getX() - (int) (1 * cuerpo.getWidth()));
         label_mano_derecha.setY(cuerpo.getY() + (int) (0.5 * cuerpo.getHeight()));
+    }
+
+
+    private void removeListernerToAllLabels() {
+        label_brazo_derecho.setOnTouchListener(null);
+        label_brazo_izquierdo.setOnTouchListener(null);
+        label_cabeza.setOnTouchListener(null);
+        label_tronco.setOnTouchListener(null);
+        label_mano_derecha.setOnTouchListener(null);
+        label_mano_izquierda.setOnTouchListener(null);
+        label_pierna_derecha.setOnTouchListener(null);
+        label_pierna_izquierda.setOnTouchListener(null);
     }
 
     private void setListernerToLabels(int parte) {
@@ -805,54 +732,99 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
         switch (parte) {
             case BRAZO_DERECHO:
                 lesion_brazo_der.setVisibility(View.VISIBLE);
+                lesion_brazo_der.setBackgroundResource(R.drawable.bt_lesion_terminado);
                 setListernerToLabels(BRAZO_DERECHO);
                 brazo_der_active = true;
                 lesion_presente_bd = true;
                 break;
             case BRAZO_IZQUIERDO:
                 lesion_brazo_izq.setVisibility(View.VISIBLE);
+                lesion_brazo_izq.setBackgroundResource(R.drawable.bt_lesion_terminado);
                 setListernerToLabels(BRAZO_IZQUIERDO);
                 brazo_izq_active = true;
                 lesion_presente_bi = true;
                 break;
             case CABEZA:
                 lesion_cabeza.setVisibility(View.VISIBLE);
+                lesion_cabeza.setBackgroundResource(R.drawable.bt_lesion_terminado);
                 setListernerToLabels(CABEZA);
                 cabeza_active = true;
                 lesion_presente_c = true;
                 break;
             case TRONCO:
                 lesion_tronco.setVisibility(View.VISIBLE);
+                lesion_tronco.setBackgroundResource(R.drawable.bt_lesion_terminado);
                 setListernerToLabels(TRONCO);
                 tronco_active = true;
                 lesion_presente_t = true;
                 break;
             case PIERNA_DERECHA:
                 lesion_pierna_der.setVisibility(View.VISIBLE);
+                lesion_pierna_der.setBackgroundResource(R.drawable.bt_lesion_terminado);
                 setListernerToLabels(PIERNA_DERECHA);
                 pierna_der_active = true;
                 lesion_presente_pd = true;
                 break;
             case PIERNA_IZQUIERDA:
                 lesion_pierna_izq.setVisibility(View.VISIBLE);
+                lesion_pierna_izq.setBackgroundResource(R.drawable.bt_lesion_terminado);
                 setListernerToLabels(PIERNA_IZQUIERDA);
                 pierna_izq_active = true;
                 lesion_presente_pi = true;
                 break;
             case MANO_DERECHA:
                 lesion_mano_der.setVisibility(View.VISIBLE);
+                lesion_mano_der.setBackgroundResource(R.drawable.bt_lesion_terminado);
                 setListernerToLabels(MANO_DERECHA);
                 mano_der_active = true;
                 lesion_presente_md = true;
                 break;
             case MANO_IZQUIERDA:
                 lesion_mano_izq.setVisibility(View.VISIBLE);
+                lesion_mano_izq.setBackgroundResource(R.drawable.bt_lesion_terminado);
                 setListernerToLabels(MANO_IZQUIERDA);
                 mano_izq_active = true;
                 lesion_presente_mi = true;
                 break;
         }
     }
+
+    private void hideAllLesiones() {
+        lesion_brazo_der.setVisibility(View.INVISIBLE);
+        brazo_der_active = false;
+        lesion_presente_bd = false;
+
+        lesion_brazo_izq.setVisibility(View.INVISIBLE);
+        brazo_izq_active = false;
+        lesion_presente_bi = false;
+
+        lesion_cabeza.setVisibility(View.INVISIBLE);
+        cabeza_active = false;
+        lesion_presente_c = false;
+
+        lesion_tronco.setVisibility(View.INVISIBLE);
+        tronco_active = false;
+        lesion_presente_t = false;
+
+        lesion_pierna_der.setVisibility(View.INVISIBLE);
+        pierna_der_active = false;
+        lesion_presente_pd = false;
+
+        lesion_pierna_izq.setVisibility(View.INVISIBLE);
+        pierna_izq_active = false;
+        lesion_presente_pi = false;
+
+        lesion_mano_der.setVisibility(View.INVISIBLE);
+        mano_der_active = false;
+        lesion_presente_md = false;
+
+        lesion_mano_izq.setVisibility(View.INVISIBLE);
+        mano_izq_active = false;
+        lesion_presente_mi = false;
+
+        removeListernerToAllLabels();
+    }
+
 
     private void showButtons() {
         LinearLayout botones_cuerpo = (LinearLayout) findViewById(R.id.botones_cuerpo);
@@ -932,7 +904,9 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
     }
 
     public void desactivar_modo_nueva_lesion() {
-        if (modo_nueva_lesion) showButtons();
+        modo_nueva_lesion = false;
+        PreferenceManager.getDefaultSharedPreferences(this).edit().remove("modo_nueva_lesion").commit();
+        if (!modo_nueva_lesion) showButtons();
 
         if (lesion_presente_c) lesion_cabeza.setVisibility(View.VISIBLE);
         if (lesion_presente_t) lesion_tronco.setVisibility(View.VISIBLE);
@@ -978,16 +952,10 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
         }
 
         subtitulo_cuerpo.setText("Seleccione la zona del cuerpo donde se encuentran ubicadas las lesiones para fotografiarla.");
-        modo_nueva_lesion = false;
-        PreferenceManager.getDefaultSharedPreferences(this).edit().remove("modo_nueva_lesion").commit();
+
     }
 
     public void terminarToma(View v) {
-        Intent intent = new Intent(getApplicationContext(), Evaluacion.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-
-        borrarPreferences();
 
         String id = PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id", "");
         PreferenceManager.getDefaultSharedPreferences(this).edit()
@@ -995,48 +963,64 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
                 .putBoolean("F" + id, true)
                 .commit();
 
+        Schema schema = db.buscarSchemaActivoDelPaciente(paciente);
+        DailySchema ds = db.buscarDailySchema(schema.getUuid(), Calendar.getInstance().getTime());
+        if (ds == null) {
+            //Agregar DailySchema completo y finalizarlo en null
+            db.agregarDailySchema(CuerpoHumanoActivity.dailySchema);
+            db.agregarUIcerForm(CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0));
+
+            for (int i = 0; i < currentEvaluation.getUlcerList().size() ; i++) {
+                currentEvaluation.getUlcerList().get(i).setUIcerFormId(
+                        CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUiid()
+                );
+                db.agregarUIcerImg(currentEvaluation.getUlcerList().get(i));
+            }
+
+        } else {
+            //Editar el dailySchema
+            db.editarDailySchema(CuerpoHumanoActivity.dailySchema);
+            db.editarUIcerForm(ds.getImagenes().getUlcerForms().get(0));
+            for (int i = 0; i < currentEvaluation.getUlcerList().size() ; i++) {
+                currentEvaluation.getUlcerList().get(i).setUIcerFormId(
+                        CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUiid()
+                );
+                db.agregarUIcerImg(currentEvaluation.getUlcerList().get(i));
+            }
+        }
+
+        CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().clear();
+        dailySchema = null;
+        currentEvaluation.getUlcerList().clear();
+        currentEvaluation = null;
+
+
+        Evaluador rater_db = db.getRaterByUUID(paciente.getEvaluadorId());
+        Evaluador fullRater = db.getFullRater(rater_db);
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
+        String json = gson.toJson(fullRater);
+        Log.e("REMODELACION", "" + json);
 
 
         String path = Environment.getExternalStorageDirectory()+"/REMODEL.json";
-
         try (
                 Writer writer = new BufferedWriter(new OutputStreamWriter(
                         new FileOutputStream(path), "UTF8"))
-                ) {
-
-            Schema schema = db.buscarSchemaActivoDelPaciente(paciente);
-            DailySchema ds = db.buscarDailySchema(schema.getUuid(), Calendar.getInstance().getTime());
-            if(ds == null){
-                //Agregar DailySchema completo y finalizarlo en null
-                db.agregarDailySchema(CuerpoHumanoActivity.dailySchema);
-                db.agregarUIcerForm( CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0) );
-                for(int i=0 ; i<CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().size() ; i++){
-                    db.agregarUIcerImg( CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().get(i) );
-                }
-            }else{
-                //Editar el dailySchema
-                db.editarDailySchema(CuerpoHumanoActivity.dailySchema);
-                db.editarUIcerForm( ds.getImagenes().getUlcerForms().get(0) );
-                for(int i=0 ; i<CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().size() ; i++){
-                    db.agregarUIcerImg( CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().get(i) );
-                }
-            }
-
-            CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().clear();
-            dailySchema = null;
-
-
-            Evaluador rater_db = db.getRaterByUUID(paciente.getEvaluadorId());
-            Evaluador fullRater = db.getFullRater(rater_db);
-            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
-            String json = gson.toJson(fullRater);
-            Log.e("REMODELACION",""+json);
+        ) {
             writer.write(json);
-
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+
+        Intent intent = new Intent(getApplicationContext(), Evaluacion.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        borrarPreferences();
 
 
     }
@@ -1076,23 +1060,4 @@ public class CuerpoHumanoActivity extends AppCompatActivity implements View.OnTo
         edit.commit();
     }
 
-    public static void eliminarFotosNoGuardadas() {
-        /*
-        if(CuerpoHumanoActivity.dailySchema == null) return;
-        //Eliminar las fotos que quedaron en la variable statica
-        for (int j = 0; j < CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().size(); j++) {
-            String foto_name = CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().get(j).getImgUUID();
-            String foto_path = Environment.getExternalStorageDirectory()+"/LeishST/"+foto_name+".jpg";
-            File f = new File(foto_path);
-            f.delete();
-        }
-        CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().clear();
-        */
-    }
-
-    @Override
-    protected void onDestroy() {
-        eliminarFotosNoGuardadas();
-        super.onDestroy();
-    }
 }

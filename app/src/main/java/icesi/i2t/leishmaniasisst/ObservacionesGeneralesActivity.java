@@ -126,7 +126,7 @@ public class ObservacionesGeneralesActivity extends AppCompatActivity{
         //Evaluador full_rater = db.getFullRater(ev);
         Intent intentService = new Intent(this, SyncService.class);
         intentService.putExtra("rater", ev);
-        startService(intentService);
+        //startService(intentService);
 
 
         Intent intent = new Intent(getApplicationContext(), Evaluacion.class);

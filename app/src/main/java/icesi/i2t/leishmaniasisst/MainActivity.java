@@ -35,6 +35,7 @@ import icesi.i2t.leishmaniasisst.cloudinary.CloudinaryHandler;
 import icesi.i2t.leishmaniasisst.data.ManejadorBD;
 import icesi.i2t.leishmaniasisst.model.Evaluador;
 import icesi.i2t.leishmaniasisst.services.SessionController;
+import icesi.i2t.leishmaniasisst.util.LeishConstants;
 
 public class MainActivity extends Activity {
 
@@ -74,7 +75,7 @@ public class MainActivity extends Activity {
                         new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET},
                         11);
             }else{
-                File f = new File(Environment.getExternalStorageDirectory().toString() + "/LeishST");
+                File f = new File(Environment.getExternalStorageDirectory().toString() + "/"+LeishConstants.FOLDER);
                 if(!f.exists()) f.mkdirs();
             }
         }
@@ -85,7 +86,7 @@ public class MainActivity extends Activity {
         switch (requestCode) {
             case 11: {
                 Toast.makeText(this, "Permisos concedidos", Toast.LENGTH_SHORT).show();
-                File f = new File(Environment.getExternalStorageDirectory() + "/LeishST/");
+                File f = new File(Environment.getExternalStorageDirectory() + "/"+LeishConstants.FOLDER+"/");
                 if(!f.exists()) f.mkdirs();
             }
         }

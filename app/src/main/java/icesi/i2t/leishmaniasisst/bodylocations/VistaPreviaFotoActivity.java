@@ -1,14 +1,13 @@
 package icesi.i2t.leishmaniasisst.bodylocations;
 
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
@@ -25,26 +24,26 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.UUID;
 
 import icesi.i2t.leishmaniasisst.CuerpoHumanoActivity;
 import icesi.i2t.leishmaniasisst.Evaluacion;
 import icesi.i2t.leishmaniasisst.R;
+import icesi.i2t.leishmaniasisst.data.DatabaseHandler;
 import icesi.i2t.leishmaniasisst.dialogs.BooleanAnswerDialog;
 import icesi.i2t.leishmaniasisst.model.UIcerImg;
 import icesi.i2t.leishmaniasisst.util.ImageUtils;
 
+
 /**
  * Created by Domiciano on 02/06/2016.
  */
-public class VistaPreviaFotoActivity extends AppCompatActivity{
+public class VistaPreviaFotoActivity extends AppCompatActivity {
 
     static final boolean MODO_NORMAL=false;
     static final boolean MODO_ELIMINAR=true;
@@ -59,10 +58,14 @@ public class VistaPreviaFotoActivity extends AppCompatActivity{
 
     TextView titulo_vista_previa;
 
+    DatabaseHandler db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preview_activity);
+
+        db = new DatabaseHandler(this);
 
         titulo_vista_previa = (TextView) findViewById(R.id.titulo_vista_previa);
         titulo_vista_previa.setText(PreferenceManager.getDefaultSharedPreferences(this).getString("parte_actual","NO_TIT"));
@@ -78,6 +81,8 @@ public class VistaPreviaFotoActivity extends AppCompatActivity{
             foto_path = getIntent().getExtras().getString("foto_path");
             modo = getIntent().getExtras().getBoolean("modo_eliminar_foto", false);
         }
+
+
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_preview_screen);
@@ -97,6 +102,7 @@ public class VistaPreviaFotoActivity extends AppCompatActivity{
             }
         });
 
+
         Button boton_ok_preview = (Button) findViewById(R.id.boton_ok_preview);
         if(modo == MODO_NORMAL) boton_ok_preview.setText("Añadir Foto");
         else boton_ok_preview.setText("Eliminar Foto");
@@ -107,8 +113,12 @@ public class VistaPreviaFotoActivity extends AppCompatActivity{
         display_height = displayMetrics.heightPixels;
         display_width = displayMetrics.widthPixels;
 
+
+
+
         im = (ImageView)findViewById(R.id.foto_image);
         intentarMostrarFoto();
+
     }
 
     public void intentarMostrarFoto(){
@@ -125,7 +135,6 @@ public class VistaPreviaFotoActivity extends AppCompatActivity{
     public void loadFoto(){
         Matrix matrix = new Matrix();
         matrix.postRotate(90);
-        //b = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory()+"/LeishST/b.png");
         b = ImageUtils.decodeSampledBitmapFromResource(foto_path, 200,200);
 
         double proporcion = (double) b.getWidth()/b.getHeight();
@@ -191,32 +200,30 @@ public class VistaPreviaFotoActivity extends AppCompatActivity{
 
             int bodyLocation = PreferenceManager.getDefaultSharedPreferences(this).getInt("id_zona", -1);
             String foto_code = PreferenceManager.getDefaultSharedPreferences(this).getString("foto_code", "-1");
-            String uuid = CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUiid();
-            //Agregar foto a var estatica
-            UIcerImg img = new UIcerImg(UUID.randomUUID().toString(), ""+bodyLocation, Calendar.getInstance().getTime(), ".JPG", foto_code, "1", uuid );
-            boolean agregado = CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().add(img);
-            Log.e("REMODELACION","AGREGADO "+agregado);
 
+
+            //Agregar foto a var estatica
+            UIcerImg img = new UIcerImg(UUID.randomUUID().toString(), ""+bodyLocation, Calendar.getInstance().getTime(), ".JPG", foto_code, "1", "FORMID" );
+            CuerpoHumanoActivity.currentEvaluation.addUlcer(img);
             Intent i = new Intent(this, ThumbnailsActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
 
+
         }else if(modo == MODO_ELIMINAR){
             File f = new File(foto_path);
             f.delete();
-            Intent i = new Intent(this, ThumbnailsActivity.class);
-            setResult(RESULT_OK, i);
 
-            //Eliminar foto de var estatica
-            for(int j=0 ; j < CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().size() ; j++){
-                Log.e("Remodelaje",foto_path+" Comparado con "+CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().get(j).getImgUUID());
-                if( foto_path.contains( CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().get(j).getImgUUID() ) ){
-                    Log.e("Remodelaje","ELIMINANDO UNA IMAGEN " + CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().size());
-                    CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().remove(j);
-                    Log.e("Remodelaje","IMAGEN ELIMINADA "+CuerpoHumanoActivity.dailySchema.getImagenes().getUlcerForms().get(0).getUlcerImages().getUlcerImages().size());
+            //Eliminar la foto del registro
+            for(int i = 0; i<CuerpoHumanoActivity.currentEvaluation.getUlcerList().size() ; i++){
+                String uuid = CuerpoHumanoActivity.currentEvaluation.getUlcerList().get(i).getImgUUID();
+                if(foto_path.contains(uuid)){
+                    CuerpoHumanoActivity.currentEvaluation.getUlcerList().remove(i);
                 }
             }
 
+            Intent i = new Intent(this, ThumbnailsActivity.class);
+            setResult(RESULT_OK, i);
             finish();
         }
     }
@@ -253,11 +260,4 @@ public class VistaPreviaFotoActivity extends AppCompatActivity{
             setToolbarModoEliminar();
         }
     }
-
-    @Override
-    protected void onDestroy() {
-        CuerpoHumanoActivity.eliminarFotosNoGuardadas();
-        super.onDestroy();
-    }
-
 }

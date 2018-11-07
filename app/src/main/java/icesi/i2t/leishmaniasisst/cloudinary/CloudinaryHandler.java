@@ -1,68 +1,42 @@
 package icesi.i2t.leishmaniasisst.cloudinary;
 
-import android.app.Activity;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
-import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
-import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import android.text.method.ScrollingMovementMethod;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.prefs.Preferences;
 
 import icesi.i2t.leishmaniasisst.R;
-import icesi.i2t.leishmaniasisst.util.UriUtils;
 
 
-public class CloudinaryHandler extends Service{
+public class CloudinaryHandler extends Service {
     Cloudinary cloudinary;
     File carpeta, carpeta_subidas;
-    Notification.Builder note;
-    NotificationManager mNotifyManager;
+    NotificationCompat.Builder noteBuilder;
+    NotificationManager notificationManager;
 
-    public void startService(){
+    public static int notifyID = 10;
+    final static String CHANNEL_ID = "CANAL_LEISH";
+    final static CharSequence name = "Leishmaniasis";
+    public static int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+    public void startService() {
         Task k = new Task();
         k.execute();
     }
@@ -71,26 +45,36 @@ public class CloudinaryHandler extends Service{
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         Map config = new HashMap();
-        config.put("cloud_name", "universidad-icesi");
-        config.put("api_key", "117557741559213");
-        config.put("api_secret", "ilsEylOyiEKhq1dajOCHeTqIASA");
+        //config.put("cloud_name", "universidad-icesi");
+        //config.put("api_key", "117557741559213");
+        //config.put("api_secret", "ilsEylOyiEKhq1dajOCHeTqIASA");
+        config.put("cloud_name", "dodcgaskp");
+        config.put("api_key", "451634862117428");
+        config.put("api_secret", "Kmf6g1YhjqBts_a3_F-pjxp3PqE");
+
         cloudinary = new Cloudinary(config);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // The user-visible name of the channel.
+            NotificationChannel miCanal = new NotificationChannel(CHANNEL_ID, name, importance);
+            notificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(miCanal);
+        }
 
-        mNotifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        note=new Notification.Builder(this)
+        noteBuilder = new NotificationCompat.Builder(CloudinaryHandler.this, CHANNEL_ID)
                 .setContentTitle("Guaral+ST")
                 .setContentText("Subiendo fotos...")
                 .setAutoCancel(true)
                 .setSmallIcon(R.mipmap.logo_cabezote);
 
 
-        startForeground(10, note.build());
+        startForeground(10, noteBuilder.build());
 
         startService();
 
-        return(START_NOT_STICKY);
+        return (START_NOT_STICKY);
     }
 
     @Override
@@ -103,34 +87,34 @@ public class CloudinaryHandler extends Service{
         return null;
     }
 
-    public class Task extends AsyncTask<String, String, String>{
+    public class Task extends AsyncTask<String, String, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            note.setProgress(100,0, false);
-            mNotifyManager.notify(10, note.build());
+            noteBuilder.setProgress(100, 0, false);
+            notificationManager.notify(notifyID, noteBuilder.build());
         }
 
         @Override
         protected String doInBackground(String... params) {
 
-            File carpeta = new File(Environment.getExternalStorageDirectory().toString() + "/LeishST");
+            File carpeta = new File(Environment.getExternalStorageDirectory().toString() + "/Leishmaniasis");
             ArrayList<File> archivos = getFiles(carpeta);
 
-            if(archivos.size() == 0){
+            if (archivos.size() == 0) {
                 stopForeground(true);
                 return "NO_UPLOADS";
             }
 
-            for(int i=0 ; i<archivos.size() ; i++){
+            for (int i = 0; i < archivos.size(); i++) {
                 try {
                     Map par = ObjectUtils.asMap("use_filename", true,
-                                                "unique_filename", false);
+                            "unique_filename", false);
                     cloudinary.uploader().upload(archivos.get(i), par);
                     archivos.get(i).delete();
-                    publishProgress(""+(((i+1)/(double)archivos.size())*100));
-                }catch (Exception e){
-                    Log.e("ERROR_SERVICE",e.getLocalizedMessage());
+                    publishProgress("" + (((i + 1) / (double) archivos.size()) * 100));
+                } catch (Exception e) {
+                    Log.e("ERROR_SERVICE", e.getLocalizedMessage());
                 }
             }
             return "SUCCESS";
@@ -139,39 +123,42 @@ public class CloudinaryHandler extends Service{
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            int progreso = (int)(Double.parseDouble(values[0]));
-            note.setProgress(100,progreso, false);
-            note.setContentTitle("Guaral+ST");
-            note.setContentText("Subiendo fotos, espere un momento");
-            mNotifyManager.notify(10, note.build());
+            int progreso = (int) (Double.parseDouble(values[0]));
+            noteBuilder.setProgress(100, progreso, false);
+            noteBuilder.setContentText("Subiendo fotos, espere un momento");
+            notificationManager.notify(notifyID, noteBuilder.build());
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            if(s.equals("SUCCESS")) {
+            if (s.equals("SUCCESS")) {
 
                 stopForeground(false);
-                note = new Notification.Builder(getApplicationContext())
-                        .setContentTitle("Guaral+ST")
+                noteBuilder = new NotificationCompat.Builder(CloudinaryHandler.this, CHANNEL_ID)
                         .setContentText("La carga de imágenes ha finalizado")
                         .setAutoCancel(true)
                         .setOngoing(false)
                         .setSmallIcon(R.mipmap.logo_cabezote);
+                notificationManager.notify(notifyID, noteBuilder.build());
 
-                mNotifyManager.notify(10, note.build());
-            }else if(s.equals("NO_UPLODAS")){
-
+            } else if (s.equals("NO_UPLOADS")) {
+                noteBuilder = new NotificationCompat.Builder(CloudinaryHandler.this, CHANNEL_ID)
+                        .setContentText("No hay imagenes para sincronizar")
+                        .setAutoCancel(true)
+                        .setOngoing(false)
+                        .setSmallIcon(R.mipmap.logo_cabezote);
+                notificationManager.notify(notifyID, noteBuilder.build());
             }
         }
 
-        public ArrayList<File> getFiles(File directory){
+        public ArrayList<File> getFiles(File directory) {
             //Conteo de archivos
             ArrayList<File> array = new ArrayList<>();
-            for(int i=0 ; i<directory.list().length ; i++){
-                if(!(new File(directory+"/"+directory.list()[i])).isDirectory()){
-                    array.add(new File(directory+"/"+directory.list()[i]));
+            for (int i = 0; i < directory.list().length; i++) {
+                if (!(new File(directory + "/" + directory.list()[i])).isDirectory()) {
+                    array.add(new File(directory + "/" + directory.list()[i]));
                 }
             }
             return array;
