@@ -10,33 +10,27 @@ public class Paciente extends DataXml {
 
     private String uuid;
 
-    private String name;
+    private String Name;
 
     private String lastName;
 
-   
     private Date birthday; // dd/MM/aaaa
-
 
     private String cedula;
 
-    
     private String documentType;
 
-    
     private String genre;
 
-    
     private String evaluadorId;
 
-    
     private ListaSchemas listaSchemas;
 
     public Paciente(){ this.uuid = UUID.randomUUID().toString();}
 
     public Paciente(String name, String lastName, Date birthday, String cedula, String documentType, String genre, String evaluadorId) {
         this.uuid = uuid;
-        this.name = name;
+        this.Name = name;
         this.lastName = lastName;
         this.birthday = birthday;
         this.cedula = cedula;
@@ -47,7 +41,7 @@ public class Paciente extends DataXml {
 
     public Paciente(String uuid, String name, String lastName, Date birthday, String cedula, String documentType, String genre, String evaluadorId, List<Schema> listaSchemas) {
         this.uuid = uuid;
-        this.name = name;
+        this.Name = name;
         this.lastName = lastName;
         this.birthday = birthday;
         this.cedula = cedula;
@@ -58,7 +52,7 @@ public class Paciente extends DataXml {
 
     public Paciente(String uuid, String name, String lastName, String cedula, Date birthday, String documentType, String genre, String evaluadorId) {
         this.uuid = uuid;
-        this.name = name;
+        this.Name = name;
         this.lastName = lastName;
         this.cedula = cedula;
         this.birthday = birthday;
@@ -76,11 +70,11 @@ public class Paciente extends DataXml {
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.Name = name;
     }
 
     public String getLastName() {

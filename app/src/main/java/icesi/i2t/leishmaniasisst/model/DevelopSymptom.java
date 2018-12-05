@@ -5,13 +5,15 @@ import java.util.UUID;
 
 public class DevelopSymptom extends DataXml {
 
+    public String classname = "DevelopSymptom";
+
     private String uuid;
 
     private String name;
 
     private String answer;
 
-    private String MedicineName;
+    private String medicineName;
 
     private boolean isActive;
 
@@ -21,14 +23,13 @@ public class DevelopSymptom extends DataXml {
 
     private String schemaId;
 
-
     public DevelopSymptom(){ this.uuid = UUID.randomUUID().toString();}
 
     public DevelopSymptom(String uuid, String name, String answer, String medicineName, boolean isActive, Date date_start, Date date_end, String schemaId) {
         this.uuid = uuid;
         this.name = name;
         this.answer = answer;
-        MedicineName = medicineName;
+        this.medicineName = medicineName;
         this.isActive = isActive;
         this.date_start = date_start;
         this.date_end = date_end;
@@ -38,7 +39,7 @@ public class DevelopSymptom extends DataXml {
         this.uuid = UUID.randomUUID().toString();
         this.name = name;
         this.answer = answer;
-        MedicineName = medicineName;
+        this.medicineName = medicineName;
         this.isActive = isActive;
         this.date_start = date_start;
         this.date_end = date_end;
@@ -86,11 +87,11 @@ public class DevelopSymptom extends DataXml {
     }
 
     public String getMedicineName() {
-        return MedicineName;
+        return medicineName;
     }
 
     public void setMedicineName(String medicineName) {
-        MedicineName = medicineName;
+        this.medicineName = medicineName;
     }
 
     public Date getDate_start() {

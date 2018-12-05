@@ -14,53 +14,36 @@ public class BasicAdverseEvent extends DataXml {
 
     public String uuid;
 
-
-
     public String name;
-
 
     public int dolorSitio;
 
-
     public int infeccionSitio;
 
-   
     public int malestarGeneral;
-
 
     public int dolorMuscular;
 
-   
     public int dolorArticulaciones;
 
-    
     public int dolorCabeza;
 
-  
     public int fiebre;
 
-   
     public int nauseas;
 
-    
     public int vomito;
 
-    
     public int diarrea;
 
-    
     public int dolorAbdominal;
 
-   
     public int perdidaApetito;
 
-   
     public int mareo;
 
-   
     public int palpitaciones;
 
-   
     public String prescriptionId;
 
     public BasicAdverseEvent() { this.uuid = UUID.randomUUID().toString();}

@@ -6,6 +6,8 @@ import java.util.UUID;
 
 public class UlcerForm extends DataXml {
 
+    public String classname = "UlcerForm";
+
     private String uiid;
 
     private String noteGeneral;

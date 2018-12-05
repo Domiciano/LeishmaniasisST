@@ -5,13 +5,15 @@ import java.util.UUID;
 
 public class Schema extends DataXml {
 
+    public String classname = "Schema";
+
     private Date dateEnd;
 
     private Date dateStart;
 
     private String uuid;
 
-    private boolean active;
+    private String active;
 
     private String patientId;
 
@@ -49,7 +51,7 @@ public class Schema extends DataXml {
 
     public Schema() {this.uuid = UUID.randomUUID().toString();}
 
-    public Schema(String uuid, Date dateStart, Date dateEnd, boolean active, String patientId, String evaluadorId) {
+    public Schema(String uuid, Date dateStart, Date dateEnd, String active, String patientId, String evaluadorId) {
         this.uuid = uuid;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
@@ -59,7 +61,7 @@ public class Schema extends DataXml {
 
     }
 
-    public Schema(Date dateStart, Date dateEnd, boolean active, String patientId, String evaluadorId) {
+    public Schema(Date dateStart, Date dateEnd, String active, String patientId, String evaluadorId) {
         this.uuid = UUID.randomUUID().toString();
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
@@ -92,11 +94,11 @@ public class Schema extends DataXml {
         this.patientId = patientId;
     }
 
-    public boolean isActive() {
+    public String isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(String active) {
         this.active = active;
     }
 

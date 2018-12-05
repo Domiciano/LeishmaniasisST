@@ -13,16 +13,15 @@ public class Evaluador extends DataXml {
     private String uuid;
 
 
-    private String name;
-
+    private String Name;
 
     private String lastName;
 
-
     private String cedula;
+
     private Date lastLogin; // dd/MM/aaaa
 
-    private ListaPacientes pacienteLista;
+    private ListaPacientes pacientes;
 
     private ListaSchemas listaSchemas;
 
@@ -36,17 +35,17 @@ public class Evaluador extends DataXml {
 
     public Evaluador() { this.uuid = UUID.randomUUID().toString(); }
 
-    public ListaPacientes getPacienteLista() {
-        return pacienteLista;
+    public ListaPacientes getPacientes() {
+        return pacientes;
     }
 
-    public void setPacienteLista(ListaPacientes pacienteLista) {
-        this.pacienteLista = pacienteLista;
+    public void setPacientes(ListaPacientes pacientes) {
+        this.pacientes = pacientes;
     }
 
     public Evaluador(String uuid, String name, String last_name, String cedula, Date last_login) {
         this.uuid = uuid;
-        this.name = name;
+        this.Name = name;
         this.lastName = last_name;
         this.cedula = cedula;
         this.lastLogin = last_login;
@@ -56,7 +55,7 @@ public class Evaluador extends DataXml {
 
     public Evaluador(String name, String last_name, String cedula, Date last_login) {
         this.uuid = UUID.randomUUID().toString();
-        this.name = name;
+        this.Name = name;
         this.lastName = last_name;
         this.cedula = cedula;
         this.lastLogin = last_login;
@@ -71,11 +70,11 @@ public class Evaluador extends DataXml {
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.Name = name;
     }
 
     public String getLastName() {
@@ -116,7 +115,7 @@ public class Evaluador extends DataXml {
 
 
     public boolean isValid(){
-        boolean hasName = this.name.equals("");
+        boolean hasName = this.Name.equals("");
         boolean hasLastname = this.lastName.equals("");
         boolean hasCedula = this.cedula.equals("");
         boolean hasID = this.uuid.equals("");

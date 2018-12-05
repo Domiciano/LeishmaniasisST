@@ -38,7 +38,7 @@ public class DatosPacienteActivity extends AppCompatActivity {
     public static final String[] meses_del_anio = new String[]{
                             "Enero","Febrero","Marzo","Abril",
                             "Mayo","Junio","Julio","Agosto",
-                            "Septiembre","Octubre","Noviembre","Diciembref"};
+                            "Septiembre","Octubre","Noviembre","Diciembre"};
 
     String nombre="Susanita Perez", edad="38", sexo="Mujer",
             documento="1143848922", residencia="Villa Hermosa";

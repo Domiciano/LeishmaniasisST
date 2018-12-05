@@ -7,23 +7,19 @@ import java.util.UUID;
 
 public class UIcerImg extends DataXml {
 
-    private String uuid;
+    private  String classname = "UlcerImg";
 
+    private String uuid;
 
     private String bodyLocation;
 
-
     private Date imgDate;
-
 
     private String imgFormat;
 
-
     private String imgUUID;
 
-
     private String UIcerFormId;
-
 
     private String injuriesPerLocation;
 

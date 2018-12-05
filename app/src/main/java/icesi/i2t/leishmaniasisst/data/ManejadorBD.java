@@ -6,17 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,9 +15,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import icesi.i2t.leishmaniasisst.calendario.DayOnGridModel;
-import icesi.i2t.leishmaniasisst.dialogs.AmpollasAdministradasDialog;
-import icesi.i2t.leishmaniasisst.dialogs.PastillasTomadasDialog;
 import icesi.i2t.leishmaniasisst.model.*;
 
 
@@ -376,12 +363,12 @@ public class ManejadorBD extends SQLiteOpenHelper {
     public boolean validarEvaluadorExistente(Evaluador fullRater) {
         Evaluador viejo = buscarEvaluador(fullRater.getUuid());
         if (viejo != null) {
-            if (fullRater.getPacienteLista().getPacientes().size() != viejo.getPacienteLista().getPacientes().size()) {
+            if (fullRater.getPacientes().getPacientes().size() != viejo.getPacientes().getPacientes().size()) {
                 return false;
             }
         }
-        if (fullRater.getPacienteLista().getPacientes().size() > 0) {
-            for (Paciente pac : fullRater.getPacienteLista().getPacientes()) {
+        if (fullRater.getPacientes().getPacientes().size() > 0) {
+            for (Paciente pac : fullRater.getPacientes().getPacientes()) {
                 if (pac.getListaSchemas().getSchemas().size() > 0) {
                     for (Schema schema : pac.getListaSchemas().getSchemas()) {
                         if (buscarSchema(schema.getUuid()) == null) return false;
@@ -396,44 +383,56 @@ public class ManejadorBD extends SQLiteOpenHelper {
     public void setFullRater(Evaluador fullRater) {
         deleteDataRater(fullRater.getUuid());
         agregarEvaluador(fullRater);
-        if (fullRater.getPacienteLista().getPacientes().size() > 0) {
-            for (Paciente pac : fullRater.getPacienteLista().getPacientes()) {
+        if (fullRater.getPacientes().getPacientes().size() > 0) {
+            for (Paciente pac : fullRater.getPacientes().getPacientes()) {
                 agregarPacienteCambiandoRaterId(pac, fullRater.getUuid());
                 if (pac.getListaSchemas().getSchemas().size() > 0) {
                     for (Schema schema : pac.getListaSchemas().getSchemas()) {
                         agregarSchema(schema);
-                        if (schema.getAntecedentes().getAntecedentes().size() > 0) {
-                            for (AntecedenteXml ant : schema.getAntecedentes().getAntecedentes()) {
-                                agregarAntecedentes(ant);
+                        if(schema.getAntecedentes() != null) {
+                            if (schema.getAntecedentes().getAntecedentes().size() > 0) {
+                                for (AntecedenteXml ant : schema.getAntecedentes().getAntecedentes()) {
+                                    agregarAntecedentes(ant);
+                                }
                             }
                         }
-                        if (schema.getDevelopSymptoms().getSintomas().size() > 0) {
-                            for (DevelopSymptom dev : schema.getDevelopSymptoms().getSintomas()) {
-                                agregarDevelopedDisease(dev);
+                        if(schema.getDevelopSymptoms() != null) {
+                            if (schema.getDevelopSymptoms().getSintomas().size() > 0) {
+                                for (DevelopSymptom dev : schema.getDevelopSymptoms().getSintomas()) {
+                                    agregarDevelopedDisease(dev);
+                                }
                             }
                         }
-                        if (schema.getListaDailySchemas().getDailySchemas().size() > 0) {
-                            for (DailySchema dailySchema : schema.getListaDailySchemas().getDailySchemas()) {
-                                agregarDailySchema(dailySchema);
-                                if (dailySchema.getPrescripciones().getPrescripciones().size() > 0) {
-                                    for (Prescripcion prescripcion : dailySchema.getPrescripciones().getPrescripciones()) {
-                                        agregarPrescripcion(prescripcion);
-                                        if (prescripcion.getDosisTomadas().getSchedulesTaking().size() > 0) {
-                                            for (ScheduleTaking dosis : prescripcion.getDosisTomadas().getSchedulesTaking()) {
-                                                agregarScheduleTaking(dosis);
+                        if(schema.getListaDailySchemas() != null) {
+                            if (schema.getListaDailySchemas().getDailySchemas().size() > 0) {
+                                for (DailySchema dailySchema : schema.getListaDailySchemas().getDailySchemas()) {
+                                    agregarDailySchema(dailySchema);
+                                    if(dailySchema.getPrescripciones() != null) {
+                                        if (dailySchema.getPrescripciones().getPrescripciones().size() > 0) {
+                                            for (Prescripcion prescripcion : dailySchema.getPrescripciones().getPrescripciones()) {
+                                                agregarPrescripcion(prescripcion);
+                                                if (prescripcion.getDosisTomadas().getSchedulesTaking().size() > 0) {
+                                                    for (ScheduleTaking dosis : prescripcion.getDosisTomadas().getSchedulesTaking()) {
+                                                        agregarScheduleTaking(dosis);
+                                                    }
+                                                }
+                                                if (prescripcion.getEventosBasicos() != null) {
+                                                    agregarBasicAdverseEffect(prescripcion.getEventosBasicos());
+                                                }
                                             }
                                         }
-                                        if (prescripcion.getEventosBasicos() != null) {
-                                            agregarBasicAdverseEffect(prescripcion.getEventosBasicos());
-                                        }
                                     }
-                                }
-                                if (dailySchema.getImagenes().getUlcerForms().size() > 0) {
-                                    for (UlcerForm formImg : dailySchema.getImagenes().getUlcerForms()) {
-                                        agregarUIcerForm(formImg);
-                                        if (formImg.getUlcerImages().getUlcerImages().size() > 0) {
-                                            for (UIcerImg img : formImg.getUlcerImages().getUlcerImages()) {
-                                                agregarUIcerImg(img);
+                                    if(dailySchema.getImagenes() != null) {
+                                        if (dailySchema.getImagenes().getUlcerForms().size() > 0) {
+                                            for (UlcerForm formImg : dailySchema.getImagenes().getUlcerForms()) {
+                                                agregarUIcerForm(formImg);
+                                                if(formImg.getUlcerImages() != null) {
+                                                    if (formImg.getUlcerImages().getUlcerImages().size() > 0) {
+                                                        for (UIcerImg img : formImg.getUlcerImages().getUlcerImages()) {
+                                                            agregarUIcerImg(img);
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -530,7 +529,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
             //evaluador.addAllPacientes(pacientes);
             ListaPacientes listaPacientes = new ListaPacientes();
             listaPacientes.setPacientes(pacientes);
-            evaluador.setPacienteLista(listaPacientes);
+            evaluador.setPacientes(listaPacientes);
         }
         return evaluador;
     }
@@ -552,9 +551,9 @@ public class ManejadorBD extends SQLiteOpenHelper {
 
             //TODO: ¿Esta lista es nula para Leishmaniasis?
             //evaluador.setListaSchemas(ls);
-            evaluador.setPacienteLista(lp);
+            evaluador.setPacientes(lp);
 
-            for (Paciente p : evaluador.getPacienteLista().getPacientes()) {
+            for (Paciente p : evaluador.getPacientes().getPacientes()) {
                 List<Schema> listSchemaPaciente = getListaSchemas(p.getUuid());
                 ListaSchemas listaSchemasPaciente = new ListaSchemas();
                 listaSchemasPaciente.setSchemas(listSchemaPaciente);
@@ -773,7 +772,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
 
             ListaPacientes listaPacientes = new ListaPacientes();
             listaPacientes.setPacientes(getListaPacientes(evaluador.getUuid()));
-            evaluador.setPacienteLista(listaPacientes);
+            evaluador.setPacientes(listaPacientes);
             //evaluador.addAllPacientes();
         }
 
@@ -922,7 +921,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 schema = new Schema(cursor.getString(0), format.parse(cursor.getString(1)), format.parse(cursor.getString(2)),
-                        cursor.getString(3).equals("true") ? true : false, cursor.getString(4), cursor.getString(5));
+                        cursor.getString(3).equals("true") ? "true" : "false", cursor.getString(4), cursor.getString(5));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -961,7 +960,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
                 Schema schema = null;
                 try {
                     schema = new Schema(cursor.getString(0), formato.parse(cursor.getString(1)), formato.parse(cursor.getString(2)),
-                            cursor.getString(3).equals("true") ? true : false, cursor.getString(4), cursor.getString(5));
+                            cursor.getString(3).equals("true") ? "true" : "false", cursor.getString(4), cursor.getString(5));
 
                     schemas.add(schema);
                 } catch (ParseException e) {
@@ -1687,7 +1686,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
             List<Schema> schemas = getListaSchemas(uuid);
             Schema schema_activo = null;
             for (Schema s : schemas) {
-                if (s.isActive()) {
+                if (s.isActive().equals("true")) {
                     schema_activo = s;
                     break;
                 }
@@ -1731,7 +1730,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 schema = new Schema(cursor.getString(0), format.parse(cursor.getString(1)), format.parse(cursor.getString(2)),
-                        cursor.getString(3).equals("true") ? true : false, cursor.getString(4), cursor.getString(5));
+                        cursor.getString(3).equals("true") ? "true" : "false", cursor.getString(4), cursor.getString(5));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -1746,7 +1745,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
         List<Schema> schemas = getListaSchemas(uuid);
         Schema schema_activo = null;
         for (Schema s : schemas) {
-            if (s.isActive()) {
+            if (s.isActive().equals("true")) {
                 schema_activo = s;
                 break;
             }
@@ -1763,7 +1762,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
         List<Schema> schemas = getListaSchemas(uuid);
         Schema schema_activo = null;
         for (Schema s : schemas) {
-            if (s.isActive()) {
+            if (s.isActive().equals("true")) {
                 schema_activo = s;
                 break;
             }
@@ -1790,7 +1789,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
         List<Schema> schemas = getListaSchemas(p.getUuid());
         Schema schema_activo = null;
         for (Schema s : schemas) {
-            if (s.isActive()) {
+            if (s.isActive().equals("true")) {
                 schema_activo = s;
                 break;
             }
@@ -1814,7 +1813,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
         List<Schema> schemas = getListaSchemas(p.getUuid());
         Schema schema_activo = null;
         for (Schema s : schemas) {
-            if (s.isActive()) {
+            if (s.isActive().equals("true")) {
                 schema_activo = s;
                 break;
             }
@@ -1834,7 +1833,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
     public Schema buscarSchemaActivoDelPaciente(Paciente p) {
         Schema schema_activo = null;
         for (Schema s : getListaSchemas(p.getUuid())) {
-            if (s.isActive()) {
+            if (s.isActive().equals("true")) {
                 schema_activo = s;
                 break;
             }
@@ -1846,7 +1845,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
     public boolean isPacienteActivo(Paciente p) {
         Schema schema_activo = null;
         for (Schema s : getListaSchemas(p.getUuid())) {
-            if (s.isActive()) {
+            if (s.isActive().equals("true")) {
                 schema_activo = s;
                 return true;
             }
@@ -2238,7 +2237,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
                     break;
                 }
             }
-            return dias + 1;
+            return dias;
 
         } catch (ParseException e) {
             e.printStackTrace();

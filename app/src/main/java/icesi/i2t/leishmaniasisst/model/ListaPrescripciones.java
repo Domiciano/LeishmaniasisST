@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ListaPrescripciones extends DataXml{
 
-  
+
     List<Prescripcion> prescripciones = new ArrayList<Prescripcion>();
 
     public List<Prescripcion> getPrescripciones() {

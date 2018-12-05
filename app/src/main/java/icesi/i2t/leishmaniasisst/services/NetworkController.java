@@ -5,6 +5,9 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -357,11 +360,12 @@ public class NetworkController {
     }
 
     public Evaluador prueba_emulador_sync(Context context){
-        String xml = "";
+        String json = "";
+        Gson gson = (new GsonBuilder().setDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'")).create();
         try {
-            InputStream is = context.getResources().openRawResource(R.raw.prueba_daily);
-            xml = getResourceContents(is);
-            Evaluador eval = (Evaluador) parseXmlToObject(xml, context);
+            InputStream is = context.getResources().openRawResource(R.raw.prueba_json);
+            json = getResourceContents(is);
+            Evaluador eval = gson.fromJson(json, Evaluador.class);
             return eval;
         } catch (IOException e) {
             e.printStackTrace();

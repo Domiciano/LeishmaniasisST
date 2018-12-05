@@ -1,0 +1,4154 @@
+﻿{
+  "uuid": "ddcc3cd6-fcca-4a8f-bd8f-6ebce0609c9e",
+  "Name": "Domiciano",
+  "lastName": "Rincon",
+  "cedula": "1143848922",
+  "lastLogin": "2018-12-05T05:25:43.197Z",
+  "pacientes": {
+    "pacientes": [
+      {
+        "uuid": "afdbe506-2acf-4805-8dfa-611f50610580",
+        "Name": "William",
+        "lastName": "Cruz",
+        "birthday": "2018-12-05T05:25:43.198Z",
+        "cedula": "11110000",
+        "documentType": "Cedula",
+        "genre": "Maculino",
+        "evaluadorId": "ddcc3cd6-fcca-4a8f-bd8f-6ebce0609c9e",
+        "listaSchemas": {
+          "schemas": [
+            {
+              "classname": "Schema",
+              "dateEnd": "2019-06-01T08:00:00.000Z",
+              "dateStart": "2018-12-01T08:00:00.000Z",
+              "uuid": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+              "active": "true",
+              "patientId": "afdbe506-2acf-4805-8dfa-611f50610580",
+              "evaluadorId": "ddcc3cd6-fcca-4a8f-bd8f-6ebce0609c9e",
+              "listaDailySchemas": {
+                "dailySchemas": [
+                  {
+                    "uuid": "10b72c64-0f0e-41cd-a5d9-d14e3ec9211c",
+                    "dayOfTreatment": "0",
+                    "dateOfTreatment": "2018-12-01T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "c675fe87-f79d-418b-a528-29184c2b73c3",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "10b72c64-0f0e-41cd-a5d9-d14e3ec9211c",
+                          "eventosBasicos": {
+                            "uuid": "ea85ba6f-6260-4013-bea2-bc31a40e9c2f",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "c675fe87-f79d-418b-a528-29184c2b73c3"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "f59e142a-3df1-4aa3-8a3a-fe425bdf0c7e",
+                                "prescriptionId": "c675fe87-f79d-418b-a528-29184c2b73c3",
+                                "date": "2018-12-01T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "95be4423-7558-48bc-aab6-868c9decf94a",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-01T08:00:00.000Z",
+                          "dailySchemaId": "10b72c64-0f0e-41cd-a5d9-d14e3ec9211c"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "ebf571ab-6b7c-4a4b-8801-3b606fe41c73",
+                    "dayOfTreatment": "1",
+                    "dateOfTreatment": "2018-12-02T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "7c17e59f-c840-4412-bfb4-a972c116f042",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "ebf571ab-6b7c-4a4b-8801-3b606fe41c73",
+                          "eventosBasicos": {
+                            "uuid": "34d9fd15-5e65-4742-899a-768c420ddfa2",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "7c17e59f-c840-4412-bfb4-a972c116f042"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "2ffacb35-3be4-46a9-8963-af7857162b14",
+                                "prescriptionId": "7c17e59f-c840-4412-bfb4-a972c116f042",
+                                "date": "2018-12-02T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "a18a2dc7-7b37-43ba-86d1-2373b095e37e",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-02T08:00:00.000Z",
+                          "dailySchemaId": "ebf571ab-6b7c-4a4b-8801-3b606fe41c73"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "6b7ec454-e387-48ad-8909-66d4314d6ecc",
+                    "dayOfTreatment": "2",
+                    "dateOfTreatment": "2018-12-03T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "ccd2626d-8d28-4531-a2df-a06d01da0660",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "6b7ec454-e387-48ad-8909-66d4314d6ecc",
+                          "eventosBasicos": {
+                            "uuid": "c2a37269-3539-4273-998f-f1c6b65d2f71",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "ccd2626d-8d28-4531-a2df-a06d01da0660"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "a1fc1cdf-cff5-4808-8371-e74e272d3d2a",
+                                "prescriptionId": "ccd2626d-8d28-4531-a2df-a06d01da0660",
+                                "date": "2018-12-03T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "bba01ceb-aa62-4123-9d3f-5e9f0505d9e2",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-03T08:00:00.000Z",
+                          "dailySchemaId": "6b7ec454-e387-48ad-8909-66d4314d6ecc"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "e1cafc8a-a7b2-4036-af8b-1b48a5b1caa4",
+                    "dayOfTreatment": "3",
+                    "dateOfTreatment": "2018-12-04T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "e13d1cee-11fd-4572-97e0-852ec67eb6f7",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "e1cafc8a-a7b2-4036-af8b-1b48a5b1caa4",
+                          "eventosBasicos": {
+                            "uuid": "ba904432-b9ff-4e4b-820d-90e7a9f0792d",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "e13d1cee-11fd-4572-97e0-852ec67eb6f7"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "49daaad0-4d0c-4060-a8c5-c514b50552cc",
+                                "prescriptionId": "e13d1cee-11fd-4572-97e0-852ec67eb6f7",
+                                "date": "2018-12-04T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "8f27cd05-3308-4541-912c-afd906f5efde",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-04T08:00:00.000Z",
+                          "dailySchemaId": "e1cafc8a-a7b2-4036-af8b-1b48a5b1caa4"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "72945bc6-2326-496d-a925-317e73c6cd19",
+                    "dayOfTreatment": "4",
+                    "dateOfTreatment": "2018-12-05T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "79a657c0-4ef2-4d24-8d3b-dddee824459c",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "72945bc6-2326-496d-a925-317e73c6cd19",
+                          "eventosBasicos": {
+                            "uuid": "7d7952ea-2641-407e-a9a4-c890731877d7",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "79a657c0-4ef2-4d24-8d3b-dddee824459c"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "906e61dc-3f56-44d9-8fb4-d14f14909b64",
+                                "prescriptionId": "79a657c0-4ef2-4d24-8d3b-dddee824459c",
+                                "date": "2018-12-05T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "8d488f12-52e1-4baa-ba5f-68ad3e5d0859",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-05T08:00:00.000Z",
+                          "dailySchemaId": "72945bc6-2326-496d-a925-317e73c6cd19"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "cef80935-3b2d-4288-bb1f-1231fd72b328",
+                    "dayOfTreatment": "5",
+                    "dateOfTreatment": "2018-12-06T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "e9deaaf3-78fe-4b12-97d2-c998fbbd409d",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "cef80935-3b2d-4288-bb1f-1231fd72b328",
+                          "eventosBasicos": {
+                            "uuid": "ecdd5565-f860-480e-a266-9b991781073d",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "e9deaaf3-78fe-4b12-97d2-c998fbbd409d"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "1fcb1b0e-987e-45e3-bfc3-ffdf1b73ff07",
+                                "prescriptionId": "e9deaaf3-78fe-4b12-97d2-c998fbbd409d",
+                                "date": "2018-12-06T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "69023a2d-6657-4859-8e35-95aa6547c226",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-06T08:00:00.000Z",
+                          "dailySchemaId": "cef80935-3b2d-4288-bb1f-1231fd72b328"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "b222eb97-986f-46e7-8441-14c6f6ba33e0",
+                    "dayOfTreatment": "6",
+                    "dateOfTreatment": "2018-12-07T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "9efa2833-0659-46f4-9e08-0445ff05685f",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "b222eb97-986f-46e7-8441-14c6f6ba33e0",
+                          "eventosBasicos": {
+                            "uuid": "5724d3ec-bb64-4c19-bf59-787b22c019bf",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "9efa2833-0659-46f4-9e08-0445ff05685f"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "0e70a6f3-0779-43fd-a922-d78a7b474aea",
+                                "prescriptionId": "9efa2833-0659-46f4-9e08-0445ff05685f",
+                                "date": "2018-12-07T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "206f72ec-25fa-489c-ae8b-bd20c7e0d779",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-07T08:00:00.000Z",
+                          "dailySchemaId": "b222eb97-986f-46e7-8441-14c6f6ba33e0"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "e56aa273-5b94-49c5-83af-7c93aaa0e5a5",
+                    "dayOfTreatment": "7",
+                    "dateOfTreatment": "2018-12-08T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "ab62b9c8-145f-45fd-aab6-815900a6ef32",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "e56aa273-5b94-49c5-83af-7c93aaa0e5a5",
+                          "eventosBasicos": {
+                            "uuid": "5262dc36-dce3-46e5-9ab6-b9afe82f3c22",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "ab62b9c8-145f-45fd-aab6-815900a6ef32"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "e8c0d24a-4279-485d-9bd6-c5cfe182a5c9",
+                                "prescriptionId": "ab62b9c8-145f-45fd-aab6-815900a6ef32",
+                                "date": "2018-12-08T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "7eaa4625-5ded-45f4-ba3e-0fd020370068",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-08T08:00:00.000Z",
+                          "dailySchemaId": "e56aa273-5b94-49c5-83af-7c93aaa0e5a5"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "deb3705a-55f5-44bc-8f36-de200c9264c5",
+                    "dayOfTreatment": "8",
+                    "dateOfTreatment": "2018-12-09T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "25b7f65a-2e43-4023-8c7a-dae1ab418396",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "deb3705a-55f5-44bc-8f36-de200c9264c5",
+                          "eventosBasicos": {
+                            "uuid": "a0e3dc00-930d-4a31-9c28-ec2055500708",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "25b7f65a-2e43-4023-8c7a-dae1ab418396"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "db929534-1f81-426c-8314-97c40aa8f9ca",
+                                "prescriptionId": "25b7f65a-2e43-4023-8c7a-dae1ab418396",
+                                "date": "2018-12-09T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "db8861f0-322d-4b12-9385-a82d12f0efe8",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-09T08:00:00.000Z",
+                          "dailySchemaId": "deb3705a-55f5-44bc-8f36-de200c9264c5"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "f70d21e8-5f27-4452-aaec-4dab412f38c5",
+                    "dayOfTreatment": "9",
+                    "dateOfTreatment": "2018-12-10T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "75585a1e-9121-4e9b-bf24-04a2617faf1e",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "f70d21e8-5f27-4452-aaec-4dab412f38c5",
+                          "eventosBasicos": {
+                            "uuid": "59b85952-47c2-4620-8d93-c03aeba64b7d",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "75585a1e-9121-4e9b-bf24-04a2617faf1e"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "746e3b91-8b9b-4d08-beda-8c4b7131b5eb",
+                                "prescriptionId": "75585a1e-9121-4e9b-bf24-04a2617faf1e",
+                                "date": "2018-12-10T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "ecc5b815-f971-42ea-b6fb-6c9a20ab636a",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-10T08:00:00.000Z",
+                          "dailySchemaId": "f70d21e8-5f27-4452-aaec-4dab412f38c5"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "36136645-bef0-44f6-bf1c-6147170478ed",
+                    "dayOfTreatment": "10",
+                    "dateOfTreatment": "2018-12-11T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "9662bd06-6605-45b7-8dfa-c3f091c0cd85",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "36136645-bef0-44f6-bf1c-6147170478ed",
+                          "eventosBasicos": {
+                            "uuid": "b6debda6-c0b9-4191-a06e-9163697af086",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "9662bd06-6605-45b7-8dfa-c3f091c0cd85"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "f7ba8d11-4983-425c-8af3-6c13f4edeab1",
+                                "prescriptionId": "9662bd06-6605-45b7-8dfa-c3f091c0cd85",
+                                "date": "2018-12-11T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "6b11aff0-320d-4c9a-84ae-4d48a6857dea",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-11T08:00:00.000Z",
+                          "dailySchemaId": "36136645-bef0-44f6-bf1c-6147170478ed"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "12d094ca-fc46-428d-aaca-3dc3d47ae377",
+                    "dayOfTreatment": "11",
+                    "dateOfTreatment": "2018-12-12T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "bd727b97-fb07-4cc7-8302-7ad38485201a",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "12d094ca-fc46-428d-aaca-3dc3d47ae377",
+                          "eventosBasicos": {
+                            "uuid": "373a73a0-51d6-4893-b71c-1c183a192afa",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "bd727b97-fb07-4cc7-8302-7ad38485201a"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "24a110c6-6fa9-4ca9-9916-0cfa1852b849",
+                                "prescriptionId": "bd727b97-fb07-4cc7-8302-7ad38485201a",
+                                "date": "2018-12-12T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "143410af-36db-475c-8e38-0680592f1e25",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-12T08:00:00.000Z",
+                          "dailySchemaId": "12d094ca-fc46-428d-aaca-3dc3d47ae377"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "c8327643-1958-4f99-8d78-6b1f9844e18d",
+                    "dayOfTreatment": "12",
+                    "dateOfTreatment": "2018-12-13T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "f3706551-a577-4187-9dbd-47cd12c21721",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "c8327643-1958-4f99-8d78-6b1f9844e18d",
+                          "eventosBasicos": {
+                            "uuid": "52723112-27f4-4526-9ab5-74fee58384c8",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "f3706551-a577-4187-9dbd-47cd12c21721"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "e9f651c5-5c65-4b76-bfd9-08347047763c",
+                                "prescriptionId": "f3706551-a577-4187-9dbd-47cd12c21721",
+                                "date": "2018-12-13T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "458c0a46-eb6c-4c54-8f76-abe8950a1247",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-13T08:00:00.000Z",
+                          "dailySchemaId": "c8327643-1958-4f99-8d78-6b1f9844e18d"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "c249df43-3d66-466d-a647-bece58599f4f",
+                    "dayOfTreatment": "13",
+                    "dateOfTreatment": "2018-12-14T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "4f4e101f-d521-4920-ba5f-65ff857ddad2",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "c249df43-3d66-466d-a647-bece58599f4f",
+                          "eventosBasicos": {
+                            "uuid": "cb44d1e8-4a96-498b-8df3-9aaf1face92d",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "4f4e101f-d521-4920-ba5f-65ff857ddad2"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "5bd30a52-4b1f-4db4-9dd4-83dacf41aecf",
+                                "prescriptionId": "4f4e101f-d521-4920-ba5f-65ff857ddad2",
+                                "date": "2018-12-14T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "a25e19eb-7248-47a9-998b-9424b014e4ff",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-14T08:00:00.000Z",
+                          "dailySchemaId": "c249df43-3d66-466d-a647-bece58599f4f"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "c900cd6b-6088-4437-851e-1e4fdc4a2330",
+                    "dayOfTreatment": "14",
+                    "dateOfTreatment": "2018-12-15T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "17fa86d0-1fff-499e-b3a4-7469c2085174",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "c900cd6b-6088-4437-851e-1e4fdc4a2330",
+                          "eventosBasicos": {
+                            "uuid": "ac59620b-f5b1-4cdb-8c2b-6278cd8067a0",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "17fa86d0-1fff-499e-b3a4-7469c2085174"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "0b52fceb-451d-4971-8371-ca903ebca41a",
+                                "prescriptionId": "17fa86d0-1fff-499e-b3a4-7469c2085174",
+                                "date": "2018-12-15T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "d2f72f51-eb26-4c63-b5f2-ae1c5fe0b54a",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-15T08:00:00.000Z",
+                          "dailySchemaId": "c900cd6b-6088-4437-851e-1e4fdc4a2330"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "83b1556a-ec13-43ca-9d43-ab8d766830ab",
+                    "dayOfTreatment": "15",
+                    "dateOfTreatment": "2018-12-16T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "9cf290b4-2c72-4871-9a5b-362e8f8723c5",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "83b1556a-ec13-43ca-9d43-ab8d766830ab",
+                          "eventosBasicos": {
+                            "uuid": "9fe365c5-89d7-4bbc-973b-e082d2df3691",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "9cf290b4-2c72-4871-9a5b-362e8f8723c5"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "566ad7a8-8de0-43cc-8382-54ec9ec39d31",
+                                "prescriptionId": "9cf290b4-2c72-4871-9a5b-362e8f8723c5",
+                                "date": "2018-12-16T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "cce00a46-8261-45cb-8c8e-cf4df4e66c7f",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-16T08:00:00.000Z",
+                          "dailySchemaId": "83b1556a-ec13-43ca-9d43-ab8d766830ab"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "f7863872-7dd2-4963-99fc-86d059e9bd0a",
+                    "dayOfTreatment": "16",
+                    "dateOfTreatment": "2018-12-17T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "3407773f-06d0-4bb2-81a8-35f78bc3362b",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "f7863872-7dd2-4963-99fc-86d059e9bd0a",
+                          "eventosBasicos": {
+                            "uuid": "d69793c5-367b-4bdd-b089-437b1a414721",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "3407773f-06d0-4bb2-81a8-35f78bc3362b"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "a5c3f7b4-fb3d-43e3-9546-44cc4f3664b9",
+                                "prescriptionId": "3407773f-06d0-4bb2-81a8-35f78bc3362b",
+                                "date": "2018-12-17T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "0f280d67-b377-46e4-b40e-79ed7fddcd34",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-17T08:00:00.000Z",
+                          "dailySchemaId": "f7863872-7dd2-4963-99fc-86d059e9bd0a"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "ff411832-09b7-4a94-86ac-dd401a86042e",
+                    "dayOfTreatment": "17",
+                    "dateOfTreatment": "2018-12-18T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "acbfb4b0-fdc4-4e90-b63a-16b9764ed499",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "ff411832-09b7-4a94-86ac-dd401a86042e",
+                          "eventosBasicos": {
+                            "uuid": "317396fe-cebd-43ff-9197-f529c9ad8190",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "acbfb4b0-fdc4-4e90-b63a-16b9764ed499"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "f75a0b9c-e285-440a-bf7c-f45fc0004a23",
+                                "prescriptionId": "acbfb4b0-fdc4-4e90-b63a-16b9764ed499",
+                                "date": "2018-12-18T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "859afd76-c068-4a0f-9368-f9c63e3bcd54",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-18T08:00:00.000Z",
+                          "dailySchemaId": "ff411832-09b7-4a94-86ac-dd401a86042e"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "a4da9097-43e5-4a93-85b8-962375d2b7f6",
+                    "dayOfTreatment": "18",
+                    "dateOfTreatment": "2018-12-19T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "53518de7-92f9-4652-ac32-f291952aec2e",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "a4da9097-43e5-4a93-85b8-962375d2b7f6",
+                          "eventosBasicos": {
+                            "uuid": "81cf999d-84ec-4e15-9ed3-0653d37004b2",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "53518de7-92f9-4652-ac32-f291952aec2e"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "00a84193-3436-46b7-b0f3-96637e2a9024",
+                                "prescriptionId": "53518de7-92f9-4652-ac32-f291952aec2e",
+                                "date": "2018-12-19T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "161d8642-63f4-4478-b0cc-f0d0351e3906",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-19T08:00:00.000Z",
+                          "dailySchemaId": "a4da9097-43e5-4a93-85b8-962375d2b7f6"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "9c73e5d0-9a9d-499f-9b44-2afa137c7c5f",
+                    "dayOfTreatment": "19",
+                    "dateOfTreatment": "2018-12-20T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "prescripciones": {
+                      "prescripciones": [
+                        {
+                          "classname": "Prescripcion",
+                          "uuid": "bfb31a8e-6690-4a4f-933d-1746915db3ab",
+                          "name": "Glucantime",
+                          "dosis": "4@Ampollas@4 Ampollas de 5ml por administración vía intramuscular",
+                          "numeroLote": "NULL",
+                          "comentarios": "NULL",
+                          "dailySchemaId": "9c73e5d0-9a9d-499f-9b44-2afa137c7c5f",
+                          "eventosBasicos": {
+                            "uuid": "5ce9c11c-7436-4e24-9d30-83f2f744401a",
+                            "name": "NULL",
+                            "dolorSitio": 0,
+                            "infeccionSitio": 0,
+                            "malestarGeneral": 0,
+                            "dolorMuscular": 0,
+                            "dolorArticulaciones": 0,
+                            "dolorCabeza": 0,
+                            "fiebre": 0,
+                            "nauseas": 0,
+                            "vomito": 0,
+                            "diarrea": 0,
+                            "dolorAbdominal": 0,
+                            "perdidaApetito": 0,
+                            "mareo": 0,
+                            "palpitaciones": 0,
+                            "prescriptionId": "bfb31a8e-6690-4a4f-933d-1746915db3ab"
+                          },
+                          "dosisTomadas": {
+                            "schedulesTaking": [
+                              {
+                                "uuid": "09415307-f732-42d3-ae55-cf46c04604bc",
+                                "prescriptionId": "bfb31a8e-6690-4a4f-933d-1746915db3ab",
+                                "date": "2018-12-20T08:00:00.000Z",
+                                "time": "16:00:00"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "6a013811-2479-4aec-984b-aa22978d2e59",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-20T08:00:00.000Z",
+                          "dailySchemaId": "9c73e5d0-9a9d-499f-9b44-2afa137c7c5f"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "5dac6224-7b3e-473b-9b3e-d62ced3b8097",
+                    "dayOfTreatment": "20",
+                    "dateOfTreatment": "2018-12-21T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "1ada6285-4086-4e83-a196-dd46012dd8c8",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-21T08:00:00.000Z",
+                          "dailySchemaId": "5dac6224-7b3e-473b-9b3e-d62ced3b8097"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "1b9a712c-f76d-4f11-b2a7-8d24f809df57",
+                    "dayOfTreatment": "21",
+                    "dateOfTreatment": "2018-12-22T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "adf98c81-c9d6-44c8-b6be-d8973700ffdc",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-22T08:00:00.000Z",
+                          "dailySchemaId": "1b9a712c-f76d-4f11-b2a7-8d24f809df57"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "cb2ff1b8-48e8-4521-95af-0c9561d7a156",
+                    "dayOfTreatment": "22",
+                    "dateOfTreatment": "2018-12-23T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "6bb274f5-3c2f-4d33-9424-8810aee433ea",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-23T08:00:00.000Z",
+                          "dailySchemaId": "cb2ff1b8-48e8-4521-95af-0c9561d7a156"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "011b07b9-4da6-409f-bfad-870f3661e15e",
+                    "dayOfTreatment": "23",
+                    "dateOfTreatment": "2018-12-24T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "8bb11996-9526-4cef-b67b-0d38d547f218",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-24T08:00:00.000Z",
+                          "dailySchemaId": "011b07b9-4da6-409f-bfad-870f3661e15e"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "2fb64cf2-baf4-4749-9e2f-829d2acf7682",
+                    "dayOfTreatment": "24",
+                    "dateOfTreatment": "2018-12-25T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "ae956257-7dd5-40d6-a7e5-0dac2b864192",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-25T08:00:00.000Z",
+                          "dailySchemaId": "2fb64cf2-baf4-4749-9e2f-829d2acf7682"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "3dbfcd15-5352-4ef3-a8fe-0037e32a0bed",
+                    "dayOfTreatment": "25",
+                    "dateOfTreatment": "2018-12-26T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "7dff971d-a411-46f3-8866-e0627bb78324",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-26T08:00:00.000Z",
+                          "dailySchemaId": "3dbfcd15-5352-4ef3-a8fe-0037e32a0bed"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "65afd465-716b-4a1c-901e-ac99ae16038e",
+                    "dayOfTreatment": "26",
+                    "dateOfTreatment": "2018-12-27T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "007a9cbd-16a0-4b63-a58b-cb8b88473454",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-27T08:00:00.000Z",
+                          "dailySchemaId": "65afd465-716b-4a1c-901e-ac99ae16038e"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "a1261c1e-2b49-4981-96f2-5c3760b708bf",
+                    "dayOfTreatment": "27",
+                    "dateOfTreatment": "2018-12-28T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "3342b6de-ba55-404f-809f-237e6027ae82",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-28T08:00:00.000Z",
+                          "dailySchemaId": "a1261c1e-2b49-4981-96f2-5c3760b708bf"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "9acd0321-7946-4707-b146-1f25ed3cce53",
+                    "dayOfTreatment": "28",
+                    "dateOfTreatment": "2018-12-29T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "b23a6f8e-d8a7-43ac-a2ca-ac4b2940c41e",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-29T08:00:00.000Z",
+                          "dailySchemaId": "9acd0321-7946-4707-b146-1f25ed3cce53"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "ddebf595-6d94-431b-8e97-34c42518722a",
+                    "dayOfTreatment": "29",
+                    "dateOfTreatment": "2018-12-30T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "af3bba2b-ed06-4e55-93d2-44ccc5097c15",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-30T08:00:00.000Z",
+                          "dailySchemaId": "ddebf595-6d94-431b-8e97-34c42518722a"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "b54f6354-dfc3-4e7a-b7fb-6a0ca628b2db",
+                    "dayOfTreatment": "30",
+                    "dateOfTreatment": "2018-12-31T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "6032247b-da60-4b78-8f62-d73b811c0a88",
+                          "noteGeneral": "NULL",
+                          "date": "2018-12-31T08:00:00.000Z",
+                          "dailySchemaId": "b54f6354-dfc3-4e7a-b7fb-6a0ca628b2db"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "76b3c833-3f21-4fe9-9f65-7bfa254d7ea3",
+                    "dayOfTreatment": "31",
+                    "dateOfTreatment": "2019-01-01T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "0111f6fb-b0f1-4b4f-af4f-1d1e420e680f",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-01T08:00:00.000Z",
+                          "dailySchemaId": "76b3c833-3f21-4fe9-9f65-7bfa254d7ea3"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "4ab58889-65b0-4b25-9315-23f9321d317a",
+                    "dayOfTreatment": "32",
+                    "dateOfTreatment": "2019-01-02T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "b6b2d350-a1e6-4719-994c-462a36697180",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-02T08:00:00.000Z",
+                          "dailySchemaId": "4ab58889-65b0-4b25-9315-23f9321d317a"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "34f546b2-ba47-48f9-8081-cea558f9708a",
+                    "dayOfTreatment": "33",
+                    "dateOfTreatment": "2019-01-03T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "726a4879-afcd-46ae-af40-b0e22ab41269",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-03T08:00:00.000Z",
+                          "dailySchemaId": "34f546b2-ba47-48f9-8081-cea558f9708a"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "4d50ecf7-eb73-454d-8b65-5d44831fe5c0",
+                    "dayOfTreatment": "34",
+                    "dateOfTreatment": "2019-01-04T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "a8f4bbef-4301-47ab-8d7e-a985922735ca",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-04T08:00:00.000Z",
+                          "dailySchemaId": "4d50ecf7-eb73-454d-8b65-5d44831fe5c0"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "f97a2e33-6ce6-46d6-a9fc-8944ce0fdb4f",
+                    "dayOfTreatment": "35",
+                    "dateOfTreatment": "2019-01-05T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "a0d6d865-f702-43e4-97aa-99dafe58c9ed",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-05T08:00:00.000Z",
+                          "dailySchemaId": "f97a2e33-6ce6-46d6-a9fc-8944ce0fdb4f"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "b318ffe0-2fef-463d-9c57-85a085d90bfe",
+                    "dayOfTreatment": "36",
+                    "dateOfTreatment": "2019-01-06T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "4b3e28c2-475d-4ba0-9bc9-f6b29a54466e",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-06T08:00:00.000Z",
+                          "dailySchemaId": "b318ffe0-2fef-463d-9c57-85a085d90bfe"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "e151437f-e738-4cdf-9f96-995faf9cd5ff",
+                    "dayOfTreatment": "37",
+                    "dateOfTreatment": "2019-01-07T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "3a6097ba-431b-4162-9c64-85acc62ec549",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-07T08:00:00.000Z",
+                          "dailySchemaId": "e151437f-e738-4cdf-9f96-995faf9cd5ff"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "b0d05f19-b2ec-4863-a312-dc9b8d40f88c",
+                    "dayOfTreatment": "38",
+                    "dateOfTreatment": "2019-01-08T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "898cef8a-594d-4ec6-b7ee-5ea34b55adac",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-08T08:00:00.000Z",
+                          "dailySchemaId": "b0d05f19-b2ec-4863-a312-dc9b8d40f88c"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "bc534e7c-3685-488d-a4e1-2cc8c1f7ed97",
+                    "dayOfTreatment": "39",
+                    "dateOfTreatment": "2019-01-09T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "8ca6b155-21d9-4017-abb4-79c6d02b6e98",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-09T08:00:00.000Z",
+                          "dailySchemaId": "bc534e7c-3685-488d-a4e1-2cc8c1f7ed97"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "17942605-aca3-4dce-aecd-66432ca2e7e8",
+                    "dayOfTreatment": "40",
+                    "dateOfTreatment": "2019-01-10T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "6d3f197b-75b1-4ef2-a93a-1dafc727a45f",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-10T08:00:00.000Z",
+                          "dailySchemaId": "17942605-aca3-4dce-aecd-66432ca2e7e8"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "da78deb0-3cdd-451c-8d9a-c904b25d0ecf",
+                    "dayOfTreatment": "41",
+                    "dateOfTreatment": "2019-01-11T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "3c9d2eef-0dd3-418f-b376-0f368dd8f878",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-11T08:00:00.000Z",
+                          "dailySchemaId": "da78deb0-3cdd-451c-8d9a-c904b25d0ecf"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "7b013e16-84a4-4b3f-8db7-5fa08ead7e30",
+                    "dayOfTreatment": "42",
+                    "dateOfTreatment": "2019-01-12T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "09e2ae85-df1b-4033-83d6-9a2d7721b4ed",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-12T08:00:00.000Z",
+                          "dailySchemaId": "7b013e16-84a4-4b3f-8db7-5fa08ead7e30"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "e02d4209-a900-4a18-b854-40af76f902e6",
+                    "dayOfTreatment": "43",
+                    "dateOfTreatment": "2019-01-13T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "24ce16c6-795f-4582-89a0-fa175fad5c06",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-13T08:00:00.000Z",
+                          "dailySchemaId": "e02d4209-a900-4a18-b854-40af76f902e6"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "7f561890-be3c-466a-8943-055119564f53",
+                    "dayOfTreatment": "44",
+                    "dateOfTreatment": "2019-01-14T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "24f4f511-15de-4372-82eb-71bde9ae9d69",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-14T08:00:00.000Z",
+                          "dailySchemaId": "7f561890-be3c-466a-8943-055119564f53"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "388391d4-5516-4588-a42d-223ce52d0649",
+                    "dayOfTreatment": "45",
+                    "dateOfTreatment": "2019-01-15T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "ebc62c18-ded9-481a-8794-275ee565520e",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-15T08:00:00.000Z",
+                          "dailySchemaId": "388391d4-5516-4588-a42d-223ce52d0649"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "8ee311a5-06fc-4a42-bb80-2d9a2101a7d1",
+                    "dayOfTreatment": "46",
+                    "dateOfTreatment": "2019-01-16T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "e159e210-50db-4d76-b0a5-8d33ca54a73b",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-16T08:00:00.000Z",
+                          "dailySchemaId": "8ee311a5-06fc-4a42-bb80-2d9a2101a7d1"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "0dc724db-0237-4e31-8bf7-08f8354bca61",
+                    "dayOfTreatment": "47",
+                    "dateOfTreatment": "2019-01-17T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "cb487096-2546-4ec5-a31f-7646010bdbf6",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-17T08:00:00.000Z",
+                          "dailySchemaId": "0dc724db-0237-4e31-8bf7-08f8354bca61"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "896084c0-4811-4b4b-ba0e-d33a2188efc6",
+                    "dayOfTreatment": "48",
+                    "dateOfTreatment": "2019-01-18T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "7ebde54c-0f3a-44d9-9ea1-35be0e486ee4",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-18T08:00:00.000Z",
+                          "dailySchemaId": "896084c0-4811-4b4b-ba0e-d33a2188efc6"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "8a1d307e-fcab-45ba-b8fc-d46338b5a956",
+                    "dayOfTreatment": "49",
+                    "dateOfTreatment": "2019-01-19T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "c0e24ab7-0487-4426-89f3-c13fbe8f7b93",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-19T08:00:00.000Z",
+                          "dailySchemaId": "8a1d307e-fcab-45ba-b8fc-d46338b5a956"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "79a6464b-dc72-4852-ba44-67ecd3067860",
+                    "dayOfTreatment": "50",
+                    "dateOfTreatment": "2019-01-20T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "01cafeb7-2496-4d4f-995c-eaffa56dd98b",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-20T08:00:00.000Z",
+                          "dailySchemaId": "79a6464b-dc72-4852-ba44-67ecd3067860"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "9656baac-e749-4750-b51d-91e3eb5a30a0",
+                    "dayOfTreatment": "51",
+                    "dateOfTreatment": "2019-01-21T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "9f28ed3c-aed2-4c3c-ac7b-010232c4bf0b",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-21T08:00:00.000Z",
+                          "dailySchemaId": "9656baac-e749-4750-b51d-91e3eb5a30a0"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "8e698191-03c2-4f5a-9d38-9f7907ae64b1",
+                    "dayOfTreatment": "52",
+                    "dateOfTreatment": "2019-01-22T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "b4ef2d0e-a0bb-4213-8770-e84d9430634f",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-22T08:00:00.000Z",
+                          "dailySchemaId": "8e698191-03c2-4f5a-9d38-9f7907ae64b1"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "27e7181d-2768-414a-b503-2d946bffacaf",
+                    "dayOfTreatment": "53",
+                    "dateOfTreatment": "2019-01-23T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "ba516ed3-639d-478f-934b-105688507dcd",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-23T08:00:00.000Z",
+                          "dailySchemaId": "27e7181d-2768-414a-b503-2d946bffacaf"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "7b743ae9-dbc9-4fff-8db4-8e7a3c9ad9e8",
+                    "dayOfTreatment": "54",
+                    "dateOfTreatment": "2019-01-24T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "8fcf7b98-a09a-4dda-a6a8-ef0e635925cc",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-24T08:00:00.000Z",
+                          "dailySchemaId": "7b743ae9-dbc9-4fff-8db4-8e7a3c9ad9e8"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "87bb86da-2708-4dd9-ac5b-cd0324c26f30",
+                    "dayOfTreatment": "55",
+                    "dateOfTreatment": "2019-01-25T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "ab433856-66f3-4ba3-8026-1dee17864bb0",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-25T08:00:00.000Z",
+                          "dailySchemaId": "87bb86da-2708-4dd9-ac5b-cd0324c26f30"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "b0c1e826-3bbd-4af5-babe-40126d8c5997",
+                    "dayOfTreatment": "56",
+                    "dateOfTreatment": "2019-01-26T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "6e531776-a75b-4065-ac27-e106343113a7",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-26T08:00:00.000Z",
+                          "dailySchemaId": "b0c1e826-3bbd-4af5-babe-40126d8c5997"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "d77b9838-4638-4f05-89a0-a3c6a10d812b",
+                    "dayOfTreatment": "57",
+                    "dateOfTreatment": "2019-01-27T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "4bdb145e-98a5-4f3f-a777-d437c8592262",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-27T08:00:00.000Z",
+                          "dailySchemaId": "d77b9838-4638-4f05-89a0-a3c6a10d812b"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "694da8e4-54ac-4598-afde-aa3022af168e",
+                    "dayOfTreatment": "58",
+                    "dateOfTreatment": "2019-01-28T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "822c5e5f-e44c-4594-8ed0-71980660e855",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-28T08:00:00.000Z",
+                          "dailySchemaId": "694da8e4-54ac-4598-afde-aa3022af168e"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "1699cd98-bc3f-4ee8-8669-33c9badaf61a",
+                    "dayOfTreatment": "59",
+                    "dateOfTreatment": "2019-01-29T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "ed7ded6b-f6be-493d-bb72-6ad5d900a84d",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-29T08:00:00.000Z",
+                          "dailySchemaId": "1699cd98-bc3f-4ee8-8669-33c9badaf61a"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "e9c9ff0f-649b-4482-8cc6-6d7c20e596c1",
+                    "dayOfTreatment": "60",
+                    "dateOfTreatment": "2019-01-30T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "904515a0-7281-4797-8654-e7d8312c471e",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-30T08:00:00.000Z",
+                          "dailySchemaId": "e9c9ff0f-649b-4482-8cc6-6d7c20e596c1"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "1454d5e2-4ba2-4740-a85c-523df63613ba",
+                    "dayOfTreatment": "61",
+                    "dateOfTreatment": "2019-01-31T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "b9846c89-aac9-4765-8123-881881a241c0",
+                          "noteGeneral": "NULL",
+                          "date": "2019-01-31T08:00:00.000Z",
+                          "dailySchemaId": "1454d5e2-4ba2-4740-a85c-523df63613ba"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "9b7ab384-aa00-4e5d-b42d-7498fdc213cf",
+                    "dayOfTreatment": "62",
+                    "dateOfTreatment": "2019-02-01T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "b30e1323-7028-4f22-bb50-0dcd3828098e",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-01T08:00:00.000Z",
+                          "dailySchemaId": "9b7ab384-aa00-4e5d-b42d-7498fdc213cf"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "023c42f7-bbad-47e8-8819-b4870cc86ebf",
+                    "dayOfTreatment": "63",
+                    "dateOfTreatment": "2019-02-02T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "c7aa073b-d575-496b-b580-93c04ecaf67b",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-02T08:00:00.000Z",
+                          "dailySchemaId": "023c42f7-bbad-47e8-8819-b4870cc86ebf"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "14f3364f-63f4-4e50-837e-4d1693d5feb8",
+                    "dayOfTreatment": "64",
+                    "dateOfTreatment": "2019-02-03T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "df9e6935-6f8c-4679-b0d8-027ee39432c5",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-03T08:00:00.000Z",
+                          "dailySchemaId": "14f3364f-63f4-4e50-837e-4d1693d5feb8"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "5bd7d414-4faf-4765-9975-99dbb3f480bc",
+                    "dayOfTreatment": "65",
+                    "dateOfTreatment": "2019-02-04T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "6545ba2a-8486-423c-be48-8c37b6d83fea",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-04T08:00:00.000Z",
+                          "dailySchemaId": "5bd7d414-4faf-4765-9975-99dbb3f480bc"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "2063d901-3726-4b0b-ba8f-0a1ad7ca2c97",
+                    "dayOfTreatment": "66",
+                    "dateOfTreatment": "2019-02-05T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "5097a2f1-01da-4dd1-b747-af032c475c6b",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-05T08:00:00.000Z",
+                          "dailySchemaId": "2063d901-3726-4b0b-ba8f-0a1ad7ca2c97"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "5150145a-32d1-4910-9bae-2ec49ff6436e",
+                    "dayOfTreatment": "67",
+                    "dateOfTreatment": "2019-02-06T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "8f7d638a-f647-4d31-8cb5-b6b60ea71416",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-06T08:00:00.000Z",
+                          "dailySchemaId": "5150145a-32d1-4910-9bae-2ec49ff6436e"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "7077a3d5-e21f-4740-9042-a0db066c1505",
+                    "dayOfTreatment": "68",
+                    "dateOfTreatment": "2019-02-07T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "963ed406-b7ff-42bd-b493-96c45dd3992d",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-07T08:00:00.000Z",
+                          "dailySchemaId": "7077a3d5-e21f-4740-9042-a0db066c1505"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "876b24ab-121e-4e15-b886-c2baca30ceb8",
+                    "dayOfTreatment": "69",
+                    "dateOfTreatment": "2019-02-08T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "d7537e69-ad83-4223-98a8-8d82e0575897",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-08T08:00:00.000Z",
+                          "dailySchemaId": "876b24ab-121e-4e15-b886-c2baca30ceb8"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "c9197474-4c62-4545-9108-106f803aae06",
+                    "dayOfTreatment": "70",
+                    "dateOfTreatment": "2019-02-09T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "3d384d8f-19ab-46bb-aec4-cff2ce8b9ac1",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-09T08:00:00.000Z",
+                          "dailySchemaId": "c9197474-4c62-4545-9108-106f803aae06"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "83d443f9-a43b-414d-be60-de9a506d4a21",
+                    "dayOfTreatment": "71",
+                    "dateOfTreatment": "2019-02-10T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "82f95d1b-589a-4ef6-8383-a0d64f269494",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-10T08:00:00.000Z",
+                          "dailySchemaId": "83d443f9-a43b-414d-be60-de9a506d4a21"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "32af365b-7e25-47c2-9291-d07e3f168c28",
+                    "dayOfTreatment": "72",
+                    "dateOfTreatment": "2019-02-11T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "26ad9386-7a46-408f-9d38-78c90408187b",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-11T08:00:00.000Z",
+                          "dailySchemaId": "32af365b-7e25-47c2-9291-d07e3f168c28"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "2fdf0db8-49c7-444f-b659-82b3614948fb",
+                    "dayOfTreatment": "73",
+                    "dateOfTreatment": "2019-02-12T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "73b7df6c-0306-4c71-8d8e-8a717e9ab6dd",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-12T08:00:00.000Z",
+                          "dailySchemaId": "2fdf0db8-49c7-444f-b659-82b3614948fb"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "9de083fd-afbb-4bf6-a1ab-354e880b79a4",
+                    "dayOfTreatment": "74",
+                    "dateOfTreatment": "2019-02-13T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "de61d67a-1dcf-4d5e-8851-91349de80bd5",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-13T08:00:00.000Z",
+                          "dailySchemaId": "9de083fd-afbb-4bf6-a1ab-354e880b79a4"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "fdb573c4-872f-488b-a997-d65bc17693d7",
+                    "dayOfTreatment": "75",
+                    "dateOfTreatment": "2019-02-14T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "ddc6fc9e-f0cb-4b8c-be10-938d06656ec2",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-14T08:00:00.000Z",
+                          "dailySchemaId": "fdb573c4-872f-488b-a997-d65bc17693d7"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "b9e3fb9a-2ec6-48ff-8c4f-3365bce65201",
+                    "dayOfTreatment": "76",
+                    "dateOfTreatment": "2019-02-15T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "4cfebaef-3010-4d34-8cbf-40e474fe8c73",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-15T08:00:00.000Z",
+                          "dailySchemaId": "b9e3fb9a-2ec6-48ff-8c4f-3365bce65201"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "ba914dd1-62f1-4902-9319-8e7c9a566527",
+                    "dayOfTreatment": "77",
+                    "dateOfTreatment": "2019-02-16T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "0dca6aa4-2f56-4e92-87af-fe23c16cb756",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-16T08:00:00.000Z",
+                          "dailySchemaId": "ba914dd1-62f1-4902-9319-8e7c9a566527"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "eb481cd1-8bfd-4400-907d-794d2c901dec",
+                    "dayOfTreatment": "78",
+                    "dateOfTreatment": "2019-02-17T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "597421ec-2dbc-4d14-8550-f0254455b771",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-17T08:00:00.000Z",
+                          "dailySchemaId": "eb481cd1-8bfd-4400-907d-794d2c901dec"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "67ab56b1-c0e3-42f2-8ea2-4a940f33bef7",
+                    "dayOfTreatment": "79",
+                    "dateOfTreatment": "2019-02-18T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "5578d8e8-1fac-4936-bc69-5bce9b177ec4",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-18T08:00:00.000Z",
+                          "dailySchemaId": "67ab56b1-c0e3-42f2-8ea2-4a940f33bef7"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "8c493cda-3685-42fb-a5af-785e20590571",
+                    "dayOfTreatment": "80",
+                    "dateOfTreatment": "2019-02-19T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "4f31bc60-0f59-4ce0-961e-acf2651b76ab",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-19T08:00:00.000Z",
+                          "dailySchemaId": "8c493cda-3685-42fb-a5af-785e20590571"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "8b94ff11-f7d3-458a-9cc5-09fc7bab1d93",
+                    "dayOfTreatment": "81",
+                    "dateOfTreatment": "2019-02-20T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "5be469a2-6ac4-4841-812d-313acd3ccdf1",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-20T08:00:00.000Z",
+                          "dailySchemaId": "8b94ff11-f7d3-458a-9cc5-09fc7bab1d93"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "5fd50107-26eb-403a-bc7b-b221397f55e9",
+                    "dayOfTreatment": "82",
+                    "dateOfTreatment": "2019-02-21T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "69607d18-9f53-488d-ba4d-73aebcfb1907",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-21T08:00:00.000Z",
+                          "dailySchemaId": "5fd50107-26eb-403a-bc7b-b221397f55e9"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "532f3c0f-2b14-4ec3-b64e-507a2660f330",
+                    "dayOfTreatment": "83",
+                    "dateOfTreatment": "2019-02-22T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "dd79d314-30ea-4353-a3d4-3872e1bba13c",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-22T08:00:00.000Z",
+                          "dailySchemaId": "532f3c0f-2b14-4ec3-b64e-507a2660f330"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "bf13fa94-541a-40dc-8e85-bd895e36a830",
+                    "dayOfTreatment": "84",
+                    "dateOfTreatment": "2019-02-23T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "c5d08a15-91e4-4c86-8c0c-f0b072243964",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-23T08:00:00.000Z",
+                          "dailySchemaId": "bf13fa94-541a-40dc-8e85-bd895e36a830"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "b951bc1d-00ea-401e-bcd2-00f74af471a7",
+                    "dayOfTreatment": "85",
+                    "dateOfTreatment": "2019-02-24T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "0c4a4cf4-b786-4113-977e-063dd1019d49",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-24T08:00:00.000Z",
+                          "dailySchemaId": "b951bc1d-00ea-401e-bcd2-00f74af471a7"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "4e4d083b-3bcc-4990-bbd1-757510a62496",
+                    "dayOfTreatment": "86",
+                    "dateOfTreatment": "2019-02-25T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "2dd5f3fb-3141-4bc4-bb48-89b9bc2a1ca1",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-25T08:00:00.000Z",
+                          "dailySchemaId": "4e4d083b-3bcc-4990-bbd1-757510a62496"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "80b39c43-5535-4839-808d-ac8882cf99f9",
+                    "dayOfTreatment": "87",
+                    "dateOfTreatment": "2019-02-26T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "820fdbdb-69a3-4e8f-be13-567b4092604a",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-26T08:00:00.000Z",
+                          "dailySchemaId": "80b39c43-5535-4839-808d-ac8882cf99f9"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "d300127e-b7fe-420f-bf25-7639b40553bb",
+                    "dayOfTreatment": "88",
+                    "dateOfTreatment": "2019-02-27T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "34d71550-46d7-4749-b087-3ee00ace2d1d",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-27T08:00:00.000Z",
+                          "dailySchemaId": "d300127e-b7fe-420f-bf25-7639b40553bb"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "1d30ca52-8aa8-44e5-bd14-f5c3c20a38c8",
+                    "dayOfTreatment": "89",
+                    "dateOfTreatment": "2019-02-28T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "58b2810f-73fe-411e-a497-97b3cabbeed4",
+                          "noteGeneral": "NULL",
+                          "date": "2019-02-28T08:00:00.000Z",
+                          "dailySchemaId": "1d30ca52-8aa8-44e5-bd14-f5c3c20a38c8"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "2d53b8de-8e56-4821-9ec4-79f6604db98a",
+                    "dayOfTreatment": "90",
+                    "dateOfTreatment": "2019-03-01T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "dd3e6664-fb47-47cc-85b3-57d9f5a35a40",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-01T08:00:00.000Z",
+                          "dailySchemaId": "2d53b8de-8e56-4821-9ec4-79f6604db98a"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "4f785066-96b6-413b-8723-2e54ae8c829b",
+                    "dayOfTreatment": "91",
+                    "dateOfTreatment": "2019-03-02T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "791740b9-820a-4458-8118-bc119ff771e9",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-02T08:00:00.000Z",
+                          "dailySchemaId": "4f785066-96b6-413b-8723-2e54ae8c829b"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "6e39a08b-023c-49bd-b9d1-66d4e62de5d7",
+                    "dayOfTreatment": "92",
+                    "dateOfTreatment": "2019-03-03T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "8249750b-7de3-4e3d-90a7-7f18d4aba228",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-03T08:00:00.000Z",
+                          "dailySchemaId": "6e39a08b-023c-49bd-b9d1-66d4e62de5d7"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "f7febb58-79c4-4084-b59c-8af7f5b3e6ad",
+                    "dayOfTreatment": "93",
+                    "dateOfTreatment": "2019-03-04T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "3923dfb2-201c-47c4-bc9b-b3708ac7e160",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-04T08:00:00.000Z",
+                          "dailySchemaId": "f7febb58-79c4-4084-b59c-8af7f5b3e6ad"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "fe92894a-71aa-4fed-b08a-c92497b49982",
+                    "dayOfTreatment": "94",
+                    "dateOfTreatment": "2019-03-05T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "607c5023-05db-4a92-899e-a30b426ae5e9",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-05T08:00:00.000Z",
+                          "dailySchemaId": "fe92894a-71aa-4fed-b08a-c92497b49982"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "9f82f575-f66a-42af-af9c-4becfbbed5cc",
+                    "dayOfTreatment": "95",
+                    "dateOfTreatment": "2019-03-06T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "4e731569-ec4d-4cd4-b526-73aa2263e242",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-06T08:00:00.000Z",
+                          "dailySchemaId": "9f82f575-f66a-42af-af9c-4becfbbed5cc"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "35bee3b7-6217-4d6f-adcc-5ac4841a5e27",
+                    "dayOfTreatment": "96",
+                    "dateOfTreatment": "2019-03-07T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "31d34b69-b541-412c-a2d5-a5a49b85f025",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-07T08:00:00.000Z",
+                          "dailySchemaId": "35bee3b7-6217-4d6f-adcc-5ac4841a5e27"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "f60fc385-a8d9-4ef7-9fd6-2e4a92357182",
+                    "dayOfTreatment": "97",
+                    "dateOfTreatment": "2019-03-08T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "22337aec-a573-402f-ab81-8f1937eb80b1",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-08T08:00:00.000Z",
+                          "dailySchemaId": "f60fc385-a8d9-4ef7-9fd6-2e4a92357182"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "21f57bd7-bc4c-4bc2-9205-9b210dd8bb96",
+                    "dayOfTreatment": "98",
+                    "dateOfTreatment": "2019-03-09T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "3e2180bc-466a-4266-9385-9a356a81b5d8",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-09T08:00:00.000Z",
+                          "dailySchemaId": "21f57bd7-bc4c-4bc2-9205-9b210dd8bb96"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "76679fed-c5ef-4dc8-be53-5562ffe63db5",
+                    "dayOfTreatment": "99",
+                    "dateOfTreatment": "2019-03-10T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "24bb7a66-ee40-40be-a5e8-808126d2290e",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-10T08:00:00.000Z",
+                          "dailySchemaId": "76679fed-c5ef-4dc8-be53-5562ffe63db5"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "0d314b9c-96bd-4605-aceb-114265071fd2",
+                    "dayOfTreatment": "100",
+                    "dateOfTreatment": "2019-03-11T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "679e9c8c-e3e6-4dd2-ab37-4253c075d81c",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-11T08:00:00.000Z",
+                          "dailySchemaId": "0d314b9c-96bd-4605-aceb-114265071fd2"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "60be4a0a-ffa9-440e-8686-d17b8a29881b",
+                    "dayOfTreatment": "101",
+                    "dateOfTreatment": "2019-03-12T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "8f2826fa-b871-424a-ab5c-7b17d960fde3",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-12T08:00:00.000Z",
+                          "dailySchemaId": "60be4a0a-ffa9-440e-8686-d17b8a29881b"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "85694efe-8840-472f-9e50-9564422c2021",
+                    "dayOfTreatment": "102",
+                    "dateOfTreatment": "2019-03-13T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "d6f38ed0-514f-414d-87b9-9e8c404aea57",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-13T08:00:00.000Z",
+                          "dailySchemaId": "85694efe-8840-472f-9e50-9564422c2021"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "58304ac1-1241-4d8a-bd38-99bdec0c8018",
+                    "dayOfTreatment": "103",
+                    "dateOfTreatment": "2019-03-14T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "0e306b1b-e19c-4d00-8ded-63f3e79c9457",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-14T08:00:00.000Z",
+                          "dailySchemaId": "58304ac1-1241-4d8a-bd38-99bdec0c8018"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "0759caba-826a-489c-acc8-324f634f60e6",
+                    "dayOfTreatment": "104",
+                    "dateOfTreatment": "2019-03-15T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "33916fbd-ca42-4301-8ac0-7a2e43c4c394",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-15T08:00:00.000Z",
+                          "dailySchemaId": "0759caba-826a-489c-acc8-324f634f60e6"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "8a08df4d-6195-42af-b817-0f186c3cdb1b",
+                    "dayOfTreatment": "105",
+                    "dateOfTreatment": "2019-03-16T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "3be6f0fe-1cf9-4c32-a162-8210a25687aa",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-16T08:00:00.000Z",
+                          "dailySchemaId": "8a08df4d-6195-42af-b817-0f186c3cdb1b"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "177cff7a-32dd-47d0-ba20-3c377f56c173",
+                    "dayOfTreatment": "106",
+                    "dateOfTreatment": "2019-03-17T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "0d833c03-7c05-4ff7-a110-4bfe77374a59",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-17T08:00:00.000Z",
+                          "dailySchemaId": "177cff7a-32dd-47d0-ba20-3c377f56c173"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "bc9c82c5-86f8-45d0-9367-0c0e784b92ea",
+                    "dayOfTreatment": "107",
+                    "dateOfTreatment": "2019-03-18T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "7b69018e-962b-4b5f-8fe0-c0c44ef6a504",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-18T08:00:00.000Z",
+                          "dailySchemaId": "bc9c82c5-86f8-45d0-9367-0c0e784b92ea"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "8abb2e45-c220-4685-837f-ddd7cf7723d7",
+                    "dayOfTreatment": "108",
+                    "dateOfTreatment": "2019-03-19T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "c498eaed-c643-4dd7-9f04-9cec50b00b22",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-19T08:00:00.000Z",
+                          "dailySchemaId": "8abb2e45-c220-4685-837f-ddd7cf7723d7"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "762d3955-ce69-4d46-9083-bd0e27eeaef4",
+                    "dayOfTreatment": "109",
+                    "dateOfTreatment": "2019-03-20T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "766f7eee-0176-45d1-9e0d-09f93508f96f",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-20T08:00:00.000Z",
+                          "dailySchemaId": "762d3955-ce69-4d46-9083-bd0e27eeaef4"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "7adaef9a-7dd7-469d-8b66-c0e2eb1b3e58",
+                    "dayOfTreatment": "110",
+                    "dateOfTreatment": "2019-03-21T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "e96b1560-d14f-4e14-9acc-6671ed1d1ae8",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-21T08:00:00.000Z",
+                          "dailySchemaId": "7adaef9a-7dd7-469d-8b66-c0e2eb1b3e58"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "b7455470-b3b1-4677-9bd3-c737b591d998",
+                    "dayOfTreatment": "111",
+                    "dateOfTreatment": "2019-03-22T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "7022e4f2-06b9-4a8a-9a26-fd73f7839c00",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-22T08:00:00.000Z",
+                          "dailySchemaId": "b7455470-b3b1-4677-9bd3-c737b591d998"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "865440ff-81bc-4f27-a00d-3603e844946b",
+                    "dayOfTreatment": "112",
+                    "dateOfTreatment": "2019-03-23T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "808b24d3-840e-492e-901f-59ddb7d95a8e",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-23T08:00:00.000Z",
+                          "dailySchemaId": "865440ff-81bc-4f27-a00d-3603e844946b"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "83bc0e7f-908b-4d77-881c-635241cf85df",
+                    "dayOfTreatment": "113",
+                    "dateOfTreatment": "2019-03-24T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "f6b03278-6a90-4647-b9d3-3edfe09f4033",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-24T08:00:00.000Z",
+                          "dailySchemaId": "83bc0e7f-908b-4d77-881c-635241cf85df"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "3c135f3d-8611-4f35-8512-7f6e0d500984",
+                    "dayOfTreatment": "114",
+                    "dateOfTreatment": "2019-03-25T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "908480ef-7d0f-4561-874a-785f958423d5",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-25T08:00:00.000Z",
+                          "dailySchemaId": "3c135f3d-8611-4f35-8512-7f6e0d500984"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "e8dba8c7-e649-44b7-ba77-170da34fee96",
+                    "dayOfTreatment": "115",
+                    "dateOfTreatment": "2019-03-26T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "704500e0-e15d-48cf-9942-dd4c07b186a5",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-26T08:00:00.000Z",
+                          "dailySchemaId": "e8dba8c7-e649-44b7-ba77-170da34fee96"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "4ae76f0b-48d6-4e8f-a25b-5dbb69a90eb8",
+                    "dayOfTreatment": "116",
+                    "dateOfTreatment": "2019-03-27T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "67cdfdbd-dab4-4fed-9055-6b64814a3826",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-27T08:00:00.000Z",
+                          "dailySchemaId": "4ae76f0b-48d6-4e8f-a25b-5dbb69a90eb8"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "3f024e59-578d-4ceb-a71a-ec794ad0e5d8",
+                    "dayOfTreatment": "117",
+                    "dateOfTreatment": "2019-03-28T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "258a3bf1-73da-4e0a-92cd-592895a6ff83",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-28T08:00:00.000Z",
+                          "dailySchemaId": "3f024e59-578d-4ceb-a71a-ec794ad0e5d8"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "c41daf29-4ac3-4b8e-b86f-406d4bb52163",
+                    "dayOfTreatment": "118",
+                    "dateOfTreatment": "2019-03-29T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "571736a8-8d21-4d1c-9f41-30b5155626c5",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-29T08:00:00.000Z",
+                          "dailySchemaId": "c41daf29-4ac3-4b8e-b86f-406d4bb52163"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "3a07ffeb-59be-4b37-afa0-d81ae98e6646",
+                    "dayOfTreatment": "119",
+                    "dateOfTreatment": "2019-03-30T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "fd395f7c-6d4d-48f3-b929-b3cd9ed5676a",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-30T08:00:00.000Z",
+                          "dailySchemaId": "3a07ffeb-59be-4b37-afa0-d81ae98e6646"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "0ad02475-b239-462f-9cd9-043c146e2551",
+                    "dayOfTreatment": "120",
+                    "dateOfTreatment": "2019-03-31T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "d1128fa2-fcd8-4a5c-b786-0ab0f4091c09",
+                          "noteGeneral": "NULL",
+                          "date": "2019-03-31T08:00:00.000Z",
+                          "dailySchemaId": "0ad02475-b239-462f-9cd9-043c146e2551"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "b29b1782-549d-4f15-8fde-b69455109d6f",
+                    "dayOfTreatment": "121",
+                    "dateOfTreatment": "2019-04-01T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "39ef59e7-2f9b-44d1-a0b5-3c44bad0ddcb",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-01T08:00:00.000Z",
+                          "dailySchemaId": "b29b1782-549d-4f15-8fde-b69455109d6f"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "8e9140ea-c48a-445c-b5c0-498673d11dfa",
+                    "dayOfTreatment": "122",
+                    "dateOfTreatment": "2019-04-02T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "43b4b09a-981b-4e08-bebd-676ad4c4602b",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-02T08:00:00.000Z",
+                          "dailySchemaId": "8e9140ea-c48a-445c-b5c0-498673d11dfa"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "a966cd71-f2fc-4c0a-ad9f-78af5bfa149f",
+                    "dayOfTreatment": "123",
+                    "dateOfTreatment": "2019-04-03T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "4c0ad286-7f1b-470f-939e-81d69acb6772",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-03T08:00:00.000Z",
+                          "dailySchemaId": "a966cd71-f2fc-4c0a-ad9f-78af5bfa149f"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "13eef9e2-11c9-408b-8213-ddb5b3b63329",
+                    "dayOfTreatment": "124",
+                    "dateOfTreatment": "2019-04-04T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "aacb1e37-6666-401d-a5e3-20ab2a1be606",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-04T08:00:00.000Z",
+                          "dailySchemaId": "13eef9e2-11c9-408b-8213-ddb5b3b63329"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "fba4cb81-498d-4c0b-b728-6a8133ae9fe3",
+                    "dayOfTreatment": "125",
+                    "dateOfTreatment": "2019-04-05T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "226991be-af85-4efd-9e7a-57ae020e03f3",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-05T08:00:00.000Z",
+                          "dailySchemaId": "fba4cb81-498d-4c0b-b728-6a8133ae9fe3"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "7ccd420d-f366-405d-ae8e-5c04d9d706bd",
+                    "dayOfTreatment": "126",
+                    "dateOfTreatment": "2019-04-06T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "150f91f9-85a6-4917-b305-7a9549c1e303",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-06T08:00:00.000Z",
+                          "dailySchemaId": "7ccd420d-f366-405d-ae8e-5c04d9d706bd"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "4dbe74f2-d604-4e43-80ad-1bf8d7a1e21f",
+                    "dayOfTreatment": "127",
+                    "dateOfTreatment": "2019-04-07T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "75da9333-e124-4d19-8136-2e256d947b19",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-07T08:00:00.000Z",
+                          "dailySchemaId": "4dbe74f2-d604-4e43-80ad-1bf8d7a1e21f"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "82eb0f36-1d37-4400-93ff-60c42263c40f",
+                    "dayOfTreatment": "128",
+                    "dateOfTreatment": "2019-04-08T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "52d6b8a3-0c3f-4457-9657-504d20500cb6",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-08T08:00:00.000Z",
+                          "dailySchemaId": "82eb0f36-1d37-4400-93ff-60c42263c40f"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "f89503a3-1279-44d9-98a3-de9f3189d655",
+                    "dayOfTreatment": "129",
+                    "dateOfTreatment": "2019-04-09T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "2cdc9286-eebb-471a-860f-f2291767554c",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-09T08:00:00.000Z",
+                          "dailySchemaId": "f89503a3-1279-44d9-98a3-de9f3189d655"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "62f203f5-77ce-4d66-ace8-6f3352f21c6e",
+                    "dayOfTreatment": "130",
+                    "dateOfTreatment": "2019-04-10T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "cf392227-f04a-4ca6-9bca-c236def457cc",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-10T08:00:00.000Z",
+                          "dailySchemaId": "62f203f5-77ce-4d66-ace8-6f3352f21c6e"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "42bd7795-673e-4ba7-be75-edfb75dfa727",
+                    "dayOfTreatment": "131",
+                    "dateOfTreatment": "2019-04-11T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "df59ac8b-b838-44e8-86a5-d3a52cf68ed9",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-11T08:00:00.000Z",
+                          "dailySchemaId": "42bd7795-673e-4ba7-be75-edfb75dfa727"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "96556920-c023-4ca4-a466-56c83e3eecdc",
+                    "dayOfTreatment": "132",
+                    "dateOfTreatment": "2019-04-12T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "581c4dd0-3691-4914-b04d-ef0f33c15347",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-12T08:00:00.000Z",
+                          "dailySchemaId": "96556920-c023-4ca4-a466-56c83e3eecdc"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "ba1520fd-c076-4caf-b9c5-c2a8636b5ebb",
+                    "dayOfTreatment": "133",
+                    "dateOfTreatment": "2019-04-13T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "c5780895-ec38-43bb-9ab6-d446a3adbe50",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-13T08:00:00.000Z",
+                          "dailySchemaId": "ba1520fd-c076-4caf-b9c5-c2a8636b5ebb"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "9413b251-317d-41ac-b0e0-f0ca3b7e0de6",
+                    "dayOfTreatment": "134",
+                    "dateOfTreatment": "2019-04-14T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "4dc1688c-3f83-4322-bfd3-2833905c2651",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-14T08:00:00.000Z",
+                          "dailySchemaId": "9413b251-317d-41ac-b0e0-f0ca3b7e0de6"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "2cebc8c4-c901-4a63-b220-2504c3b4c678",
+                    "dayOfTreatment": "135",
+                    "dateOfTreatment": "2019-04-15T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "86aaf784-8cc1-4883-bb88-a6eb38a7a190",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-15T08:00:00.000Z",
+                          "dailySchemaId": "2cebc8c4-c901-4a63-b220-2504c3b4c678"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "f9855f95-a3ef-4cd3-9e07-2326d737ce17",
+                    "dayOfTreatment": "136",
+                    "dateOfTreatment": "2019-04-16T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "137bb1b4-3f8c-4de2-94f7-18b59c6c7455",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-16T08:00:00.000Z",
+                          "dailySchemaId": "f9855f95-a3ef-4cd3-9e07-2326d737ce17"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "3f33cdf3-75e7-4ffd-a2ba-f86c269c2571",
+                    "dayOfTreatment": "137",
+                    "dateOfTreatment": "2019-04-17T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "341f8ee7-ba65-48ac-9f81-fbe5e751d858",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-17T08:00:00.000Z",
+                          "dailySchemaId": "3f33cdf3-75e7-4ffd-a2ba-f86c269c2571"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "f230bf30-dec8-461a-a443-0416c38cf03e",
+                    "dayOfTreatment": "138",
+                    "dateOfTreatment": "2019-04-18T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "f101d02d-be2b-4801-b91b-f880d12f2385",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-18T08:00:00.000Z",
+                          "dailySchemaId": "f230bf30-dec8-461a-a443-0416c38cf03e"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "a97ee39b-7725-45d3-b659-ba9533147633",
+                    "dayOfTreatment": "139",
+                    "dateOfTreatment": "2019-04-19T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "3faf7469-120b-4f36-98d4-b4b2971aac7e",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-19T08:00:00.000Z",
+                          "dailySchemaId": "a97ee39b-7725-45d3-b659-ba9533147633"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "54fb185b-5e03-4566-aadd-726268844817",
+                    "dayOfTreatment": "140",
+                    "dateOfTreatment": "2019-04-20T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "cd6d92d2-d46c-432a-a9e6-cf0eb0f5fa88",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-20T08:00:00.000Z",
+                          "dailySchemaId": "54fb185b-5e03-4566-aadd-726268844817"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "6c7801df-29fb-4991-86fe-09e10fc43de9",
+                    "dayOfTreatment": "141",
+                    "dateOfTreatment": "2019-04-21T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "adb366b4-3eca-4bb3-a356-91280c1ff381",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-21T08:00:00.000Z",
+                          "dailySchemaId": "6c7801df-29fb-4991-86fe-09e10fc43de9"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "7690e47c-86b4-4b17-b372-781278c38316",
+                    "dayOfTreatment": "142",
+                    "dateOfTreatment": "2019-04-22T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "aa478b31-9e31-43fd-b24f-94d7b21be7d7",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-22T08:00:00.000Z",
+                          "dailySchemaId": "7690e47c-86b4-4b17-b372-781278c38316"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "e9a868dc-3bf1-4559-9b79-ae7a331d9f7d",
+                    "dayOfTreatment": "143",
+                    "dateOfTreatment": "2019-04-23T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "677378d4-6638-41e3-90fb-b9cd2d1890a1",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-23T08:00:00.000Z",
+                          "dailySchemaId": "e9a868dc-3bf1-4559-9b79-ae7a331d9f7d"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "da0b8962-9a97-4f76-b4b4-9141169e718b",
+                    "dayOfTreatment": "144",
+                    "dateOfTreatment": "2019-04-24T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "7b0fde55-8730-4765-8e98-f5d69b97c91f",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-24T08:00:00.000Z",
+                          "dailySchemaId": "da0b8962-9a97-4f76-b4b4-9141169e718b"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "bfc94efc-1ab8-4414-ac35-d74563bfee01",
+                    "dayOfTreatment": "145",
+                    "dateOfTreatment": "2019-04-25T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "3c65713f-5c49-47b6-a7aa-fa843af00c67",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-25T08:00:00.000Z",
+                          "dailySchemaId": "bfc94efc-1ab8-4414-ac35-d74563bfee01"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "31f730af-cf82-4194-b4a3-a49fde17a1f6",
+                    "dayOfTreatment": "146",
+                    "dateOfTreatment": "2019-04-26T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "2e66f2c3-5388-4559-9694-f3230aab528b",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-26T08:00:00.000Z",
+                          "dailySchemaId": "31f730af-cf82-4194-b4a3-a49fde17a1f6"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "c62df146-4350-4e98-9592-9b0329448bc2",
+                    "dayOfTreatment": "147",
+                    "dateOfTreatment": "2019-04-27T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "93b56020-8680-4eb7-91fa-67e1563946b8",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-27T08:00:00.000Z",
+                          "dailySchemaId": "c62df146-4350-4e98-9592-9b0329448bc2"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "ad717ea0-4668-464e-9a68-bf3067cb6ccc",
+                    "dayOfTreatment": "148",
+                    "dateOfTreatment": "2019-04-28T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "d591beac-6b50-4350-b7a1-c121066092a1",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-28T08:00:00.000Z",
+                          "dailySchemaId": "ad717ea0-4668-464e-9a68-bf3067cb6ccc"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "2ff7425a-e1fe-4b64-b458-c3e982bf7b2e",
+                    "dayOfTreatment": "149",
+                    "dateOfTreatment": "2019-04-29T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "9d3baebd-7555-4a59-b708-af9ceb08dcdf",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-29T08:00:00.000Z",
+                          "dailySchemaId": "2ff7425a-e1fe-4b64-b458-c3e982bf7b2e"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "ff622e9f-0114-4d11-a47d-baf7f0ca155a",
+                    "dayOfTreatment": "150",
+                    "dateOfTreatment": "2019-04-30T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "145b5293-00fc-4131-b83a-c682fc7fc1e5",
+                          "noteGeneral": "NULL",
+                          "date": "2019-04-30T08:00:00.000Z",
+                          "dailySchemaId": "ff622e9f-0114-4d11-a47d-baf7f0ca155a"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "9243622c-1517-494f-8f0b-19d7c81e4d52",
+                    "dayOfTreatment": "151",
+                    "dateOfTreatment": "2019-05-01T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "d093a087-3b76-4d4f-9be3-129f3370f814",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-01T08:00:00.000Z",
+                          "dailySchemaId": "9243622c-1517-494f-8f0b-19d7c81e4d52"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "b62e0784-0821-460d-8d0b-6873920d112a",
+                    "dayOfTreatment": "152",
+                    "dateOfTreatment": "2019-05-02T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "5d423eb4-a7b0-41d2-b136-c0d0357259ba",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-02T08:00:00.000Z",
+                          "dailySchemaId": "b62e0784-0821-460d-8d0b-6873920d112a"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "f3d17de3-07bd-483c-9660-5b1f200e9137",
+                    "dayOfTreatment": "153",
+                    "dateOfTreatment": "2019-05-03T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "24a3d3cd-5387-4e66-af17-06c3ff809922",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-03T08:00:00.000Z",
+                          "dailySchemaId": "f3d17de3-07bd-483c-9660-5b1f200e9137"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "1afff23e-bf1c-4a76-92fe-d39cccff94ce",
+                    "dayOfTreatment": "154",
+                    "dateOfTreatment": "2019-05-04T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "f743adeb-254e-4626-9cdd-82e253c2effc",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-04T08:00:00.000Z",
+                          "dailySchemaId": "1afff23e-bf1c-4a76-92fe-d39cccff94ce"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "81e9289b-bde6-4783-a4b9-37ee5ad87f25",
+                    "dayOfTreatment": "155",
+                    "dateOfTreatment": "2019-05-05T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "aaca7ff9-36ed-431c-9012-a5e624bc37c4",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-05T08:00:00.000Z",
+                          "dailySchemaId": "81e9289b-bde6-4783-a4b9-37ee5ad87f25"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "b7996828-000b-4639-a9bc-237f377f5a2c",
+                    "dayOfTreatment": "156",
+                    "dateOfTreatment": "2019-05-06T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "c98a128d-dcf6-407e-bcab-7532a4adcdbb",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-06T08:00:00.000Z",
+                          "dailySchemaId": "b7996828-000b-4639-a9bc-237f377f5a2c"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "25b8cbc2-e496-426e-bba9-066ea103d5a1",
+                    "dayOfTreatment": "157",
+                    "dateOfTreatment": "2019-05-07T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "72566390-b3a4-4878-a3e4-42c3266f4d9a",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-07T08:00:00.000Z",
+                          "dailySchemaId": "25b8cbc2-e496-426e-bba9-066ea103d5a1"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "b5901811-aafd-42e1-b25c-b56b60df8820",
+                    "dayOfTreatment": "158",
+                    "dateOfTreatment": "2019-05-08T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "36eb1b70-6b2c-42c0-b74a-4470c19bafa3",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-08T08:00:00.000Z",
+                          "dailySchemaId": "b5901811-aafd-42e1-b25c-b56b60df8820"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "d62c76c5-71ca-4e77-98f2-392c00c13a08",
+                    "dayOfTreatment": "159",
+                    "dateOfTreatment": "2019-05-09T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "c0039a75-62a4-492f-9fc6-810d5d0cdfd2",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-09T08:00:00.000Z",
+                          "dailySchemaId": "d62c76c5-71ca-4e77-98f2-392c00c13a08"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "9e04829d-dc81-411a-95a6-a35d2e91e762",
+                    "dayOfTreatment": "160",
+                    "dateOfTreatment": "2019-05-10T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "3c642bce-62be-48e4-acd9-d888eef3b89a",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-10T08:00:00.000Z",
+                          "dailySchemaId": "9e04829d-dc81-411a-95a6-a35d2e91e762"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "6e216543-f7f9-4fe7-8a8c-df7cd44ea8e1",
+                    "dayOfTreatment": "161",
+                    "dateOfTreatment": "2019-05-11T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "c0469ba7-3933-4260-80c7-07f0e220a93b",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-11T08:00:00.000Z",
+                          "dailySchemaId": "6e216543-f7f9-4fe7-8a8c-df7cd44ea8e1"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "70ef2f49-8fff-4385-951e-0d0f6a734b12",
+                    "dayOfTreatment": "162",
+                    "dateOfTreatment": "2019-05-12T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "8b2d6a88-9383-4446-8ba0-b31fabf92108",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-12T08:00:00.000Z",
+                          "dailySchemaId": "70ef2f49-8fff-4385-951e-0d0f6a734b12"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "0b15b96f-a827-4433-b254-01f7d301a362",
+                    "dayOfTreatment": "163",
+                    "dateOfTreatment": "2019-05-13T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "48bdcb62-7a92-43c3-8c04-857e74b1af66",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-13T08:00:00.000Z",
+                          "dailySchemaId": "0b15b96f-a827-4433-b254-01f7d301a362"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "4bdc70a4-eb29-4566-809f-f38fd60422fe",
+                    "dayOfTreatment": "164",
+                    "dateOfTreatment": "2019-05-14T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "77621221-0208-456a-83b1-043e1065fe09",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-14T08:00:00.000Z",
+                          "dailySchemaId": "4bdc70a4-eb29-4566-809f-f38fd60422fe"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "cb379dc5-3e2a-46f6-80c6-15c243a0ea0c",
+                    "dayOfTreatment": "165",
+                    "dateOfTreatment": "2019-05-15T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "ba96eea5-4e37-4e67-b100-3a7e4a77a82d",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-15T08:00:00.000Z",
+                          "dailySchemaId": "cb379dc5-3e2a-46f6-80c6-15c243a0ea0c"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "a00ada35-c2f8-4b35-9f06-162d18bbcafb",
+                    "dayOfTreatment": "166",
+                    "dateOfTreatment": "2019-05-16T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "e1280e12-dffd-410a-a984-8edffe7b0f87",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-16T08:00:00.000Z",
+                          "dailySchemaId": "a00ada35-c2f8-4b35-9f06-162d18bbcafb"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "5fef5837-ffe7-4cef-9882-a44458ff193d",
+                    "dayOfTreatment": "167",
+                    "dateOfTreatment": "2019-05-17T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "100d108b-fd66-4b7d-9246-871f9b002b25",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-17T08:00:00.000Z",
+                          "dailySchemaId": "5fef5837-ffe7-4cef-9882-a44458ff193d"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "ca5bb607-3d42-4d0f-b849-2dc594c6dc6c",
+                    "dayOfTreatment": "168",
+                    "dateOfTreatment": "2019-05-18T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "3bc4ab62-6cb5-4c74-8a78-40bac361be0e",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-18T08:00:00.000Z",
+                          "dailySchemaId": "ca5bb607-3d42-4d0f-b849-2dc594c6dc6c"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "1a076dc8-5e28-4cb6-b957-cfd2b27b7430",
+                    "dayOfTreatment": "169",
+                    "dateOfTreatment": "2019-05-19T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "bee911d9-1029-414b-bb0b-7ffd754c441a",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-19T08:00:00.000Z",
+                          "dailySchemaId": "1a076dc8-5e28-4cb6-b957-cfd2b27b7430"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "b6324e0d-9f6e-49e0-a905-39ef8a930cea",
+                    "dayOfTreatment": "170",
+                    "dateOfTreatment": "2019-05-20T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "2b10c270-35ed-4c37-83f6-8f2af7abdf39",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-20T08:00:00.000Z",
+                          "dailySchemaId": "b6324e0d-9f6e-49e0-a905-39ef8a930cea"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "7c639f53-5cb1-40f3-ab4e-66c17640e533",
+                    "dayOfTreatment": "171",
+                    "dateOfTreatment": "2019-05-21T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "e24c4b9b-a303-43ac-ae22-c56eaa322d00",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-21T08:00:00.000Z",
+                          "dailySchemaId": "7c639f53-5cb1-40f3-ab4e-66c17640e533"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "9820c975-40cd-42ae-ba5f-5d034f0276e0",
+                    "dayOfTreatment": "172",
+                    "dateOfTreatment": "2019-05-22T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "91e8c032-c44e-4a7e-a904-77e883c26eaa",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-22T08:00:00.000Z",
+                          "dailySchemaId": "9820c975-40cd-42ae-ba5f-5d034f0276e0"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "b58af6ce-b6c4-420a-92e5-8796ea56c9bf",
+                    "dayOfTreatment": "173",
+                    "dateOfTreatment": "2019-05-23T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "b932d740-5782-4acc-b36d-a2a602ea04c7",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-23T08:00:00.000Z",
+                          "dailySchemaId": "b58af6ce-b6c4-420a-92e5-8796ea56c9bf"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "dec8ef75-6972-411b-afc3-bbcd2731823a",
+                    "dayOfTreatment": "174",
+                    "dateOfTreatment": "2019-05-24T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "67db25a6-270b-4336-8205-d4bba93e7afb",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-24T08:00:00.000Z",
+                          "dailySchemaId": "dec8ef75-6972-411b-afc3-bbcd2731823a"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "79d3ab87-b053-432f-8ebb-e0774b5dc37f",
+                    "dayOfTreatment": "175",
+                    "dateOfTreatment": "2019-05-25T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "c1f578bb-68ee-4fb7-8d76-4e3ac5417ecc",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-25T08:00:00.000Z",
+                          "dailySchemaId": "79d3ab87-b053-432f-8ebb-e0774b5dc37f"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "b52adfeb-c8d3-42b7-b4c0-a2d4f87563c7",
+                    "dayOfTreatment": "176",
+                    "dateOfTreatment": "2019-05-26T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "e2553ba7-37a9-4e4a-a884-5ce50e1907ce",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-26T08:00:00.000Z",
+                          "dailySchemaId": "b52adfeb-c8d3-42b7-b4c0-a2d4f87563c7"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "e266db12-3041-4801-b985-27bdc144da59",
+                    "dayOfTreatment": "177",
+                    "dateOfTreatment": "2019-05-27T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "707f681e-2e73-4a4b-a6c8-ed121d21a2ac",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-27T08:00:00.000Z",
+                          "dailySchemaId": "e266db12-3041-4801-b985-27bdc144da59"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "c50e29ef-9c77-4e55-85dc-c7818cce9693",
+                    "dayOfTreatment": "178",
+                    "dateOfTreatment": "2019-05-28T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "b9276b1c-e4b6-4b1c-91ee-5dfbeda51c0e",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-28T08:00:00.000Z",
+                          "dailySchemaId": "c50e29ef-9c77-4e55-85dc-c7818cce9693"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "f3013415-ce56-4f54-ad70-e91117c6980b",
+                    "dayOfTreatment": "179",
+                    "dateOfTreatment": "2019-05-29T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "03bce7d2-624d-4526-b66c-09f5a3b78187",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-29T08:00:00.000Z",
+                          "dailySchemaId": "f3013415-ce56-4f54-ad70-e91117c6980b"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "63553179-3460-44ae-96c5-a643d1b85022",
+                    "dayOfTreatment": "180",
+                    "dateOfTreatment": "2019-05-30T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "00047c76-c75c-4cbc-a4a8-91724643d001",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-30T08:00:00.000Z",
+                          "dailySchemaId": "63553179-3460-44ae-96c5-a643d1b85022"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uuid": "dcb10aae-0d8e-4468-932e-d4128e5b8f3f",
+                    "dayOfTreatment": "181",
+                    "dateOfTreatment": "2019-05-31T08:00:00.000Z",
+                    "schemaId": "8189e347-65d2-4f2b-bd5e-d87439f590aa",
+                    "flag": false,
+                    "imagenes": {
+                      "ulcerForms": [
+                        {
+                          "classname": "UlcerForm",
+                          "uiid": "6e630f45-cad4-4fd7-95c2-d720716caab5",
+                          "noteGeneral": "NULL",
+                          "date": "2019-05-31T08:00:00.000Z",
+                          "dailySchemaId": "dcb10aae-0d8e-4468-932e-d4128e5b8f3f"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

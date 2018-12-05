@@ -4,6 +4,8 @@ import java.util.UUID;
 
 public class Prescripcion extends DataXml {
 
+    public String classname = "Prescripcion";
+
     private String uuid;
 
     private String name;

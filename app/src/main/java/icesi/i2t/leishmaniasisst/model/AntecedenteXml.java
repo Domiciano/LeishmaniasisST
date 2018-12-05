@@ -8,13 +8,10 @@ public class AntecedenteXml extends DataXml {
 
     public String uuid;
 
-  
     public String name;
 
-  
     public String medicineName;
 
-  
     public String schemaId;
 
     public AntecedenteXml(){ this.uuid = UUID.randomUUID().toString();}

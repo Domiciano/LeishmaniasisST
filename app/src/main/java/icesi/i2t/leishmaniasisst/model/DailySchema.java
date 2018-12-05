@@ -9,22 +9,16 @@ public class DailySchema extends DataXml {
 
     public String uuid;
 
-   
     public String dayOfTreatment;
 
-    
     public Date dateOfTreatment;
 
-   
     public String schemaId;
-
     
     public boolean flag;
 
-    
     public ListaPrescripciones prescripciones;
 
-    
     public ListaUlcerForms imagenes;
 
 
