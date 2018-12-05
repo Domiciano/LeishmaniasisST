@@ -2,8 +2,10 @@ package icesi.i2t.leishmaniasisst;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -15,11 +17,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -40,7 +54,7 @@ import icesi.i2t.leishmaniasisst.services.SyncService;
 /**
  * Created by Domiciano on 26/05/2016.
  */
-public class ObservacionesGeneralesActivity extends AppCompatActivity{
+public class ObservacionesGeneralesActivity extends AppCompatActivity {
 
     int numero_titulo = 0;
     EditText ET_observaciones;
@@ -54,7 +68,7 @@ public class ObservacionesGeneralesActivity extends AppCompatActivity{
         setContentView(R.layout.activity_observaciones_generales);
 
         db = new ManejadorBD(this);
-        String id = PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id","");
+        String id = PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id", "");
         paciente = db.buscarPaciente(id);
 
         if (Build.VERSION.SDK_INT >= 21) {
@@ -81,7 +95,7 @@ public class ObservacionesGeneralesActivity extends AppCompatActivity{
 
         cargar_info();
         titulo_observaciones = (TextView) findViewById(R.id.titulo_observaciones);
-        titulo_observaciones.setText(numero_titulo+". Observaciones generales");
+        titulo_observaciones.setText(numero_titulo + ". Observaciones generales");
     }
 
     @Override
@@ -91,7 +105,7 @@ public class ObservacionesGeneralesActivity extends AppCompatActivity{
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.cancel_eval) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -100,7 +114,7 @@ public class ObservacionesGeneralesActivity extends AppCompatActivity{
             dialog.setOnDialogResult(new BooleanAnswerDialog.OnMyDialogResult() {
                 @Override
                 public void finish(String salida) {
-                    if(salida.equals("SI")) {
+                    if (salida.equals("SI")) {
                         Intent intent = new Intent(getApplicationContext(), Evaluacion.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
@@ -112,43 +126,50 @@ public class ObservacionesGeneralesActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    public void doSiguiente(View v){
-        //METER TODA LA INFO EN LA BASE DE DATOS INTERNA
-        try {
-            salvarInforEnDB();
-        }catch (Exception e){
-            Log.e("ERROR", e.getLocalizedMessage());
-        }
+    public void doSiguiente(View v) {
+
+        Button sig_ntn = (Button) v;
+        sig_ntn.setText("Espere...");
+        sig_ntn.setEnabled(false);
+        sig_ntn.setBackgroundColor(Color.rgb(80, 80, 80));
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //METER TODA LA INFO EN LA BASE DE DATOS INTERNA
+                salvarInforEnDB();
+
+                Evaluador ev = db.getRaterByUUID(paciente.getEvaluadorId());
+                //Evaluador full_rater = db.getFullRater(ev);
+                Intent intentService = new Intent(ObservacionesGeneralesActivity.this, SyncService.class);
+                intentService.putExtra("rater", ev);
+                startService(intentService);
 
 
+                Intent intent = new Intent(getApplicationContext(), Evaluacion.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("evaluacion_terminada", true);
+                startActivity(intent);
+            }
+        }).start();
 
-        Evaluador ev = db.getRaterByUUID(paciente.getEvaluadorId());
-        //Evaluador full_rater = db.getFullRater(ev);
-        Intent intentService = new Intent(this, SyncService.class);
-        intentService.putExtra("rater", ev);
-        //startService(intentService);
 
-
-        Intent intent = new Intent(getApplicationContext(), Evaluacion.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("evaluacion_terminada", true);
-        startActivity(intent);
     }
 
-    int calcular_severidad_fiebre(int duracion, int temperatura){
-        if(temperatura <=39 && duracion == 1){
+    int calcular_severidad_fiebre(int duracion, int temperatura) {
+        if (temperatura <= 39 && duracion == 1) {
             return 1;
-        }else if(temperatura ==40 && duracion == 1){
+        } else if (temperatura == 40 && duracion == 1) {
             return 2;
-        }else if(temperatura >=41 && duracion == 1){
+        } else if (temperatura >= 41 && duracion == 1) {
             return 3;
-        }else if(temperatura >=41 && duracion >= 2){
+        } else if (temperatura >= 41 && duracion >= 2) {
             return 4;
         }
         return 0;
     }
 
-    int calcular_dolor_sitio(boolean enrojecimiento, boolean pus, boolean calentura, boolean hinchazon, boolean dolor_zona, int severidad_inyeccion){
+    int calcular_dolor_sitio(boolean enrojecimiento, boolean pus, boolean calentura, boolean hinchazon, boolean dolor_zona, int severidad_inyeccion) {
         String value = "";
         int int_enrrojecimiento = enrojecimiento ? severidad_inyeccion : 0;
         int int_pus = pus ? severidad_inyeccion : 0;
@@ -156,22 +177,22 @@ public class ObservacionesGeneralesActivity extends AppCompatActivity{
         int int_hinchazon = hinchazon ? severidad_inyeccion : 0;
         int int_dolor_zona = dolor_zona ? severidad_inyeccion : 0;
 
-        value += int_enrrojecimiento + "" + int_pus + "" + int_calentura + "" +int_hinchazon + "" + int_dolor_zona;
+        value += int_enrrojecimiento + "" + int_pus + "" + int_calentura + "" + int_hinchazon + "" + int_dolor_zona;
 
         return Integer.parseInt(value);
     }
 
     private int calcular_severidad_vomito(int int_veces_vomito, int int_dias_vomito) {
-        if(int_veces_vomito == 1 || int_veces_vomito == 2) return 1;
-        if(int_veces_vomito >= 3 && int_veces_vomito <= 5) return 2;
-        if(int_veces_vomito >= 6) return 3;
+        if (int_veces_vomito == 1 || int_veces_vomito == 2) return 1;
+        if (int_veces_vomito >= 3 && int_veces_vomito <= 5) return 2;
+        if (int_veces_vomito >= 6) return 3;
         return 0;
     }
 
     private int calcular_severidad_diarrea(int int_veces_diarrea, int int_dias_diarrea) {
-        if(int_veces_diarrea < 4) return 1;
-        if(int_veces_diarrea >= 4 && int_veces_diarrea <= 6) return 2;
-        if(int_veces_diarrea >= 7) return 3;
+        if (int_veces_diarrea < 4) return 1;
+        if (int_veces_diarrea >= 4 && int_veces_diarrea <= 6) return 2;
+        if (int_veces_diarrea >= 7) return 3;
         return 0;
     }
 
@@ -182,92 +203,97 @@ public class ObservacionesGeneralesActivity extends AppCompatActivity{
             String fecha_inicio = PreferenceManager.getDefaultSharedPreferences(this).getString("fecha_inicio", "0000-00-00");
             String fecha_fin = PreferenceManager.getDefaultSharedPreferences(this).getString("fecha_fin", "0000-00-00");
             Schema activo = db.buscarSchemaActivoDelPaciente(paciente);
-            ArrayList<DailySchema> lista = db.getDailySchemaListByDates(activo.getUuid(), fecha_inicio, fecha_fin);
+            Calendar c = Calendar.getInstance();
+            Date today = c.getTime();
+            DailySchema ds = db.buscarDailySchema(activo.getUuid(), today);
 
-            String duracion_fiebre = PreferenceManager.getDefaultSharedPreferences(this).getString("duracion_fiebre","0 dias");
-                int int_duracion_fiebre = Integer.parseInt(duracion_fiebre.substring(0, duracion_fiebre.length()-5));
-            String temperatura_fiebre = PreferenceManager.getDefaultSharedPreferences(this).getString("temperatura_fiebre","35 ºC");
-                int int_temperatura_fiebre = Integer.parseInt(temperatura_fiebre.substring(0, 2));
-            int severidad_generales = PreferenceManager.getDefaultSharedPreferences(this).getInt("severidad_generales",0);
-            boolean fiebre = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("fiebre",false);
-            boolean dolor = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dolor",false);
-            boolean malestar = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("malestar",false);
-            boolean mareo = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("mareo",false);
-            boolean palpitaciones = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("palpitaciones",false);
+            //ArrayList<DailySchema> lista = db.getDailySchemaListByDates(activo.getUuid(), fecha_inicio, fecha_fin);
 
-            boolean enrojecimiento = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("enrojecimiento",false);
-            boolean pus = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pus",false);
-            boolean calentura = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("calentura",false);
-            boolean hinchazon = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("hinchazon",false);
-            boolean dolor_zona = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dolor_zona",false);
-            int severidad_inyeccion = PreferenceManager.getDefaultSharedPreferences(this).getInt("severidad_inyeccion",0);
+            String duracion_fiebre = PreferenceManager.getDefaultSharedPreferences(this).getString("duracion_fiebre", "0 dias");
+            int int_duracion_fiebre = Integer.parseInt(duracion_fiebre.substring(0, duracion_fiebre.length() - 5));
+            String temperatura_fiebre = PreferenceManager.getDefaultSharedPreferences(this).getString("temperatura_fiebre", "35 ºC");
+            int int_temperatura_fiebre = Integer.parseInt(temperatura_fiebre.substring(0, 2));
+            int severidad_generales = PreferenceManager.getDefaultSharedPreferences(this).getInt("severidad_generales", 0);
+            boolean fiebre = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("fiebre", false);
+            boolean dolor = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dolor", false);
+            boolean malestar = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("malestar", false);
+            boolean mareo = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("mareo", false);
+            boolean palpitaciones = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("palpitaciones", false);
 
-            boolean nauseas = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("nauseas",false);
-            boolean vomito = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("vomito",false);
-            boolean perdida_apetito = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("perdida_apetito",false);
-            boolean dolor_abdominal = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dolor_abdominal",false);
-            boolean diarrea = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("diarrea",false);
-            String veces_vomito = PreferenceManager.getDefaultSharedPreferences(this).getString("veces_vomito","0 veces");
-                int int_veces_vomito = Integer.parseInt(veces_vomito.substring(0, 1));
-            String dias_vomito = PreferenceManager.getDefaultSharedPreferences(this).getString("dias_vomito","0 dias");
-                int int_dias_vomito = Integer.parseInt(dias_vomito.substring(0, duracion_fiebre.length()-5));
-            String veces_diarrea = PreferenceManager.getDefaultSharedPreferences(this).getString("veces_diarrea","0 veces");
-                int int_veces_diarrea = Integer.parseInt(veces_diarrea.substring(0, 1));
-            String dias_diarrea = PreferenceManager.getDefaultSharedPreferences(this).getString("dias_diarrea","0 dias");
-                int int_dias_diarrea = Integer.parseInt(dias_diarrea.substring(0, duracion_fiebre.length()-5));
-            int severidad_gastro = PreferenceManager.getDefaultSharedPreferences(this).getInt("severidad_gastro",0);
+            boolean enrojecimiento = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("enrojecimiento", false);
+            boolean pus = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pus", false);
+            boolean calentura = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("calentura", false);
+            boolean hinchazon = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("hinchazon", false);
+            boolean dolor_zona = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dolor_zona", false);
+            int severidad_inyeccion = PreferenceManager.getDefaultSharedPreferences(this).getInt("severidad_inyeccion", 0);
 
-            boolean dolor_muscular = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dolor_muscular",false);
-            boolean dolor_articulaciones = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dolor_articulaciones",false);
-            int severidad_osteo = PreferenceManager.getDefaultSharedPreferences(this).getInt("severidad_osteo",0);
+            boolean nauseas = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("nauseas", false);
+            boolean vomito = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("vomito", false);
+            boolean perdida_apetito = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("perdida_apetito", false);
+            boolean dolor_abdominal = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dolor_abdominal", false);
+            boolean diarrea = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("diarrea", false);
+            String veces_vomito = PreferenceManager.getDefaultSharedPreferences(this).getString("veces_vomito", "0 veces");
+            int int_veces_vomito = Integer.parseInt(veces_vomito.substring(0, 1));
+            String dias_vomito = PreferenceManager.getDefaultSharedPreferences(this).getString("dias_vomito", "0 dias");
+            int int_dias_vomito = Integer.parseInt(dias_vomito.substring(0, duracion_fiebre.length() - 5));
+            String veces_diarrea = PreferenceManager.getDefaultSharedPreferences(this).getString("veces_diarrea", "0 veces");
+            int int_veces_diarrea = Integer.parseInt(veces_diarrea.substring(0, 1));
+            String dias_diarrea = PreferenceManager.getDefaultSharedPreferences(this).getString("dias_diarrea", "0 dias");
+            int int_dias_diarrea = Integer.parseInt(dias_diarrea.substring(0, duracion_fiebre.length() - 5));
+            int severidad_gastro = PreferenceManager.getDefaultSharedPreferences(this).getInt("severidad_gastro", 0);
+
+            boolean dolor_muscular = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dolor_muscular", false);
+            boolean dolor_articulaciones = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dolor_articulaciones", false);
+            int severidad_osteo = PreferenceManager.getDefaultSharedPreferences(this).getInt("severidad_osteo", 0);
 
             //String observaciones_generales = PreferenceManager.getDefaultSharedPreferences(this).getString("observaciones_generales","");
 
 
-            for(int i=0 ; i<lista.size() ; i++){
-                DailySchema d = lista.get(i);
-                List<Prescripcion> lista_p = db.getListaPrescripciones(d.getUuid());
-                if(lista_p == null) continue;
-                if(lista_p.size() == 0) continue;
-                Prescripcion prescripcion = lista_p.get(0);
-                BasicAdverseEvent bae = db.buscarBasicAdverseEvent(prescripcion.getUuid());
-
-                if(bae == null){
-                    Log.d("Error BasicAdverseEvent","Uno de los basicAdverseEvent está nulo");
-                    continue;
-                }
-
-                    bae.setFiebre(fiebre ? calcular_severidad_fiebre(int_duracion_fiebre, int_temperatura_fiebre) : 0);
-                    bae.setDolorCabeza(dolor?severidad_generales:0);
-                    bae.setMalestarGeneral(malestar?severidad_generales:0);
-                    bae.setMareo(mareo?severidad_generales:0);
-                    bae.setPalpitaciones(palpitaciones?severidad_generales:0);
-
-                    bae.setDolorSitio(calcular_dolor_sitio(enrojecimiento, pus, calentura, hinchazon, dolor_zona, severidad_inyeccion));
-                    bae.setInfeccionSitio(calcular_infeccion_sitio(enrojecimiento, pus, calentura, hinchazon, dolor_zona, severidad_inyeccion));
-
-                    bae.setVomito(vomito ? calcular_severidad_vomito(int_veces_vomito, int_dias_vomito) : 0);
-                    bae.setDiarrea(diarrea ? calcular_severidad_diarrea(int_veces_diarrea, int_dias_diarrea) : 0);
-                    bae.setNauseas(nauseas?severidad_gastro:0);
-                    bae.setPerdidaApetito(perdida_apetito?severidad_gastro:0);
-                    bae.setDolorAbdominal(dolor_abdominal?severidad_gastro:0);
-
-                    bae.setDolorMuscular(dolor_muscular ? severidad_osteo : 0);
-                    bae.setDolorArticulaciones(dolor_articulaciones ? severidad_osteo : 0);
-                db.editarBasicAdverseEvent(bae);
-
-                prescripcion.setComentarios(ET_observaciones.getText().toString());
-                //prescripcion.setNumeroLote(numero_unidades);
-                //db.editarPrescripcion(prescripcion);
+            //Hacer este procedimiento sólo para el día
 
 
+            List<Prescripcion> lista_p = db.getListaPrescripciones(ds.getUuid());
+            if (lista_p == null){
+                Log.e(">>>","Prescripciones nulas");
+                return;
+            }
+            if (lista_p.size() == 0){
+                Log.e(">>>","Prescripciones vacias");
+                return;
+            }
+            Prescripcion prescripcion = lista_p.get(0);
+            BasicAdverseEvent bae = db.buscarBasicAdverseEvent(prescripcion.getUuid());
 
+            if (bae == null) {
+                Log.d("Error BasicAdverseEvent", "Uno de los basicAdverseEvent está nulo");
+                return;
             }
 
+            bae.setFiebre(fiebre ? calcular_severidad_fiebre(int_duracion_fiebre, int_temperatura_fiebre) : 0);
+            bae.setDolorCabeza(dolor ? severidad_generales : 0);
+            bae.setMalestarGeneral(malestar ? severidad_generales : 0);
+            bae.setMareo(mareo ? severidad_generales : 0);
+            bae.setPalpitaciones(palpitaciones ? severidad_generales : 0);
+
+            bae.setDolorSitio(calcular_dolor_sitio(enrojecimiento, pus, calentura, hinchazon, dolor_zona, severidad_inyeccion));
+            bae.setInfeccionSitio(calcular_infeccion_sitio(enrojecimiento, pus, calentura, hinchazon, dolor_zona, severidad_inyeccion));
+
+            bae.setVomito(vomito ? calcular_severidad_vomito(int_veces_vomito, int_dias_vomito) : 0);
+            bae.setDiarrea(diarrea ? calcular_severidad_diarrea(int_veces_diarrea, int_dias_diarrea) : 0);
+            bae.setNauseas(nauseas ? severidad_gastro : 0);
+            bae.setPerdidaApetito(perdida_apetito ? severidad_gastro : 0);
+            bae.setDolorAbdominal(dolor_abdominal ? severidad_gastro : 0);
+
+            bae.setDolorMuscular(dolor_muscular ? severidad_osteo : 0);
+            bae.setDolorArticulaciones(dolor_articulaciones ? severidad_osteo : 0);
+            db.editarBasicAdverseEvent(bae);
+
+            prescripcion.setComentarios(ET_observaciones.getText().toString());
+            prescripcion.setNumeroLote(numero_unidades);
+            db.editarPrescripcion(prescripcion);
 
 
-
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e("ERROR", e.getLocalizedMessage());
         }
 
@@ -312,46 +338,61 @@ public class ObservacionesGeneralesActivity extends AppCompatActivity{
         editor.remove("observaciones_generales");
 
         String paciente_id = PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id", "");
-        editor.remove("DIAS"+paciente_id);
+        editor.remove("DIAS" + paciente_id);
         editor.remove("paciente_id");
         editor.remove("numero_titulo");
         editor.remove("dias_transcurridos_calculados");
         //editor.remove("rater_id");
-
         //editor.putBoolean(paciente_id, true);
-
-        editor.commit();
-
+        editor.apply();
 
 
+        Evaluador rater_db = db.getRaterByUUID(paciente.getEvaluadorId());
+        Evaluador fullRater = db.getFullRater(rater_db);
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
+        String json = gson.toJson(fullRater);
+        String path = Environment.getExternalStorageDirectory() + "/FORMS.json";
+        try (
+                Writer writer = new BufferedWriter(new OutputStreamWriter(
+                        new FileOutputStream(path), "UTF8"))
+        )
 
+        {
+            writer.write(json);
+        } catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
 
     }
 
     private int calcular_infeccion_sitio(boolean enrojecimiento, boolean pus, boolean calentura, boolean hinchazon, boolean dolor_zona, int severidad_inyeccion) {
         int acumulador = 0;
-        if(enrojecimiento) acumulador+=severidad_inyeccion;
-        if(pus) acumulador+=severidad_inyeccion;
-        if(calentura) acumulador+=severidad_inyeccion;
-        if(hinchazon) acumulador+=severidad_inyeccion;
-        if(dolor_zona) acumulador+=severidad_inyeccion;
+        if (enrojecimiento) acumulador += severidad_inyeccion;
+        if (pus) acumulador += severidad_inyeccion;
+        if (calentura) acumulador += severidad_inyeccion;
+        if (hinchazon) acumulador += severidad_inyeccion;
+        if (dolor_zona) acumulador += severidad_inyeccion;
 
-        return acumulador/5;
+        return acumulador / 5;
     }
 
 
-    public void cargar_info(){
+    public void cargar_info() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String texto = prefs.getString("observaciones_generales","");
-        numero_titulo = prefs.getInt("numero_titulo",0);
+        String texto = prefs.getString("observaciones_generales", "");
+        numero_titulo = prefs.getInt("numero_titulo", 0);
         ET_observaciones.setText(texto);
     }
 
-    public void guardar_info(){
+    public void guardar_info() {
         String texto = ET_observaciones.getText().toString();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("observaciones_generales",texto);
+        editor.putString("observaciones_generales", texto);
         editor.commit();
     }
 

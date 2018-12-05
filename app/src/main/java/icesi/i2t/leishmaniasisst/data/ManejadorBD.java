@@ -2152,7 +2152,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
         Calendar c = Calendar.getInstance();
         Date today = c.getTime();
         Schema activo = buscarSchemaActivoDelPaciente(p);
-        Log.e("SCHEMA", ""+activo);Log.e("SCHEMA", ""+activo);
+        Log.e("SCHEMA", ""+activo);
         DailySchema ds = buscarDailySchema(activo.getUuid(), today);
         if (ds == null) return false;
         Log.e("DAYSCHEMA", ""+ds);

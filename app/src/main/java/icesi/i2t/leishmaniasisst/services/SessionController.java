@@ -101,23 +101,23 @@ public class SessionController {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(activity, "Abriendo información", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity, "Sincronizando, por favor espere", Toast.LENGTH_SHORT).show();
                         }
                     });
                     db.setFullRater(response);
-                    Gson g = new Gson();
-                    Log.e("MODELO",""+g.toJson(response));
+                    //Gson g = new Gson();
+                    //Log.e("MODELO",""+g.toJson(response));
                 }
-                db.printAllUsers();
-                Evaluador ev = db.getFullRater(rater);
-
-                Log.e("MODELO",">"+ev);
+                //db.printAllUsers();
+                //Evaluador ev = db.getFullRater(rater);
+                Evaluador ev  = response;
+                //Log.e("MODELO",">"+ev);
 
                 if (ev != null) {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(activity, "Información Cargada", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity, "Sinronización completada", Toast.LENGTH_SHORT).show();
                         }
                     });
 

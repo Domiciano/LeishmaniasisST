@@ -1,9 +1,5 @@
 package icesi.i2t.leishmaniasisst.model;
 
-import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
-
 import java.util.UUID;
 
 /**
@@ -12,46 +8,41 @@ import java.util.UUID;
  * to the server.
  */
 
-@Root(name = "data")
 public class Evaluation extends DataXml {
 
-    private static final long serialVersionUID = 1L;
-    @Attribute(name = "xsi:type")
-    private String classname = "GuaralizadorTestXml";
-    @Element(name = "TestId")
     private String UUIDNumber;
-    @Element(name = "UlcerasBordesElevados")
+    
     private boolean ulceras;
-    @Element(name = "LesionesAgrupadas")
+   
     private boolean agrupadas;
-    @Element(name = "LocalizacionCabeza")
+    
     private boolean lesionesH;
-    @Element(name = "LocalizacionTronco")
+    
     private boolean lesionesB;
-    @Element(name = "LocalizacionBrazoIzquierdo")
+    
     private boolean lesionesLA;
-    @Element(name = "LocalizacionBrazoDerecho")
+    
     private boolean lesionesRA;
-    @Element(name = "LocalizacionPiernaIzquierda")
+    
     private boolean lesionesLL;
-    @Element(name = "LocalizacionPiernaDerecha")
+    
     private boolean lesionesRL;
-    @Element(name = "ActividadRiesgo")
+    
     private boolean actividades;
-    @Element(name = "AntecedenteXml")
+
     private boolean antecedentes;
-    @Element(name = "ContactoManta")
+    
     private boolean manta;
-    @Element(name = "Date")
+    
     private String date; //dd/MM/yyyy
-    @Element(name = "Umbral")
+   
     private double umbral;
-    @Element(name = "Puntaje")
+   
     private double score;
 
-    @Element(name = "evaluadorId")
+  
     private String evaluadorId; // Password
-    @Element(name = "pacienteId")
+    
     private String pacienteId;
 
     public Evaluation() {
@@ -100,14 +91,6 @@ public class Evaluation extends DataXml {
 
     public int calculateScore() {
         return 0;
-    }
-
-    public String getClassname() {
-        return classname;
-    }
-
-    public void setClassname(String classname) {
-        this.classname = classname;
     }
 
     public String getUUIDNumber() {

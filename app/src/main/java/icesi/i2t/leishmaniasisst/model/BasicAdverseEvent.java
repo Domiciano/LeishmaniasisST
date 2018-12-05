@@ -1,7 +1,6 @@
 package icesi.i2t.leishmaniasisst.model;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
+
 
 import java.util.UUID;
 
@@ -10,63 +9,58 @@ import java.util.UUID;
  * Represents an BasicAdverseEvent. Has the required annotations to serialize the data and send it to the server.
  */
 
-@Root(name = "BasicAdverseEventXml")
+
 public class BasicAdverseEvent extends DataXml {
 
-    private static final long serialVersionUID = 1L;
-    //@Attribute(name = "xsi:type")
-    public String classname = "BasicAdverseEventXml";
-
-    @Element(name = "Id", required = false)
     public String uuid;
 
 
-    @Element(name = "Name", required = false)
+
     public String name;
 
-    @Element(name = "DolorSitio", required = false)
+
     public int dolorSitio;
 
-    @Element(name = "InfeccionSitio", required = false)
+
     public int infeccionSitio;
 
-    @Element(name = "MalestarGeneral", required = false)
+   
     public int malestarGeneral;
 
-    @Element(name = "DolorMuscular", required = false)
+
     public int dolorMuscular;
 
-    @Element(name = "DolorArticulaciones", required = false)
+   
     public int dolorArticulaciones;
 
-    @Element(name = "DolorCabeza", required = false)
+    
     public int dolorCabeza;
 
-    @Element(name = "Fiebre", required = false)
+  
     public int fiebre;
 
-    @Element(name = "Nauseas", required = false)
+   
     public int nauseas;
 
-    @Element(name = "Vomito", required = false)
+    
     public int vomito;
 
-    @Element(name = "Diarrea", required = false)
+    
     public int diarrea;
 
-    @Element(name = "DolorAbdominal", required = false)
+    
     public int dolorAbdominal;
 
-    @Element(name = "PerdidaApetito", required = false)
+   
     public int perdidaApetito;
 
-    @Element(name = "Mareo", required = false)
+   
     public int mareo;
 
-    @Element(name = "Palpitaciones", required = false)
+   
     public int palpitaciones;
 
-    @Element(name = "PrescriptionId", required = false)
+   
     public String prescriptionId;
 
     public BasicAdverseEvent() { this.uuid = UUID.randomUUID().toString();}

@@ -1,9 +1,5 @@
 package icesi.i2t.leishmaniasisst.model;
 
-import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,19 +10,14 @@ import java.util.List;
  * and send it to the server.
  */
 
-@Root(name = "data")
 public class LiderComunitario extends DataXml {
 
-    private static final long serialVersionUID = 1L;
-    @Attribute(name = "xsi:type")
-    private String classname = "LiderComunitarioXml";
-    @Element(name = "Cedula")
     private String identification; // Password
-    @Element(name = "Name")
+    
     private String name; // Username
-    @Element(name = "LastName")
+  
     private String lastName;
-    @Element(name = "Gender")
+    
     private char genre;
 
     private List<Patient> patientList;
@@ -47,14 +38,6 @@ public class LiderComunitario extends DataXml {
 
     @Override
     public void ParseAttributes() {
-    }
-
-    public String getClassname() {
-        return classname;
-    }
-
-    public void setClassname(String classname) {
-        this.classname = classname;
     }
 
     public String getIdentification() {

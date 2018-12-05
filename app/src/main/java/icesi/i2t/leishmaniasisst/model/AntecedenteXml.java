@@ -1,33 +1,20 @@
 package icesi.i2t.leishmaniasisst.model;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
 
 import java.util.UUID;
 
-/**
- * Created by Andres Aguirre on 09/02/2016.
- * Represents an AntecedenteXml. Has the required annotations to serialize the data and send it to the server.
- */
 
-@Root(name = "AntecedenteXml")
 public class AntecedenteXml extends DataXml {
 
-    private static final long serialVersionUID = 1L;
-    //@Attribute(name = "xsi:type")
-
-    public String classname = "AntecedentesXml";
-
-    @Element(name = "Id", required = false)
     public String uuid;
 
-    @Element(name = "Name", required = false)
+  
     public String name;
 
-    @Element(name = "MedicineName", required = false)
+  
     public String medicineName;
 
-    @Element(name = "SchemaId", required = false)
+  
     public String schemaId;
 
     public AntecedenteXml(){ this.uuid = UUID.randomUUID().toString();}
@@ -53,18 +40,6 @@ public class AntecedenteXml extends DataXml {
 
     public void setSchemaId(String schemaId) {
         this.schemaId = schemaId;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public String getClassname() {
-        return classname;
-    }
-
-    public void setClassname(String classname) {
-        this.classname = classname;
     }
 
     public String getUuid() {

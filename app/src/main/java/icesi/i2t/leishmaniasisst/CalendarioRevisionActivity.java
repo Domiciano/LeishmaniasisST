@@ -55,14 +55,13 @@ import icesi.i2t.leishmaniasisst.model.Schema;
 
 public class CalendarioRevisionActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    int numero_titulo=0;
+    int numero_titulo = 0;
     int index_medicamento = 0;
 
-    static final String[] MESES_DEL_ANIO = new String[]{"Enero","Febrero","Marzo","Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Obtubre", "Noviembre", "Diciembre"};
+    static final String[] MESES_DEL_ANIO = new String[]{"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Obtubre", "Noviembre", "Diciembre"};
 
-    String fecha_inicio="2016-10-01";
-    String fecha_fin="2016-11-11";
-
+    String fecha_inicio = "2016-10-01";
+    String fecha_fin = "2016-11-11";
 
 
     Button siguiente_calendario;
@@ -71,7 +70,7 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
     TextView calendario_titulo;
     String[] medicamento = new String[]{"Glucantime", "Miltefosine"};
 
-    int display_width=0,display_height=0;
+    int display_width = 0, display_height = 0;
 
     ManejadorBD db;
 
@@ -95,7 +94,7 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
         setContentView(R.layout.activity_canlendario_revision);
 
 
-        Log.e("<--SP-->",PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id","-"));
+        Log.e("<--SP-->", PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id", "-"));
 
 
         formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -104,7 +103,7 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
         senotob = new HashMap<>();
 
         db = new ManejadorBD(this);
-        String id = PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id","");
+        String id = PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id", "");
         paciente = db.buscarPaciente(id);
 
         Schema schema_activo = db.buscarSchemaActivoDelPaciente(paciente);
@@ -115,7 +114,7 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
         dosis = dosis_detail[0];
         //Toast.makeText(this, dosis, Toast.LENGTH_SHORT).show();
 
-        if(dosis.isEmpty()){
+        if (dosis.isEmpty()) {
             dosis = "1";
         }
 
@@ -152,20 +151,20 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
         calendar_content = (ScrollView) findViewById(R.id.calendar_content);
         calendario_titulo = (TextView) findViewById(R.id.calendario_titulo);
         padre_calendario = (LinearLayout) findViewById(R.id.padre_calendario);
-        calendario_titulo.setText(numero_titulo+". Administración de " + medicamento[index_medicamento]);
+        calendario_titulo.setText(numero_titulo + ". Administración de " + medicamento[index_medicamento]);
 
         hide_siguiente();
-
-
-
         getFechaInicio();
         generarCalendario();
 
+
+        //Set flags
         setFlagsDStoCalendars();
         show_siguiente();
 
 
     }
+
     private void generarCalendario() {
 
 
@@ -175,7 +174,7 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
         int iteraciones = 0;
         boolean etiqueta = false;
 
-        int indice=0;
+        int indice = 0;
 
         try {
 
@@ -208,14 +207,14 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
                     etiqueta = true;
                 }
 
-                if (contador_dias == 0  || etiqueta) {
+                if (contador_dias == 0 || etiqueta) {
                     //PONER FILA
                     etiqueta = false;
-                    contador_dias=0;
+                    contador_dias = 0;
 
                     LinearLayout l = new LinearLayout(this);
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    params.setMargins(50,0,50,0);
+                    params.setMargins(50, 0, 50, 0);
                     l.setLayoutParams(params);
                     fila_actual = l;
                     padre_calendario.addView(l);
@@ -223,21 +222,21 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
 
                 //PONER CADA BOTON
                 Button b = new Button(this);
-                b.setText(""+c.get(Calendar.DAY_OF_MONTH));
-                LinearLayout.LayoutParams params_b = new LinearLayout.LayoutParams(((display_width-100)/5)-10, ((display_width-100)/5)-10);
-                params_b.setMargins(5,5,5,5);
+                b.setText("" + c.get(Calendar.DAY_OF_MONTH));
+                LinearLayout.LayoutParams params_b = new LinearLayout.LayoutParams(((display_width - 100) / 5) - 10, ((display_width - 100) / 5) - 10);
+                params_b.setMargins(5, 5, 5, 5);
                 b.setLayoutParams(params_b);
                 b.setTextSize(20);
 
-                if(mismoDia(c.getTime(), Calendar.getInstance().getTime())) {
+                if (mismoDia(c.getTime(), Calendar.getInstance().getTime())) {
                     b.setTextColor(Color.rgb(226, 97, 0));
                     b.setBackgroundColor(Color.rgb(239, 175, 99));
-                }else if(c.before(Calendar.getInstance())){
-                    b.setTextColor(Color.rgb(226,97,0));
+                } else if (c.before(Calendar.getInstance())) {
+                    b.setTextColor(Color.rgb(226, 97, 0));
                     b.setBackgroundColor(Color.rgb(239, 175, 99));
-                }else if(c.after(Calendar.getInstance())) {
-                    b.setBackgroundColor(Color.rgb(0xEA,0x97,0x33));
-                    b.setTextColor(Color.rgb(0xEE,0xAC,0x5C));
+                } else if (c.after(Calendar.getInstance())) {
+                    b.setBackgroundColor(Color.rgb(0xEA, 0x97, 0x33));
+                    b.setTextColor(Color.rgb(0xEE, 0xAC, 0x5C));
                 }
 
                 b.setOnClickListener(new View.OnClickListener() {
@@ -249,58 +248,58 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
                         DayOnGridModel day = dias.get(index);
 
                         //if(day.getMedicamento_tomado() == DayOnGridModel.NO_EVALUADO){
-                            Date time = day.getCalendar().getTime();
-                            Calendar hoy = Calendar.getInstance();
+                        Date time = day.getCalendar().getTime();
+                        Calendar hoy = Calendar.getInstance();
 
-                            if (time.before(hoy.getTime()) || mismoDia(day.getCalendar().getTime(), hoy.getTime())) {
-                                if (index_medicamento == 0) {
-                                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                                    AmpollasAdministradasDialog dialog =
-                                            AmpollasAdministradasDialog
-                                                    .newInstance(day.getCalendar().get(Calendar.DAY_OF_MONTH),
-                                                            MESES_DEL_ANIO[day.getCalendar().get(Calendar.MONTH)],
-                                                            Integer.parseInt(dosis));
-                                    dialog.show(ft, "dialog_ampollas");
+                        if (time.before(hoy.getTime()) || mismoDia(day.getCalendar().getTime(), hoy.getTime())) {
+                            if (index_medicamento == 0) {
+                                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                                AmpollasAdministradasDialog dialog =
+                                        AmpollasAdministradasDialog
+                                                .newInstance(day.getCalendar().get(Calendar.DAY_OF_MONTH),
+                                                        MESES_DEL_ANIO[day.getCalendar().get(Calendar.MONTH)],
+                                                        Integer.parseInt(dosis));
+                                dialog.show(ft, "dialog_ampollas");
 
-                                    final DayOnGridModel finalDay = day;
-                                    dialog.setOnDialogDismiss(new AmpollasAdministradasDialog.OnDialogDismiss() {
-                                        @Override
-                                        public void finish(String resultado) {
-                                            int ampollas = Integer.parseInt(resultado);
-                                            finalDay.setUnidades_tomadas(ampollas);
-                                            if (ampollas > 0) {
-                                                finalDay.setMedicamento_tomado(DayOnGridModel.MEDICAMENTO_TOMADO);
-                                            } else {
-                                                finalDay.setMedicamento_tomado(DayOnGridModel.MEDICAMENTO_NO_TOMADO);
-                                            }
-                                            refreshCalendar();
-                                            show_siguiente();
+                                final DayOnGridModel finalDay = day;
+                                dialog.setOnDialogDismiss(new AmpollasAdministradasDialog.OnDialogDismiss() {
+                                    @Override
+                                    public void finish(String resultado) {
+                                        int ampollas = Integer.parseInt(resultado);
+                                        finalDay.setUnidades_tomadas(ampollas);
+                                        if (ampollas > 0) {
+                                            finalDay.setMedicamento_tomado(DayOnGridModel.MEDICAMENTO_TOMADO);
+                                        } else {
+                                            finalDay.setMedicamento_tomado(DayOnGridModel.MEDICAMENTO_NO_TOMADO);
                                         }
-                                    });
-                                } else if (index_medicamento == 1) {
-                                    final DayOnGridModel finalDay = day;
-                                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                                    PastillasTomadasDialog dialog = PastillasTomadasDialog.newInstance(day.getCalendar().get(Calendar.DAY_OF_MONTH), MESES_DEL_ANIO[day.getCalendar().get(Calendar.MONTH)], Integer.parseInt(dosis));
-                                    dialog.show(ft, "dialog_pastillas");
-                                    dialog.setOnDialogDismiss(new PastillasTomadasDialog.OnDialogDismiss() {
-                                        @Override
-                                        public void finish(String resultado) {
-                                            int pastillas = Integer.parseInt(resultado);
-                                            finalDay.setUnidades_tomadas(pastillas);
-                                            if (pastillas > 0) {
-                                                finalDay.setMedicamento_tomado(DayOnGridModel.MEDICAMENTO_TOMADO);
-                                            } else {
-                                                finalDay.setMedicamento_tomado(DayOnGridModel.MEDICAMENTO_NO_TOMADO);
-                                            }
-                                            refreshCalendar();
-                                            show_siguiente();
-
+                                        refreshCalendar();
+                                        show_siguiente();
+                                    }
+                                });
+                            } else if (index_medicamento == 1) {
+                                final DayOnGridModel finalDay = day;
+                                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                                PastillasTomadasDialog dialog = PastillasTomadasDialog.newInstance(day.getCalendar().get(Calendar.DAY_OF_MONTH), MESES_DEL_ANIO[day.getCalendar().get(Calendar.MONTH)], Integer.parseInt(dosis));
+                                dialog.show(ft, "dialog_pastillas");
+                                dialog.setOnDialogDismiss(new PastillasTomadasDialog.OnDialogDismiss() {
+                                    @Override
+                                    public void finish(String resultado) {
+                                        int pastillas = Integer.parseInt(resultado);
+                                        finalDay.setUnidades_tomadas(pastillas);
+                                        if (pastillas > 0) {
+                                            finalDay.setMedicamento_tomado(DayOnGridModel.MEDICAMENTO_TOMADO);
+                                        } else {
+                                            finalDay.setMedicamento_tomado(DayOnGridModel.MEDICAMENTO_NO_TOMADO);
                                         }
-                                    });
-                                }
-                            } else {
-                                Toast.makeText(getApplicationContext(), "No puede evaluar este día", Toast.LENGTH_SHORT).show();
+                                        refreshCalendar();
+                                        show_siguiente();
+
+                                    }
+                                });
                             }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "No puede evaluar este día", Toast.LENGTH_SHORT).show();
+                        }
 
                         /*
                         }else {
@@ -332,7 +331,7 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
 
             View v = new View(this);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(20,20,20,20);
+            params.setMargins(20, 20, 20, 20);
             v.setLayoutParams(params);
             padre_calendario.addView(v);
 
@@ -341,8 +340,9 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
             e.printStackTrace();
         }
     }
+
     private void refreshCalendar() {
-        for(int i=0 ; i<dias.size() ; i++) {
+        for (int i = 0; i < dias.size(); i++) {
             Date date = dias.get(i).getCalendar().getTime();
             Calendar c = Calendar.getInstance();
             if (mismoDia(dias.get(i).getCalendar().getTime(), c.getTime())) {
@@ -368,6 +368,7 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
             }
         }
     }
+
     private boolean mismoDia(Date hoy, Date date) {
         Calendar hoy_c = Calendar.getInstance();
         hoy_c.setTime(hoy);
@@ -382,16 +383,19 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
         return a && b && c;
 
     }
+
     private void cargar_info() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        index_medicamento = prefs.getInt("medicamento",0);
+        index_medicamento = prefs.getInt("medicamento", 0);
         numero_titulo = prefs.getInt("numero_titulo", 0);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_evaluacion, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -402,7 +406,7 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
             dialog.setOnDialogResult(new BooleanAnswerDialog.OnMyDialogResult() {
                 @Override
                 public void finish(String salida) {
-                    if(salida.equals("SI")) {
+                    if (salida.equals("SI")) {
                         Intent intent = new Intent(getApplicationContext(), Evaluacion.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
@@ -413,6 +417,7 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         DayOnGridModel day = null;
@@ -427,20 +432,20 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
 
 
     }
-    public void doSiguiente(View v){
 
-
+    public void doSiguiente(View v) {
 
 
         Intent i = new Intent(this, SintomasActivity.class);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        prefs.edit().putInt("numero_titulo", numero_titulo+1).commit();
+        prefs.edit().putInt("numero_titulo", numero_titulo + 1).commit();
         startActivity(i);
 
         //borrarSchedulesTakings();
         setInfoToDS2();
 
     }
+
     private void calcularDiasTranscurridos() {
 
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -453,43 +458,43 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
 
         //TODO: Revisar esto
         String paciente_id = PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id", "");
-        if(PreferenceManager.getDefaultSharedPreferences(this).getString("DIAS"+paciente_id, "-").equals("-")){
+        if (PreferenceManager.getDefaultSharedPreferences(this).getString("DIAS" + paciente_id, "-").equals("-")) {
             int numero = 0;
-            for(int i=0 ; i<=index ; i++){
-                if(dias.get(i).getMedicamento_tomado() == DayOnGridModel.NO_EVALUADO)
+            for (int i = 0; i <= index; i++) {
+                if (dias.get(i).getMedicamento_tomado() == DayOnGridModel.NO_EVALUADO)
                     numero++;
             }
 
-            if(numero == 0) numero =1;
+            if (numero == 0) numero = 1;
 
-            PreferenceManager.getDefaultSharedPreferences(this).edit().putString("DIAS"+paciente_id, ""+numero).commit();
+            PreferenceManager.getDefaultSharedPreferences(this).edit().putString("DIAS" + paciente_id, "" + numero).commit();
         }
 
-        Log.e("<<1>>","DIAS"+paciente_id);
-        Log.e("<<2>>",PreferenceManager.getDefaultSharedPreferences(this).getString("DIAS"+paciente_id, "-"));
+        Log.e("<<1>>", "DIAS" + paciente_id);
+        Log.e("<<2>>", PreferenceManager.getDefaultSharedPreferences(this).getString("DIAS" + paciente_id, "-"));
 
     }
-    public void show_siguiente(){
+
+    public void show_siguiente() {
 
         boolean revision_medicamento_completa = true;
         Calendar c = Calendar.getInstance();
 
-        for(int i=0 ; i<dias.size() ; i++){
-            if(dias.get(i).getCalendar().before(c)
-                    || GridCalendarioAdapter.isToday(dias.get(i).getCalendar().getTime(), c.getTime())){
+        for (int i = 0; i < dias.size(); i++) {
+            if (dias.get(i).getCalendar().before(c)
+                    || GridCalendarioAdapter.isToday(dias.get(i).getCalendar().getTime(), c.getTime())) {
 
-                if(dias.get(i).getMedicamento_tomado() == DayOnGridModel.NO_EVALUADO){
+                if (dias.get(i).getMedicamento_tomado() == DayOnGridModel.NO_EVALUADO) {
                     revision_medicamento_completa = false;
                     break;
-                }else{
+                } else {
                     continue;
                 }
             }
         }
 
 
-
-        if(revision_medicamento_completa) {
+        if (revision_medicamento_completa) {
             siguiente_calendario.setVisibility(View.VISIBLE);
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) calendar_content.getLayoutParams();
             params.setMargins(0, 110, 0, 110);
@@ -498,19 +503,21 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
 
 
     }
-    public void hide_siguiente(){
+
+    public void hide_siguiente() {
         siguiente_calendario.setVisibility(View.GONE);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) calendar_content.getLayoutParams();
-        params.setMargins(0,110,0,0);
+        params.setMargins(0, 110, 0, 0);
         calendar_content.setLayoutParams(params);
     }
 
-    boolean control=true;
+    boolean control = true;
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if(control){
-            control=false;
+        if (control) {
+            control = false;
 
             //calcularNumeroColumnas();
             refreshCalendar();
@@ -521,33 +528,35 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
 
 
     public void setFlagsDStoCalendars() {
-        for(int i=0 ; i<lista_dayliSchemas.size() ; i++) {
+        for (int i = 0; i < lista_dayliSchemas.size(); i++) {
             final DayOnGridModel d = getDayModelByDS(lista_dayliSchemas.get(i));
-            if(d == null){
-                Log.e("ERROR", "El dailySchema de ID:"+lista_dayliSchemas.get(i).getUuid()+" no tiene modelo gráfico!");
+            if (d == null) {
+                Log.e("ERROR", "El dailySchema de ID:" + lista_dayliSchemas.get(i).getUuid() + " no tiene modelo gráfico!");
                 return;
             }
             if (!lista_dayliSchemas.get(i).isFlag()) {
                 d.setMedicamento_tomado(DayOnGridModel.NO_EVALUADO);
-            }else{
+            } else {
                 List<Prescripcion> lista_p = db.getListaPrescripciones(lista_dayliSchemas.get(i).getUuid());
-                if(lista_p.size() != 0) {
-                    Prescripcion prescripcion = lista_p.get(0);
-                    if (prescripcion != null) {
-                        List<ScheduleTaking> lista_st = db.getListaSheduleTaking(prescripcion.getUuid());
-                        if (lista_st.size() != 0) {
-                            ScheduleTaking scheduleTaking = lista_st.get(0);
-                            if (scheduleTaking == null)
+                if (lista_p != null) {
+                    if (lista_p.size() != 0) {
+                        Prescripcion prescripcion = lista_p.get(0);
+                        if (prescripcion != null) {
+                            List<ScheduleTaking> lista_st = db.getListaSheduleTaking(prescripcion.getUuid());
+                            if (lista_st.size() != 0) {
+                                ScheduleTaking scheduleTaking = lista_st.get(0);
+                                if (scheduleTaking == null)
+                                    d.setMedicamento_tomado(DayOnGridModel.MEDICAMENTO_NO_TOMADO);
+                                else d.setMedicamento_tomado(DayOnGridModel.MEDICAMENTO_TOMADO);
+                            } else {
                                 d.setMedicamento_tomado(DayOnGridModel.MEDICAMENTO_NO_TOMADO);
-                            else d.setMedicamento_tomado(DayOnGridModel.MEDICAMENTO_TOMADO);
-                        }else{
+                            }
+                        } else {
                             d.setMedicamento_tomado(DayOnGridModel.MEDICAMENTO_NO_TOMADO);
                         }
-                    }else{
+                    } else {
                         d.setMedicamento_tomado(DayOnGridModel.MEDICAMENTO_NO_TOMADO);
                     }
-                }else{
-                    d.setMedicamento_tomado(DayOnGridModel.MEDICAMENTO_NO_TOMADO);
                 }
             }
         }
@@ -555,7 +564,7 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
 
     }
 
-    public ArrayList<DailySchema> setInfoToDS(){
+    public ArrayList<DailySchema> setInfoToDS() {
         ArrayList<DailySchema> dailySchemas = new ArrayList<>();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat hora = new SimpleDateFormat("HH:mm:ss");
@@ -566,29 +575,28 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
         //boolean flag = false;
         while (true) {
             DailySchema d = db.buscarDailySchema(schema_activo.getUuid(), hoy.getTime());
-            if(d == null){
+            if (d == null) {
                 break;
             }
-            if(!d.isFlag()) {
+            if (!d.isFlag()) {
                 dailySchemas.add(d);
                 DayOnGridModel day = getDayModelByDS(d);
-                if(day == null) break;
-                if(day.getMedicamento_tomado() == DayOnGridModel.MEDICAMENTO_TOMADO){
+                if (day == null) break;
+                if (day.getMedicamento_tomado() == DayOnGridModel.MEDICAMENTO_TOMADO) {
                     List<Prescripcion> lista_p = db.getListaPrescripciones(d.getUuid());
-                    if(lista_p == null){
+                    if (lista_p == null) {
                         hoy.add(Calendar.DAY_OF_MONTH, -1);
                         continue;
-                    }
-                    else if(lista_p.size() == 0){
+                    } else if (lista_p.size() == 0) {
                         hoy.add(Calendar.DAY_OF_MONTH, -1);
                         continue;
                     }
 
                     Prescripcion p = d.getPrescripciones().getPrescripciones().get(0);
-                    p.setNumeroLote(""+day.getUnidades_tomadas());
+                    p.setNumeroLote("" + day.getUnidades_tomadas());
                     db.editarPrescripcion(p);
 
-                    PreferenceManager.getDefaultSharedPreferences(this).edit().putString("numero_unidades", ""+day.getUnidades_tomadas()).commit();
+                    PreferenceManager.getDefaultSharedPreferences(this).edit().putString("numero_unidades", "" + day.getUnidades_tomadas()).commit();
 
                     ScheduleTaking st = new ScheduleTaking(UUID.randomUUID().toString(), hora.format(Calendar.getInstance().getTime()), d.getDateOfTreatment(), lista_p.get(0).getUuid());
                     db.agregarScheduleTaking(st);
@@ -607,42 +615,42 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
     }
 
 
-    public void limpiarSchedules(){
+    public void limpiarSchedules() {
         Schema schema_activo = db.buscarSchemaActivoDelPaciente(paciente);
         Calendar hoy = Calendar.getInstance();
 
         while (true) {
             DailySchema d = db.buscarDailySchema(schema_activo.getUuid(), hoy.getTime());
 
-            if(d == null){
+            if (d == null) {
                 break;
             }
 
             List<Prescripcion> lista_p = db.getListaPrescripciones(d.getUuid());
-            if(lista_p == null) {
+            if (lista_p == null) {
                 hoy.add(Calendar.DAY_OF_MONTH, -1);
                 continue;
             }
-            if(lista_p.size() == 0){
+            if (lista_p.size() == 0) {
                 hoy.add(Calendar.DAY_OF_MONTH, -1);
                 continue;
             }
-            if(lista_p.get(0) == null){
+            if (lista_p.get(0) == null) {
                 hoy.add(Calendar.DAY_OF_MONTH, -1);
                 continue;
             }
 
             List<ScheduleTaking> sts = db.getListaSheduleTaking(lista_p.get(0).getUuid());
 
-            if(sts == null){
+            if (sts == null) {
                 hoy.add(Calendar.DAY_OF_MONTH, -1);
                 continue;
             }
-            if(sts.size() == 0){
+            if (sts.size() == 0) {
                 hoy.add(Calendar.DAY_OF_MONTH, -1);
                 continue;
             }
-            if(sts.get(0) == null){
+            if (sts.get(0) == null) {
                 hoy.add(Calendar.DAY_OF_MONTH, -1);
                 continue;
             }
@@ -653,7 +661,7 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
     }
 
 
-    public ArrayList<DailySchema> setInfoToDS2(){
+    public ArrayList<DailySchema> setInfoToDS2() {
 
         limpiarSchedules();
 
@@ -667,29 +675,28 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
         //boolean flag = false;
         while (true) {
             DailySchema d = db.buscarDailySchema(schema_activo.getUuid(), hoy.getTime());
-            if(d == null){
+            if (d == null) {
                 break;
             }
 
             dailySchemas.add(d);
             DayOnGridModel day = getDayModelByDS(d);
-            if(day == null) break;
-            if(day.getMedicamento_tomado() == DayOnGridModel.MEDICAMENTO_TOMADO){
+            if (day == null) break;
+            if (day.getMedicamento_tomado() == DayOnGridModel.MEDICAMENTO_TOMADO) {
                 List<Prescripcion> lista_p = db.getListaPrescripciones(d.getUuid());
-                if(lista_p == null){
+                if (lista_p == null) {
                     hoy.add(Calendar.DAY_OF_MONTH, -1);
                     continue;
-                }
-                else if(lista_p.size() == 0){
+                } else if (lista_p.size() == 0) {
                     hoy.add(Calendar.DAY_OF_MONTH, -1);
                     continue;
                 }
 
                 Prescripcion p = d.getPrescripciones().getPrescripciones().get(0);
-                p.setNumeroLote(""+day.getUnidades_tomadas());
+                p.setNumeroLote("" + day.getUnidades_tomadas());
                 db.editarPrescripcion(p);
 
-                PreferenceManager.getDefaultSharedPreferences(this).edit().putString("numero_unidades", ""+day.getUnidades_tomadas()).commit();
+                PreferenceManager.getDefaultSharedPreferences(this).edit().putString("numero_unidades", "" + day.getUnidades_tomadas()).commit();
 
                 ScheduleTaking st = new ScheduleTaking(UUID.randomUUID().toString(), hora.format(Calendar.getInstance().getTime()), d.getDateOfTreatment(), lista_p.get(0).getUuid());
                 db.agregarScheduleTaking(st);
@@ -699,8 +706,8 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
                 //ScheduleTaking prueba = db.buscarScheduleTaking(st.getUuid());
                 //DailySchema d_prueba = db.buscarDailySchema(schema_activo.getUuid(), hoy.getTime());
                 //String a = prueba.getTime();
-                }
-                db.setDailySchemaFlag(d.getUuid());
+            }
+            db.setDailySchemaFlag(d.getUuid());
 
             hoy.add(Calendar.DAY_OF_MONTH, -1);
         }
@@ -708,10 +715,10 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
     }
 
     private DayOnGridModel getDayModelByDS(DailySchema d) {
-        for(int i=0 ; i<dias.size() ; i++){
+        for (int i = 0; i < dias.size(); i++) {
             Date dia = dias.get(i).getCalendar().getTime();
             String dia_str = formato.format(dia);
-            if(formato.format(d.getDateOfTreatment()).equals(dia_str)){
+            if (formato.format(d.getDateOfTreatment()).equals(dia_str)) {
                 return dias.get(i);
             }
         }
@@ -719,7 +726,7 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
         return null;
     }
 
-    public void calcularFechaInicio(){
+    public void calcularFechaInicio() {
 
 
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -728,11 +735,11 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
         String fecha_fin = formato.format(c.getTime());
         PreferenceManager.getDefaultSharedPreferences(this).edit().putString("fecha_fin", fecha_fin).commit();
 
-        String id = PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id","");
-        String dias_transcurridos = PreferenceManager.getDefaultSharedPreferences(this).getString("DIAS"+id, "0");
+        String id = PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id", "");
+        String dias_transcurridos = PreferenceManager.getDefaultSharedPreferences(this).getString("DIAS" + id, "0");
         int int_dias_transcurridos = Integer.parseInt(dias_transcurridos);
 
-        c.add(Calendar.DAY_OF_MONTH, -int_dias_transcurridos+1);
+        c.add(Calendar.DAY_OF_MONTH, -int_dias_transcurridos + 1);
         String fecha_inicio = formato.format(c.getTime());
         PreferenceManager.getDefaultSharedPreferences(this).edit().putString("fecha_inicio", fecha_inicio).commit();
 
@@ -744,24 +751,24 @@ public class CalendarioRevisionActivity extends AppCompatActivity implements Ada
         Schema activo = db.buscarSchemaActivoDelPaciente(paciente);
         List<DailySchema> lista = db.getListaDailySchemas(activo.getUuid());
 
-        int index_cut=0;
+        int index_cut = 0;
 
-        for(int i=0 ; i<lista.size() ; i++){
+        for (int i = 0; i < lista.size(); i++) {
             DailySchema ds = lista.get(i);
             List<Prescripcion> p = db.getListaPrescripciones(ds.getUuid());
-            if(p.size() == 0) continue;
-            else{
+            if (p.size() == 0) continue;
+            else {
                 fecha_inicio = formato.format(ds.getDateOfTreatment());
                 index_cut = i;
                 break;
             }
         }
 
-        for(int i=index_cut ; i<lista.size() ; i++){
+        for (int i = index_cut; i < lista.size(); i++) {
             DailySchema ds = lista.get(i);
             List<Prescripcion> p = db.getListaPrescripciones(ds.getUuid());
-            if(p.size() != 0) continue;
-            else{
+            if (p.size() != 0) continue;
+            else {
                 fecha_fin = formato.format(ds.getDateOfTreatment());
                 break;
             }

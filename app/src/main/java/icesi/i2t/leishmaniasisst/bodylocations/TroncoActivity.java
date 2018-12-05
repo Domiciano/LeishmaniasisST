@@ -529,7 +529,7 @@ public class TroncoActivity extends AppCompatActivity {
             int id_zona = getSelectedPart();
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
             String cedula = sp.getString("patientID", "UNKNOWN");
-            foto_code = "GUARAL_DT" + fecha_fotos + "DT" + "CC" + cedula + "CC_" + "BP" + id_zona + "BP_" + UUID.randomUUID().toString();
+            foto_code = "DT" + fecha_fotos + "DT" + "CC" + cedula + "CC_" + "BP" + id_zona + "BP_" + UUID.randomUUID().toString();
             foto = new File(Environment.getExternalStorageDirectory() + "/"+LeishConstants.FOLDER+"/" + foto_code + ".jpg");
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             preferences.edit().putString("last_foto", foto.toString()).putString("foto_code", foto_code.toString())
@@ -670,7 +670,7 @@ public class TroncoActivity extends AppCompatActivity {
                     //String cedula = paciente.getCedula();
                     SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
                     String cedula = sp.getString("patientID", "UNKNOWN");
-                    foto_code = "GUARAL_DT" + fecha_fotos + "DT" + "CC" + cedula + "CC_" + "BP" + id_zona + "BP_" + UUID.randomUUID().toString();
+                    foto_code = "DT" + fecha_fotos + "DT" + "CC" + cedula + "CC_" + "BP" + id_zona + "BP_" + UUID.randomUUID().toString();
                     foto = new File(Environment.getExternalStorageDirectory() + "/"+LeishConstants.FOLDER+"/" + foto_code + ".jpg");
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                     preferences.edit().putString("last_foto", foto.toString()).putString("foto_code", foto_code.toString())

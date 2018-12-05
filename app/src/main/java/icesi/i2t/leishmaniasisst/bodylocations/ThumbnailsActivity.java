@@ -261,7 +261,7 @@ public class ThumbnailsActivity extends AppCompatActivity {
         String cedula = sp.getString("patientID", "UNKNOWN");
         format = new SimpleDateFormat("yyyy-MM-dd");
         fecha_fotos = format.format(Calendar.getInstance().getTime());
-        foto_code = "GUARAL_DT"+ fecha_fotos +"DT"+"CC"+cedula+"CC_"+"BP"+id_zona+"BP_"+ UUID.randomUUID().toString();
+        foto_code = "DT"+ fecha_fotos +"DT"+"CC"+cedula+"CC_"+"BP"+id_zona+"BP_"+ UUID.randomUUID().toString();
         foto = new File(carpeta+"/"+foto_code+".jpg");
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         preferences.edit().putString("last_foto",foto.toString())

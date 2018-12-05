@@ -357,9 +357,6 @@ public class NetworkController {
     }
 
     public Evaluador prueba_emulador_sync(Context context){
-
-        //File arhivo = new File(Environment.getExternalStorageDirectory().toString()+"/Prueba/prueba_daily.txt");
-
         String xml = "";
         try {
             InputStream is = context.getResources().openRawResource(R.raw.prueba_daily);

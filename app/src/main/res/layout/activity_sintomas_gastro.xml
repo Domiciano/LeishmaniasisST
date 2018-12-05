@@ -30,8 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="110px"
-            android:layout_marginBottom="110px">
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="60dp">
 
 
             <LinearLayout
@@ -150,7 +150,7 @@
             android:text="SIGUIENTE"
             android:textSize="8pt"
             android:textColor="#FFF"
-            android:height="110px"
+            android:height="60dp"
             android:onClick="doSiguiente"
             android:layout_alignParentBottom="true"
             android:id="@+id/siguiente_sintomas_gastro"

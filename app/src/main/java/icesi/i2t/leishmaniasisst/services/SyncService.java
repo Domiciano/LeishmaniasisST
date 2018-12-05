@@ -115,7 +115,7 @@ public class SyncService extends Service {
                 mNotifyManager.notify(11, note.build());
 
                 Intent ser = new Intent(SyncService.this, CloudinaryHandler.class);
-                //SyncService.this.startService(ser);
+                SyncService.this.startService(ser);
 
             } catch (Exception e) {
                 Log.e("ERROR SYN SERVICE", e.getLocalizedMessage());

@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import icesi.i2t.leishmaniasisst.R;
+import icesi.i2t.leishmaniasisst.util.LeishConstants;
 
 
 public class CloudinaryHandler extends Service {
@@ -44,6 +45,7 @@ public class CloudinaryHandler extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+        //Cloud de prueba
         Map config = new HashMap();
         //config.put("cloud_name", "universidad-icesi");
         //config.put("api_key", "117557741559213");
@@ -60,8 +62,10 @@ public class CloudinaryHandler extends Service {
             notificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(miCanal);
+        }else{
+            notificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         }
-
 
         noteBuilder = new NotificationCompat.Builder(CloudinaryHandler.this, CHANNEL_ID)
                 .setContentTitle("Guaral+ST")
@@ -98,7 +102,7 @@ public class CloudinaryHandler extends Service {
         @Override
         protected String doInBackground(String... params) {
 
-            File carpeta = new File(Environment.getExternalStorageDirectory().toString() + "/Leishmaniasis");
+            File carpeta = new File(Environment.getExternalStorageDirectory().toString() + "/" + LeishConstants.FOLDER +"/");
             ArrayList<File> archivos = getFiles(carpeta);
 
             if (archivos.size() == 0) {
@@ -111,7 +115,8 @@ public class CloudinaryHandler extends Service {
                     Map par = ObjectUtils.asMap("use_filename", true,
                             "unique_filename", false);
                     cloudinary.uploader().upload(archivos.get(i), par);
-                    archivos.get(i).delete();
+                    //archivos.get(i).delete();
+                    moverArchivo(archivos.get(i));
                     publishProgress("" + (((i + 1) / (double) archivos.size()) * 100));
                 } catch (Exception e) {
                     Log.e("ERROR_SERVICE", e.getLocalizedMessage());
@@ -144,6 +149,7 @@ public class CloudinaryHandler extends Service {
                 notificationManager.notify(notifyID, noteBuilder.build());
 
             } else if (s.equals("NO_UPLOADS")) {
+                stopForeground(false);
                 noteBuilder = new NotificationCompat.Builder(CloudinaryHandler.this, CHANNEL_ID)
                         .setContentText("No hay imagenes para sincronizar")
                         .setAutoCancel(true)
@@ -151,11 +157,19 @@ public class CloudinaryHandler extends Service {
                         .setSmallIcon(R.mipmap.logo_cabezote);
                 notificationManager.notify(notifyID, noteBuilder.build());
             }
+            //stopSelf();
         }
 
         public ArrayList<File> getFiles(File directory) {
+
+
+
             //Conteo de archivos
             ArrayList<File> array = new ArrayList<>();
+
+            if(!directory.isDirectory()) return array;
+            if(directory.list() == null) return array;
+
             for (int i = 0; i < directory.list().length; i++) {
                 if (!(new File(directory + "/" + directory.list()[i])).isDirectory()) {
                     array.add(new File(directory + "/" + directory.list()[i]));
@@ -163,5 +177,14 @@ public class CloudinaryHandler extends Service {
             }
             return array;
         }
+    }
+
+    private void moverArchivo(File file) {
+        String name = file.getName();
+        File folder = new File(Environment.getExternalStorageDirectory()+"/"+LeishConstants.FOLDERUPDLOAD+"/");
+        if(!folder.exists()){
+            folder.mkdirs();
+        }
+        file.renameTo(new File(Environment.getExternalStorageDirectory()+"/"+LeishConstants.FOLDERUPDLOAD+"/"+name));
     }
 }

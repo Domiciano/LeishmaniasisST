@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Leishmaniasis+ST.iml" filepath="$PROJECT_DIR$/Leishmaniasis+ST.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/LeishmaniasisST.iml" filepath="$PROJECT_DIR$/.idea/LeishmaniasisST.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

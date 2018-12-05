@@ -97,6 +97,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toast.makeText(this, "¡Esta aplicación es la versión de prueba, NO LA USE SI VA TOMAR MUESTRAS!", Toast.LENGTH_LONG).show();
 
 
 
@@ -206,7 +207,7 @@ public class MainActivity extends Activity {
                     startActivity(intent);
 
                     Intent ser = new Intent(getApplicationContext(), CloudinaryHandler.class);
-                    //getApplicationContext().startService(ser);
+                    getApplicationContext().startService(ser);
 
                     finish();
                 }else {

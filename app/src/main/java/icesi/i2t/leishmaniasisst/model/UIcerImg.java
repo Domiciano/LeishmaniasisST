@@ -1,43 +1,30 @@
 package icesi.i2t.leishmaniasisst.model;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
 
 import java.util.Date;
 import java.util.UUID;
 
 
-/**
- * Created by Andres Aguirre on 09/02/2016.
- * Represents an UIcerImg. Has the required annotations to serialize the data and send it to the server.
- */
-
-@Root(name = "UlcerImgXml")
 public class UIcerImg extends DataXml {
 
-    private static final long serialVersionUID = 1L;
-    //@Attribute(name = "xsi:type")
-    private String classname = "UIcerImgXml";
-
-    @Element(name = "Id", required = false)
     private String uuid;
 
-    @Element(name = "BodyLocation", required = false)
+
     private String bodyLocation;
 
-    @Element(name = "ImgDate", required = false)
+
     private Date imgDate;
 
-    @Element(name = "ImgFormat", required = false)
+
     private String imgFormat;
 
-    @Element(name = "ImgUUID", required = false)
+
     private String imgUUID;
 
-    @Element(name = "UIcerFormId", required = false)
+
     private String UIcerFormId;
 
-    @Element(name = "InjuriesPerLocation", required = false)
+
     private String injuriesPerLocation;
 
     public UIcerImg() {this.uuid = UUID.randomUUID().toString();}
@@ -73,18 +60,6 @@ public class UIcerImg extends DataXml {
     @Override
     public void ParseAttributes() {
 
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public String getClassname() {
-        return classname;
-    }
-
-    public void setClassname(String classname) {
-        this.classname = classname;
     }
 
     public String getUuid() {

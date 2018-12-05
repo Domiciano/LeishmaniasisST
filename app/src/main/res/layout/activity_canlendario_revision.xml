@@ -86,7 +86,7 @@
         android:text="SIGUIENTE"
         android:textSize="8pt"
         android:textColor="#FFF"
-        android:height="110px"
+        android:height="60dp"
         android:onClick="doSiguiente"
         android:layout_alignParentBottom="true"
         android:id="@+id/siguiente_calendario"

@@ -1,46 +1,24 @@
 package icesi.i2t.leishmaniasisst.model;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
-
 import java.util.Date;
 import java.util.UUID;
 
-/**
- * Created by Andres Aguirre on 09/02/2016.
- * Represents an DevelopSymptom. Has the required annotations to serialize the data and send it to the server.
- */
-
-@Root(name = "DevelopSymptomXml")
 public class DevelopSymptom extends DataXml {
 
-    private static final long serialVersionUID = 1L;
-    //@Attribute(name = "xsi:type")
-    private String classname = "DevelopSymptomXml";
-
-    @Element(name = "Id", required = false)
     private String uuid;
 
-    @Element(name = "Name", required = false)
     private String name;
 
-    //ventana@vacio
-    @Element(name = "Answer", required = false)
     private String answer;
 
-    @Element(name = "MedicineName", required = false)
     private String MedicineName;
 
-    @Element(name = "isActive", required = false)
     private boolean isActive;
 
-    @Element(name = "Date_Start", required = false)
     private Date date_start;
 
-    @Element(name = "Date_End", required = false)
     private Date date_end;
 
-    @Element(name = "SchemaId", required = false)
     private String schemaId;
 
 
@@ -81,18 +59,6 @@ public class DevelopSymptom extends DataXml {
 
     public void setSchemaId(String schemaId) {
         this.schemaId = schemaId;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public String getClassname() {
-        return classname;
-    }
-
-    public void setClassname(String classname) {
-        this.classname = classname;
     }
 
     public String getUuid() {

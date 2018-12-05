@@ -86,7 +86,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="39 años"
+                                    android:text="..."
                                     android:id="@+id/datos_paciente_edad"
                                     android:textStyle="italic|bold"
                                     android:layout_marginTop="-4dp"
@@ -105,7 +105,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Mujer"
+                                    android:text="..."
                                     android:layout_marginTop="-4dp"
                                     android:id="@+id/datos_paciente_sexo"
                                     android:textStyle="italic|bold"
@@ -121,7 +121,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="56.285.922"
+                            android:text="..."
                             android:id="@+id/datos_paciente_documento"
                             android:textStyle="italic|bold"
                             android:layout_marginTop="-4dp"
@@ -146,7 +146,7 @@
                     android:layout_width="250dp"
                     android:gravity="right"
                     android:layout_height="wrap_content"
-                    android:text="SUSANITA PEREZ"
+                    android:text="Cargando..."
                     android:id="@+id/datos_paciente_nombre"
                     android:layout_marginTop="10dp"
                     android:textSize="14pt"
@@ -188,7 +188,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Glucantime"
+                        android:text="..."
                         android:layout_marginTop="-4dp"
                         android:textStyle="italic|bold"
                         android:textSize="10pt"
@@ -203,7 +203,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Intramuscular"
+                        android:text="..."
                         android:layout_marginTop="-4dp"
                         android:textStyle="italic|bold"
                         android:textSize="10pt"
@@ -218,7 +218,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4 ampollas de 5cc"
+                        android:text="..."
                         android:layout_marginTop="-4dp"
                         android:textStyle="italic|bold"
                         android:textSize="10pt"
@@ -233,7 +233,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="30 de enero/2016"
+                        android:text="..."
                         android:layout_marginTop="-4dp"
                         android:textStyle="italic|bold"
                         android:textSize="10pt"
@@ -269,7 +269,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Día 4 de 20"
+                            android:text="Cargando..."
                             android:textSize="14pt"
                             android:textStyle="italic"
                             android:textColor="@color/light_grey"
@@ -278,7 +278,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Semana 1"
+                            android:text=""
                             android:textSize="11pt"
                             android:id="@+id/datos_paciente_semana_actual"
                             android:textStyle="italic"

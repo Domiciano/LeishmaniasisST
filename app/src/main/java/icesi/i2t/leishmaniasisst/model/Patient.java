@@ -1,58 +1,45 @@
 package icesi.i2t.leishmaniasisst.model;
 
-import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Created by Leonardo and Juan David.
- * Represents an patient. Has the required annotations to serialize the data and send it to the server.
- */
 
-@Root(name = "data")
 public class Patient extends DataXml {
 
-    private static final long serialVersionUID = 1L;
-    @Attribute(name = "xsi:type")
-    private String classname = "PacienteXml";
-    @Element(name = "UserId")
     private String UUIDNumber;
-    @Element(name = "Cedula")
+    
     private String identification;
-    @Element(name = "Name")
+    
     private String name;
-    @Element(name = "LastName")
+    
     private String lastName;
-    @Element(name = "DocumentType")
+    
     private String documentType;
-    @Element(name = "Gender")
+    
     private char genre;
-    @Element(name = "CurrentAddress")
+    
     private String address;
-    @Element(name = "Phone")
+    
     private String phone;
-    @Element(name = "Birthday")
+    
     private String birthday; //dd/MM/yyyy
-    @Element(name = "Province")
+    
     private String province;
-    @Element(name = "Municipality")
+    
     private String municipality;
-    @Element(name = "Lane")
+   
     private String lane;
-    @Element(name = "ContactName")
+    
     private String contactName;
-    @Element(name = "ContactLastName")
+    
     private String contactLastName;
-    @Element(name = "ContactPhone")
+   
     private String contactPhone;
-    @Element(name = "ContactCurrentAddress")
+   
     private String contactAddress;
-    @Element(name = "InjuryWeeks")
+    
     private int injuryWeeks;
 
     private List<Evaluation> evaluationList;
@@ -109,14 +96,6 @@ public class Patient extends DataXml {
 
     @Override
     public void ParseAttributes() {
-    }
-
-    public String getClassname() {
-        return classname;
-    }
-
-    public void setClassname(String classname) {
-        this.classname = classname;
     }
 
     public String getUUIDNumber() {

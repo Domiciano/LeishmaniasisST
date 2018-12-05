@@ -1,44 +1,23 @@
 package icesi.i2t.leishmaniasisst.model;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
-
 import java.util.UUID;
 
-/**
- * Created by Andres Aguirre on 09/02/2016.
- * Represents an Prescripcion. Has the required annotations to serialize the data and send it to the server.
- */
-
-@Root(name = "PrescriptionFormXml")
 public class Prescripcion extends DataXml {
 
-    private static final long serialVersionUID = 1L;
-    //@Attribute(name = "xsi:type")
-    private String classname = "PrescripcionXml";
-
-    @Element(name = "Id", required = false)
     private String uuid;
 
-    @Element(name = "Name", required = false)
     private String name;
 
-    @Element(name = "Dose", required = false)
     private String dosis;
 
-    @Element(name = "Batch", required = false)
     private String numeroLote;
 
-    @Element(name = "Comments", required = false)
     private String comentarios;
 
-    @Element(name = "DailySchemaId", required = false)
     private String dailySchemaId;
 
-    @Element(name = "BasicAdverseEvent", required = false)
     BasicAdverseEvent eventosBasicos;
 
-    @Element(name = "ScheduleTaking", required = false)
     ListaScheduleTaking dosisTomadas;
 
     public Prescripcion() {this.uuid = UUID.randomUUID().toString();}

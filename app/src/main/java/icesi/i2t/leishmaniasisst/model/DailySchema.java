@@ -1,42 +1,30 @@
 package icesi.i2t.leishmaniasisst.model;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
-
 import java.util.Date;
 import java.util.UUID;
 
-/**
- * Created by Andres Aguirre on 09/02/2016.
- * Represents an DailySchema. Has the required annotations to serialize the data and send it to the server.
- */
 
-@Root(name = "DailySchemaXml")
+
 public class DailySchema extends DataXml {
 
-    private static final long serialVersionUID = 1L;
-    //@Attribute(name = "xsi:type")
-    public String classname = "DailySchemaXml";
-
-    @Element(name = "Id", required = false)
     public String uuid;
 
-    @Element(name = "DayOfTreatment", required = false)
+   
     public String dayOfTreatment;
 
-    @Element(name = "DateTreatment", required = false)
+    
     public Date dateOfTreatment;
 
-    @Element(name = "SchemaId", required = false)
+   
     public String schemaId;
 
-    @Element(name = "Flag", required = false)
+    
     public boolean flag;
 
-    @Element(name="Prescriptions", required = false)
+    
     public ListaPrescripciones prescripciones;
 
-    @Element(name="UlcerForms", required = false)
+    
     public ListaUlcerForms imagenes;
 
 

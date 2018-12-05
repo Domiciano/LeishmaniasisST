@@ -72,60 +72,6 @@ public class DatosPacienteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_datos_paciente);
 
 
-        if (getIntent().getExtras() != null) {
-            tipo_ventana = getIntent().getExtras().getInt("tipo_ventana", 0);
-        }
-
-        try{
-
-            Log.e("<--SP-->",PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id","-"));
-
-            db = new ManejadorBD(this);
-            String id = PreferenceManager.getDefaultSharedPreferences(this).getString("paciente_id", "");
-            Paciente p = db.buscarPaciente(id);
-
-            Log.e("<--VAR-->", id);
-            nombre = p.getName() + " " + p.getLastName();
-            edad = date2edad(p.getBirthday());
-            sexo = p.getGenre();
-            documento = p.getCedula();
-            medicamento = db.buscarMedicamentosDelPaciente(p.getUuid());
-            if (!medicamento.equals("Miltefosine")) tipo_administracion = "Intramuscular";
-            else tipo_administracion = "Vía Oral";
-
-            Date fecha_cero = db.getFechaDeInicioPaciente(p.getUuid());
-            Calendar c = Calendar.getInstance();
-            c.setTime(fecha_cero);
-            fecha_inicio = c.get(Calendar.DAY_OF_MONTH) + " de "
-                    + meses_del_anio[c.get(Calendar.MONTH)] + "/" + c.get(Calendar.YEAR);
-
-            String dosis_raw = db.getDosisPaciente(p.getUuid());
-            String[] dosis_detail = dosis_raw.split("@");
-
-            dosis = dosis_detail[2];
-
-            if(tipo_ventana==1){
-                String totalUlcerForms = db.getNumeroUlcerFormsEnDailySchemas(p);
-                if(totalUlcerForms.equals("-")){
-                    totalUlcerForms =  "-1";
-                }
-                dia_actual = Integer.parseInt(totalUlcerForms);
-                total_dias = Integer.parseInt(db.getTotalDiasDeFotos(p));
-            }
-            else{
-                String dia_tratamiento = db.getDayofTreatment(p);
-                if(dia_tratamiento.equals("-")){
-                    dia_tratamiento =  "-1";
-                }
-                dia_actual = Integer.parseInt(dia_tratamiento);
-                total_dias = db.getTotalDays(p);
-            }
-            dias_transcurridos = db.getDaysSinceLastDayOfTreatment(p);
-            semana = 1 + ((dia_actual - 1) / 7);
-
-        }catch (Exception e){
-            Log.e("ERROR",e.getLocalizedMessage());
-        }
 
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
@@ -172,37 +118,161 @@ public class DatosPacienteActivity extends AppCompatActivity {
         //Recuperar datos del paciente
 
 
-        datos_paciente_nombre.setText(this.nombre);
-        datos_paciente_edad.setText(this.edad+" años");
-        datos_paciente_sexo.setText(this.sexo);
-        datos_paciente_documento.setText(this.documento);
-
-
-
-        String dia_actual_html = "<b>Día "+this.dia_actual+"</b> de "+this.total_dias;
-        String str_semana = "Semana "+this.semana;
-
-        if(dia_actual == -1){
-            dia_actual_html = "<b>Día " + this.dias_transcurridos + " </b> después";
-            str_semana = "del tratamiento";
+        if (getIntent().getExtras() != null) {
+            tipo_ventana = getIntent().getExtras().getInt("tipo_ventana", 0);
         }
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //Segundo plano
+                try {
+
+                    Log.e("<--SP-->", PreferenceManager.getDefaultSharedPreferences(DatosPacienteActivity.this).getString("paciente_id", "-"));
+                    db = new ManejadorBD(DatosPacienteActivity.this);
+                    String id = PreferenceManager.getDefaultSharedPreferences(DatosPacienteActivity.this).getString("paciente_id", "");
+                    Paciente p = db.buscarPaciente(id);
+
+
+                    Log.e("<--VAR-->", id);
+
+                    nombre = p.getName() + " " + p.getLastName();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            datos_paciente_nombre.setText(DatosPacienteActivity.this.nombre);
+                        }
+                    });
+
+
+                    edad = date2edad(p.getBirthday());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            datos_paciente_edad.setText(DatosPacienteActivity.this.edad + " años");
+                        }
+                    });
+
+
+                    sexo = p.getGenre();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            datos_paciente_sexo.setText(DatosPacienteActivity.this.sexo);
+                        }
+                    });
+
+
+                    documento = p.getCedula();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            datos_paciente_documento.setText(DatosPacienteActivity.this.documento);
+                        }
+                    });
+
+
+                    medicamento = db.buscarMedicamentosDelPaciente(p.getUuid());
+                    if (!medicamento.equals("Miltefosine")) tipo_administracion = "Intramuscular";
+                    else tipo_administracion = "Vía Oral";
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            datos_paciente_medicamento.setText(DatosPacienteActivity.this.medicamento);
+                            datos_paciente_tipo_administracion.setText(DatosPacienteActivity.this.tipo_administracion);
+                        }
+                    });
+
+
+                    Date fecha_cero = db.getFechaDeInicioPaciente(p.getUuid());
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(fecha_cero);
+                    fecha_inicio = c.get(Calendar.DAY_OF_MONTH) + " de "
+                            + meses_del_anio[c.get(Calendar.MONTH)] + "/" + c.get(Calendar.YEAR);
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            datos_paciente_fecha_inicio.setText(DatosPacienteActivity.this.fecha_inicio);
+                        }
+                    });
+
+
+                    String dosis_raw = db.getDosisPaciente(p.getUuid());
+                    String[] dosis_detail = dosis_raw.split("@");
+
+                    dosis = dosis_detail[2];
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            datos_paciente_dosis.setText(DatosPacienteActivity.this.dosis);
+                        }
+                    });
+
+
+                    if (tipo_ventana == 1) {
+                        String totalUlcerForms = db.getNumeroUlcerFormsEnDailySchemas(p);
+                        if (totalUlcerForms.equals("-")) {
+                            totalUlcerForms = "-1";
+                        }
+                        dia_actual = Integer.parseInt(totalUlcerForms);
+                        total_dias = Integer.parseInt(db.getTotalDiasDeFotos(p));
+                    } else {
+                        String dia_tratamiento = db.getDayofTreatment(p);
+                        if (dia_tratamiento.equals("-")) {
+                            dia_tratamiento = "-1";
+                        }
+                        dia_actual = Integer.parseInt(dia_tratamiento);
+                        total_dias = db.getTotalDays(p);
+                    }
+                    dias_transcurridos = db.getDaysSinceLastDayOfTreatment(p);
+
+                    semana = 1 + ((dia_actual - 1) / 7);
+
+
+                    String str_semana = "Semana "+DatosPacienteActivity.this.semana;
+                    String dia_actual_html = "<b>Día "+DatosPacienteActivity.this.dia_actual+"</b> de "+DatosPacienteActivity.this.total_dias;
+                    if(dia_actual == -1){
+                        dia_actual_html = "<b>Día " + DatosPacienteActivity.this.dias_transcurridos + " </b> después";
+                        str_semana = "del tratamiento";
+                    }
+
+                    final String finalStr_semana = str_semana;
+                    final String finalDia_actual_html = dia_actual_html;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            datos_paciente_dia_actual.setText(Html.fromHtml(finalDia_actual_html));
+                            datos_paciente_semana_actual.setText(finalStr_semana);
+                        }
+                    });
 
 
 
-        datos_paciente_dia_actual.setText(Html.fromHtml(dia_actual_html));
-        datos_paciente_semana_actual.setText(str_semana);
-        datos_paciente_medicamento.setText(this.medicamento);
-        datos_paciente_tipo_administracion.setText(this.tipo_administracion);
-        datos_paciente_dosis.setText(this.dosis);
-        datos_paciente_fecha_inicio.setText(this.fecha_inicio);
 
-        tipo_admin_o_info.setText(tipos[tipo_ventana]);
-        if(tipo_ventana == 1){
-            datos_paciente_dosis.setVisibility(View.GONE);
-            datos_paciente_dosis_subtitulo.setVisibility(View.GONE);
-            datos_paciente_boton_ok.setText("EMPEZAR TOMA DE FOTOS");
-        }
+
+                }catch (Exception e){
+                    Log.e("ERROR",e.getLocalizedMessage());
+                }
+
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tipo_admin_o_info.setText(tipos[tipo_ventana]);
+                        if(tipo_ventana == 1){
+                            datos_paciente_dosis.setVisibility(View.GONE);
+                            datos_paciente_dosis_subtitulo.setVisibility(View.GONE);
+                            datos_paciente_boton_ok.setText("EMPEZAR TOMA DE FOTOS");
+                        }
+                    }
+                });
+
+            }
+        }).start();
+
+
     }
 
     @Override

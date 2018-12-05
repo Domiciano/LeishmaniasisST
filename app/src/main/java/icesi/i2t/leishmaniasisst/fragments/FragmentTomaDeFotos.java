@@ -146,7 +146,6 @@ public class FragmentTomaDeFotos extends Fragment {
             else {
                 for(UIcerImg i: imgs){
                     if(i.getImgUUID().equals("00000000-0000-0000-0000-000000000000")) return false;
-
                 }
                 return true;
             }
@@ -169,6 +168,7 @@ public class FragmentTomaDeFotos extends Fragment {
                         db.getTotalDiasDeFotos(p),
                         true,
                         isEvaluationComplete(p))
+                        //false)
                 );
                 lista_pacientes.post(new Runnable() {
                     @Override
