@@ -165,19 +165,12 @@ public class ThumbnailsActivity extends AppCompatActivity {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 String path = preferences.getString("last_foto", "NO_FOTO");
 
-                Bundle extras = data.getExtras();
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
-                FileOutputStream fos = new FileOutputStream(new File(path));
-                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-
                 if (!path.equals("NO_FOTO")) {
                     Intent i = new Intent(this, VistaPreviaFotoActivity.class);
                     i.putExtra("foto_path", path);
                     startActivity(i);
                 }
-            }catch (NullPointerException ex){
-
-            } catch (FileNotFoundException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }else if(requestCode == 11 && resultCode == RESULT_OK){
@@ -284,8 +277,8 @@ public class ThumbnailsActivity extends AppCompatActivity {
 
 
         Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //Uri uri = ImageUtils.getImageContentUri(this, foto);
-        //i.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        Uri uri = ImageUtils.getImageContentUri(this, foto);
+        i.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         startActivityForResult(i, 10);
 
     }
