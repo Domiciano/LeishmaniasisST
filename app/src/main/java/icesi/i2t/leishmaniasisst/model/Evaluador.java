@@ -17,11 +17,11 @@ public class Evaluador extends DataXml {
 
     private String lastName;
 
-    private String cedula;
+    private String nationalId;
 
     private Date lastLogin; // dd/MM/aaaa
 
-    private ListaPacientes pacientes;
+    private ListaPacientes pacienteLista;
 
     private ListaSchemas listaSchemas;
 
@@ -35,29 +35,29 @@ public class Evaluador extends DataXml {
 
     public Evaluador() { this.uuid = UUID.randomUUID().toString(); }
 
-    public ListaPacientes getPacientes() {
-        return pacientes;
+    public ListaPacientes getPacienteLista() {
+        return pacienteLista;
     }
 
-    public void setPacientes(ListaPacientes pacientes) {
-        this.pacientes = pacientes;
+    public void setPacienteLista(ListaPacientes pacienteLista) {
+        this.pacienteLista = pacienteLista;
     }
 
-    public Evaluador(String uuid, String name, String last_name, String cedula, Date last_login) {
+    public Evaluador(String uuid, String name, String last_name, String nationalId, Date last_login) {
         this.uuid = uuid;
         this.Name = name;
         this.lastName = last_name;
-        this.cedula = cedula;
+        this.nationalId = nationalId;
         this.lastLogin = last_login;
 
 
     }
 
-    public Evaluador(String name, String last_name, String cedula, Date last_login) {
+    public Evaluador(String name, String last_name, String nationalId, Date last_login) {
         this.uuid = UUID.randomUUID().toString();
         this.Name = name;
         this.lastName = last_name;
-        this.cedula = cedula;
+        this.nationalId = nationalId;
         this.lastLogin = last_login;
     }
 
@@ -85,12 +85,12 @@ public class Evaluador extends DataXml {
         this.lastName = lastName;
     }
 
-    public String getCedula() {
-        return cedula;
+    public String getNationalId() {
+        return nationalId;
     }
 
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
+    public void setNationalId(String nationalId) {
+        this.nationalId = nationalId;
     }
 
     public Date getLastLogin() {
@@ -117,7 +117,7 @@ public class Evaluador extends DataXml {
     public boolean isValid(){
         boolean hasName = this.Name.equals("");
         boolean hasLastname = this.lastName.equals("");
-        boolean hasCedula = this.cedula.equals("");
+        boolean hasCedula = this.nationalId.equals("");
         boolean hasID = this.uuid.equals("");
         return hasName && hasLastname && hasCedula && hasID;
     }

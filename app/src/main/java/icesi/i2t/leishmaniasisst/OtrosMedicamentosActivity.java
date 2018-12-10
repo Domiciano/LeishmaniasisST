@@ -209,11 +209,11 @@ public class OtrosMedicamentosActivity extends AppCompatActivity {
 
         /*
         ArrayList<String> arrayList = new ArrayList<String>(enfermedades);
-        adapter.clear_sintomas();
+        adapterSpinnerPacientes.clear_sintomas();
         for(int i=0 ; i<arrayList.size() ; i++){
-            adapter.agregar(arrayList.get(i));
+            adapterSpinnerPacientes.agregar(arrayList.get(i));
         }
-        adapter.notifyDataSetChanged();
+        adapterSpinnerPacientes.notifyDataSetChanged();
         */
 
         Schema schema = db.buscarSchemaActivoDelPaciente(paciente);
@@ -241,11 +241,11 @@ public class OtrosMedicamentosActivity extends AppCompatActivity {
         numero_titulo = prefs.getInt("numero_titulo",0);
 
         ArrayList<String> arrayList = new ArrayList<String>(medicamentos);
-        adapter.clear_sintomas();
+        adapterSpinnerPacientes.clear_sintomas();
         for(int i=0 ; i<arrayList.size() ; i++){
-            adapter.agregar(arrayList.get(i));
+            adapterSpinnerPacientes.agregar(arrayList.get(i));
         }
-        adapter.notifyDataSetChanged();
+        adapterSpinnerPacientes.notifyDataSetChanged();
     }
     */
 

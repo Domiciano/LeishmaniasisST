@@ -4,17 +4,13 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,13 +19,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.util.Calendar;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 import icesi.i2t.leishmaniasisst.cloudinary.CloudinaryHandler;
 import icesi.i2t.leishmaniasisst.data.ManejadorBD;
@@ -159,13 +153,19 @@ public class MainActivity extends Activity {
             //Evaluador rater = new Evaluador("fe791bb2-99e0-45b3-bfb2-908f722b278d", "Domiciano", "Rincon", "1143848922", Calendar.getInstance().getTime());
             //Evaluador rater = new Evaluador("441a3fea-ff0b-497f-b166-da011d486d15", "mabel", "castillo", "31573941", Calendar.getInstance().getTime());
 
-            if(rater.getCedula()!="" || (rater.getName()!="" && rater.getLastName()!="")){
+            if(rater.getNationalId()!="" || (rater.getName()!="" && rater.getLastName()!="")){
                 SessionControllerAsyncTask session = new SessionControllerAsyncTask();
                 session.execute(rater, this);
             }else{
                 Toast.makeText(getApplicationContext(), "Escriba su nombre y apellido, junto con su número de cédula.", Toast.LENGTH_SHORT).show();
             }
 
+    }
+
+    public void irAPlaneacion(View view) {
+        Intent i = new Intent(this, AuthActivity.class);
+        startActivity(i);
+        overridePendingTransition(R.anim.enterauth, R.anim.exitauth);
     }
 
 
@@ -198,10 +198,10 @@ public class MainActivity extends Activity {
                 dialog.dismiss();
 
             if (rater != null) {
-                Evaluador user = db.getRater(rater.getCedula());
+                Evaluador user = db.getRater(rater.getNationalId());
                 if(user != null){
                     Toast.makeText(getApplicationContext(), "Sus datos han sido validados correctamente.", Toast.LENGTH_SHORT).show();
-                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("rater_id",rater.getCedula()).commit();
+                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("rater_id",rater.getNationalId()).commit();
                     Intent intent = new Intent(getApplicationContext(), Evaluacion.class);
                     intent.putExtra("evaluador", user);
                     startActivity(intent);
@@ -229,7 +229,7 @@ public class MainActivity extends Activity {
     }
 
     public void abrirActividad(Evaluador rater){
-        PreferenceManager.getDefaultSharedPreferences(this).edit().putString("rater_id",rater.getCedula()).commit();
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putString("rater_id",rater.getNationalId()).commit();
         Intent i = new Intent(this, Evaluacion.class);
         startActivity(i);
         finish();

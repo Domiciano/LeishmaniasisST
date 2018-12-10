@@ -363,12 +363,12 @@ public class ManejadorBD extends SQLiteOpenHelper {
     public boolean validarEvaluadorExistente(Evaluador fullRater) {
         Evaluador viejo = buscarEvaluador(fullRater.getUuid());
         if (viejo != null) {
-            if (fullRater.getPacientes().getPacientes().size() != viejo.getPacientes().getPacientes().size()) {
+            if (fullRater.getPacienteLista().getPacientes().size() != viejo.getPacienteLista().getPacientes().size()) {
                 return false;
             }
         }
-        if (fullRater.getPacientes().getPacientes().size() > 0) {
-            for (Paciente pac : fullRater.getPacientes().getPacientes()) {
+        if (fullRater.getPacienteLista().getPacientes().size() > 0) {
+            for (Paciente pac : fullRater.getPacienteLista().getPacientes()) {
                 if (pac.getListaSchemas().getSchemas().size() > 0) {
                     for (Schema schema : pac.getListaSchemas().getSchemas()) {
                         if (buscarSchema(schema.getUuid()) == null) return false;
@@ -383,8 +383,8 @@ public class ManejadorBD extends SQLiteOpenHelper {
     public void setFullRater(Evaluador fullRater) {
         deleteDataRater(fullRater.getUuid());
         agregarEvaluador(fullRater);
-        if (fullRater.getPacientes().getPacientes().size() > 0) {
-            for (Paciente pac : fullRater.getPacientes().getPacientes()) {
+        if (fullRater.getPacienteLista().getPacientes().size() > 0) {
+            for (Paciente pac : fullRater.getPacienteLista().getPacientes()) {
                 agregarPacienteCambiandoRaterId(pac, fullRater.getUuid());
                 if (pac.getListaSchemas().getSchemas().size() > 0) {
                     for (Schema schema : pac.getListaSchemas().getSchemas()) {
@@ -462,7 +462,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
     /*
     public Evaluador getFullRater(Evaluador rater_db) {
 
-        Evaluador evaluador = getRater(rater_db.getCedula());
+        Evaluador evaluador = getRater(rater_db.getNationalId());
         ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
         ArrayList<Schema> schemas = new ArrayList<Schema>();
         ArrayList<DevelopSymptom> developSymptoms = new ArrayList<DevelopSymptom>();
@@ -475,7 +475,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
             pacN.setUuid(pac.getUuid());
             pacN.setName(pac.getName());
             pacN.setLastName(pac.getLastName());
-            pacN.setCedula(pac.getCedula());
+            pacN.setNationalId(pac.getNationalId());
             pacN.setDocumentType(pac.getDocumentType());
             pacN.setGenre(pac.getGenre());
 
@@ -528,8 +528,8 @@ public class ManejadorBD extends SQLiteOpenHelper {
             //ToDO: Preguntar a Aguirre
             //evaluador.addAllPacientes(pacientes);
             ListaPacientes listaPacientes = new ListaPacientes();
-            listaPacientes.setPacientes(pacientes);
-            evaluador.setPacientes(listaPacientes);
+            listaPacientes.setPacienteLista(pacientes);
+            evaluador.setPacienteLista(listaPacientes);
         }
         return evaluador;
     }
@@ -538,7 +538,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
 
     public Evaluador getFullRater(Evaluador rater_db) {
 
-        Evaluador evaluador = getRater(rater_db.getCedula());
+        Evaluador evaluador = getRater(rater_db.getNationalId());
         Log.e("EVAL", "Evaluador " + evaluador);
         if (evaluador != null) {
             List<Schema> listaSchemasEvaluador = getListaSchemas(evaluador.getUuid());
@@ -551,9 +551,9 @@ public class ManejadorBD extends SQLiteOpenHelper {
 
             //TODO: ¿Esta lista es nula para Leishmaniasis?
             //evaluador.setListaSchemas(ls);
-            evaluador.setPacientes(lp);
+            evaluador.setPacienteLista(lp);
 
-            for (Paciente p : evaluador.getPacientes().getPacientes()) {
+            for (Paciente p : evaluador.getPacienteLista().getPacientes()) {
                 List<Schema> listSchemaPaciente = getListaSchemas(p.getUuid());
                 ListaSchemas listaSchemasPaciente = new ListaSchemas();
                 listaSchemasPaciente.setSchemas(listSchemaPaciente);
@@ -745,7 +745,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
         values.put(UUID, evaluador.getUuid());
         values.put(EVALUADOR_NAME, evaluador.getName());
         values.put(EVALUADOR_LAST_NAME, evaluador.getLastName());
-        values.put(EVALUADOR_CEDULA, evaluador.getCedula());
+        values.put(EVALUADOR_CEDULA, evaluador.getNationalId());
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         values.put(EVALUADOR_LAST_LOGIN, formato.format(evaluador.getLastLogin()));
         return add(TABLE_EVALUADOR, values);
@@ -772,7 +772,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
 
             ListaPacientes listaPacientes = new ListaPacientes();
             listaPacientes.setPacientes(getListaPacientes(evaluador.getUuid()));
-            evaluador.setPacientes(listaPacientes);
+            evaluador.setPacienteLista(listaPacientes);
             //evaluador.addAllPacientes();
         }
 
@@ -853,7 +853,7 @@ public class ManejadorBD extends SQLiteOpenHelper {
         values.put(UUID, evaluador.getUuid());
         values.put(EVALUADOR_NAME, evaluador.getName());
         values.put(EVALUADOR_LAST_NAME, evaluador.getLastName());
-        values.put(EVALUADOR_CEDULA, evaluador.getCedula());
+        values.put(EVALUADOR_CEDULA, evaluador.getNationalId());
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         values.put(EVALUADOR_LAST_LOGIN, formato.format(evaluador.getLastLogin()));
         return edit(TABLE_EVALUADOR, values, evaluador.getUuid());

@@ -197,7 +197,7 @@ public class FragmentEvaluacion extends Fragment {
             for (Paciente p : lista_pacientes_db) {
                 /*
                 pacientes.add(new PacienteListModel(
-                        p.getCedula(),
+                        p.getNationalId(),
                         p.getName()+" "+p.getLastName(),
                         db.getDayofTreatment(p),
                         db.getTotalDiasEvaluacionPorMedicamento(p),

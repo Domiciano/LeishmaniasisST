@@ -16,7 +16,7 @@ public class Paciente extends DataXml {
 
     private Date birthday; // dd/MM/aaaa
 
-    private String cedula;
+    private String nationalId;
 
     private String documentType;
 
@@ -33,7 +33,7 @@ public class Paciente extends DataXml {
         this.Name = name;
         this.lastName = lastName;
         this.birthday = birthday;
-        this.cedula = cedula;
+        this.nationalId = cedula;
         this.documentType = documentType;
         this.genre = genre;
         this.evaluadorId = evaluadorId;
@@ -44,7 +44,7 @@ public class Paciente extends DataXml {
         this.Name = name;
         this.lastName = lastName;
         this.birthday = birthday;
-        this.cedula = cedula;
+        this.nationalId = cedula;
         this.documentType = documentType;
         this.genre = genre;
         this.evaluadorId = evaluadorId;
@@ -54,7 +54,7 @@ public class Paciente extends DataXml {
         this.uuid = uuid;
         this.Name = name;
         this.lastName = lastName;
-        this.cedula = cedula;
+        this.nationalId = cedula;
         this.birthday = birthday;
         this.documentType = documentType;
         this.genre = genre;
@@ -94,11 +94,11 @@ public class Paciente extends DataXml {
     }
 
     public String getCedula() {
-        return cedula;
+        return nationalId;
     }
 
     public void setCedula(String cedula) {
-        this.cedula = cedula;
+        this.nationalId = cedula;
     }
 
     public String getDocumentType() {

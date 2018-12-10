@@ -9,15 +9,9 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
-import java.util.List;
-
 import icesi.i2t.leishmaniasisst.R;
-import icesi.i2t.leishmaniasisst.cloudinary.CloudinaryHandler;
 import icesi.i2t.leishmaniasisst.data.ManejadorBD;
 import icesi.i2t.leishmaniasisst.model.Evaluador;
-import icesi.i2t.leishmaniasisst.model.Paciente;
 
 
 /**
@@ -39,7 +33,7 @@ public class SessionController {
 
         Evaluador rater = (Evaluador) paramses[0];
         if (rater != null) {
-            Evaluador rater_db = db.getMinimizedUser(rater.getCedula());
+            Evaluador rater_db = db.getMinimizedUser(rater.getNationalId());
             if (rater_db != null) {              //--->Si el rater ya esta en la base de datos
                 //SINCRONIZAR
                 Evaluador full_rater = db.getFullRater(rater_db);

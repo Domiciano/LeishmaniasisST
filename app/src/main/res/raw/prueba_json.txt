@@ -2,16 +2,16 @@
   "uuid": "ddcc3cd6-fcca-4a8f-bd8f-6ebce0609c9e",
   "Name": "Domiciano",
   "lastName": "Rincon",
-  "cedula": "1143848922",
+  "nationalId": "1143848922",
   "lastLogin": "2018-12-05T05:25:43.197Z",
-  "pacientes": {
-    "pacientes": [
+  "pacienteLista": {
+    "pacienteLista": [
       {
         "uuid": "afdbe506-2acf-4805-8dfa-611f50610580",
         "Name": "William",
         "lastName": "Cruz",
         "birthday": "2018-12-05T05:25:43.198Z",
-        "cedula": "11110000",
+        "nationalId": "11110000",
         "documentType": "Cedula",
         "genre": "Maculino",
         "evaluadorId": "ddcc3cd6-fcca-4a8f-bd8f-6ebce0609c9e",

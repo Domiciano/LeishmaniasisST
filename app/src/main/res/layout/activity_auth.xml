@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@drawable/gradacion_cabezote"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Por favor, escriba su contraseña de usuario administrativo para empezar con la planeación del tratamiento en pacienteLista"
+        android:textColor="#fff"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="18sp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:padding="15dp"
+        android:background="@color/edit_text_login"
+        android:hint="Password"
+        android:textColorHint="#aaa"
+        android:id="@+id/superpassword"
+        android:inputType="textPassword"
+        android:textColor="#FFF"
+        android:layout_marginBottom="40dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="INGRESAR"
+        android:textColor="#fff"
+        android:id="@+id/submit_auth"
+        android:background="@color/botones_background"
+        />
+
+</LinearLayout>
