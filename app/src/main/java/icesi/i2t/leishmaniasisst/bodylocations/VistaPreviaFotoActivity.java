@@ -39,6 +39,7 @@ import icesi.i2t.leishmaniasisst.data.DatabaseHandler;
 import icesi.i2t.leishmaniasisst.dialogs.BooleanAnswerDialog;
 import icesi.i2t.leishmaniasisst.model.UIcerImg;
 import icesi.i2t.leishmaniasisst.util.ImageUtils;
+import icesi.i2t.leishmaniasisst.util.LeishConstants;
 
 
 /**
@@ -207,7 +208,7 @@ public class VistaPreviaFotoActivity extends AppCompatActivity {
 
 
             //Agregar foto a var estatica
-            UIcerImg img = new UIcerImg(UUID.randomUUID().toString(), ""+bodyLocation, Calendar.getInstance().getTime(), ".JPG", foto_code, "1", "FORMID" );
+            UIcerImg img = new UIcerImg(UUID.randomUUID().toString(), ""+bodyLocation, Calendar.getInstance().getTime(), ".JPG", foto_code, LeishConstants.BASEURL+foto_code, "FORMID" );
             CuerpoHumanoActivity.currentEvaluation.addUlcer(img);
             Intent i = new Intent(this, ThumbnailsActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
